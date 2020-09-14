@@ -4,7 +4,7 @@ import java.net.URI;
 
 public class HighDefinitionPhoto extends Photo {
 
-    public HighDefinitionPhoto(URI uri) {
+    public HighDefinitionPhoto(String uri) {
         super(uri);
     }
 

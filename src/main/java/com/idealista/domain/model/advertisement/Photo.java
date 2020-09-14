@@ -3,9 +3,9 @@ package com.idealista.domain.model.advertisement;
 import java.net.URI;
 
 public  class Photo {
-    URI uri;
+    String uri;
 
-    public Photo(URI uri) {
+    public Photo(String uri) {
         this.uri = uri;
     }
 

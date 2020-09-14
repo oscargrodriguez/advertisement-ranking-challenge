@@ -1,11 +1,8 @@
 package com.idealista.domain.model.advertisement;
 
-import com.idealista.domain.model.advertisement.Advertisement;
-import com.idealista.domain.model.advertisement.Photo;
 import org.junit.jupiter.api.Test;
 
-import java.net.URI;
-
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AdvertisementTest {
@@ -21,30 +18,30 @@ public class AdvertisementTest {
     }
 
     @Test
-    void descriptiveText() {
-        Advertisement advertisement = new Advertisement("Any text");
-        verifyScore(5, advertisement.score());
-    }
-
-    @Test
     void onePhoto() {
         Advertisement advertisement = new Advertisement();
-        advertisement.addPhoto(new Photo(URI.create("AnyUri")));
+        advertisement.addPhotos(asList("AnyUri"));
         verifyScore(10, advertisement.score());
     }
 
     @Test
     void oneHighDefinitionPhoto() {
         Advertisement advertisement = new Advertisement();
-        advertisement.addPhoto(new HighDefinitionPhoto(URI.create("AnyUri")));
+        advertisement.addHighDefinitionPhotos(asList(("AnyUri")));
         verifyScore(20, advertisement.score());
     }
 
     @Test
-    void moreThanOnePhoto() {
+    void severalPhotos() {
         Advertisement advertisement = new Advertisement();
-        advertisement.addPhoto(new HighDefinitionPhoto(URI.create("AnyUri")));
-        advertisement.addPhoto(new Photo(URI.create("AnyOtherUri")));
-        verifyScore(30, advertisement.score());
+        advertisement.addHighDefinitionPhotos(asList("AnyUriOne","AnyUriTwo"));
+        advertisement.addPhotos(asList("AnyHdUriOne","AnyHdUriTwo"));
+        verifyScore(60, advertisement.score());
+    }
+
+    @Test
+    void descriptiveText() {
+        Advertisement advertisement = new Advertisement("Any text");
+        verifyScore(5, advertisement.score());
     }
 }

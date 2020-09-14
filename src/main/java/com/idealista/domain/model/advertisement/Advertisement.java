@@ -20,6 +20,14 @@ public class Advertisement {
                 photoScore(photoList);
     }
 
+    public void addPhotos(List<String> uris) {
+        uris.stream().forEach(it->photoList.add(new Photo(it)));
+    }
+
+    public void addHighDefinitionPhotos(List<String> uris) {
+        uris.stream().forEach(it->photoList.add(new HighDefinitionPhoto(it)));
+    }
+
     private int descriptiveTextScore() {
         if (descriptiveText.isEmpty()) {
             return 0;
@@ -31,7 +39,4 @@ public class Advertisement {
         return photoList.stream().map(it -> it.score()).reduce(0, Integer::sum);
     }
 
-    public void addPhoto(Photo photo) {
-        photoList.add(photo);
-    }
 }
