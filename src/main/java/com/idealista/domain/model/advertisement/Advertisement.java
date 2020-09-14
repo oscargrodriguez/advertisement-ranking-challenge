@@ -2,9 +2,11 @@ package com.idealista.domain.model.advertisement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class Advertisement {
 
+    public static final int NO_PHOTO_PENALTY = -10;
     private DescriptiveText descriptiveText;
     private List<Photo> photoList = new ArrayList<>();
     private AdvertisementType advertisementType;
@@ -23,25 +25,28 @@ public class Advertisement {
     public int score() {
         int score = descriptiveText.score(advertisementType) +
                 photoScore(photoList);
-        if (score < 0)
-        {
+        if (score < 0) {
             score = 0;
         }
         return score;
     }
 
-    public void addPhotos(List<String> uris) {
-        uris.stream().forEach(it->photoList.add(new Photo(it)));
+    public void addStandardPhotos(List<String> uris) {
+        addPhotos(uris, Photo::new);
     }
 
     public void addHighDefinitionPhotos(List<String> uris) {
-        uris.stream().forEach(it->photoList.add(new HighDefinitionPhoto(it)));
+        addPhotos(uris,HighDefinitionPhoto::new);
+    }
+
+    private void addPhotos(List<String> uris,Function<String,Photo> fn )
+    {
+        uris.stream().forEach(it -> photoList.add(fn.apply(it)));
     }
 
     private int photoScore(List<Photo> photoList) {
-        if (photoList.isEmpty())
-        {
-            return -10;
+        if (photoList.isEmpty()) {
+            return NO_PHOTO_PENALTY;
         }
         return photoList.stream().map(it -> it.score()).reduce(0, Integer::sum);
     }

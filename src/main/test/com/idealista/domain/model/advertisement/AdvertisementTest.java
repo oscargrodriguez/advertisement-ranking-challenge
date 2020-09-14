@@ -24,7 +24,7 @@ public class AdvertisementTest {
     @Test
     void onePhoto() {
         Advertisement advertisement = new Advertisement(HOUSE);
-        advertisement.addPhotos(asList("AnyUri"));
+        advertisement.addStandardPhotos(asList("AnyUri"));
         verifyScore(10, advertisement.score());
     }
 
@@ -39,50 +39,50 @@ public class AdvertisementTest {
     void severalPhotos() {
         Advertisement advertisement = new Advertisement(HOUSE);
         advertisement.addHighDefinitionPhotos(asList("AnyUriOne","AnyUriTwo"));
-        advertisement.addPhotos(asList("AnyHdUriOne","AnyHdUriTwo"));
+        advertisement.addStandardPhotos(asList("AnyHdUriOne","AnyHdUriTwo"));
         verifyScore(60, advertisement.score());
     }
 
     @Test
     void shortHouseDescriptiveText() {
         Advertisement advertisement = new Advertisement(new DescriptiveText(generateRandomText(10)), HOUSE);
-        advertisement.addPhotos(asList("AnyUri"));
+        advertisement.addStandardPhotos(asList("AnyUri"));
         verifyScore(15, advertisement.score());
         advertisement = new Advertisement(new DescriptiveText(generateRandomText(19)), HOUSE);
-        advertisement.addPhotos(asList("AnyUri"));
+        advertisement.addStandardPhotos(asList("AnyUri"));
         verifyScore(15, advertisement.score());
     }
 
     @Test
     void mediumHouseDescriptiveText() {
         Advertisement advertisement = new Advertisement(new DescriptiveText(generateRandomText(30)), HOUSE);
-        advertisement.addPhotos(asList("AnyUri"));
+        advertisement.addStandardPhotos(asList("AnyUri"));
         verifyScore(25, advertisement.score());
         advertisement = new Advertisement(new DescriptiveText(generateRandomText(20)), HOUSE);
-        advertisement.addPhotos(asList("AnyUri"));
+        advertisement.addStandardPhotos(asList("AnyUri"));
         verifyScore(25, advertisement.score());
         advertisement = new Advertisement(new DescriptiveText(generateRandomText(49)), HOUSE);
-        advertisement.addPhotos(asList("AnyUri"));
+        advertisement.addStandardPhotos(asList("AnyUri"));
         verifyScore(25, advertisement.score());
     }
 
     @Test
     void largeHouseDescriptiveText() {
         Advertisement advertisement = new Advertisement(new DescriptiveText(generateRandomText(80)), HOUSE);
-        advertisement.addPhotos(asList("AnyUri"));
+        advertisement.addStandardPhotos(asList("AnyUri"));
         verifyScore(45, advertisement.score());
         advertisement = new Advertisement(new DescriptiveText(generateRandomText(50)), HOUSE);
-        advertisement.addPhotos(asList("AnyUri"));
+        advertisement.addStandardPhotos(asList("AnyUri"));
         verifyScore(45, advertisement.score());
     }
 
     @Test
     void largeChaletDescriptiveText() {
         Advertisement advertisement = new Advertisement(new DescriptiveText(generateRandomText(80)), CHALET);
-        advertisement.addPhotos(asList("AnyUri"));
+        advertisement.addStandardPhotos(asList("AnyUri"));
         verifyScore(35, advertisement.score());
         advertisement = new Advertisement(new DescriptiveText(generateRandomText(50)), CHALET);
-        advertisement.addPhotos(asList("AnyUri"));
+        advertisement.addStandardPhotos(asList("AnyUri"));
         verifyScore(35, advertisement.score());
     }
 
