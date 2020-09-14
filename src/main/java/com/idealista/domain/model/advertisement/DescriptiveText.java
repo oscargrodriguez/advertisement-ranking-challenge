@@ -6,6 +6,7 @@ import static com.idealista.domain.model.advertisement.AdvertisementType.HOUSE;
 public class DescriptiveText {
     public static final int SHORT_THRESHOLD = 20;
     public static final int LARGE_THRESHOLD = 50;
+    public static final int NON_EMPTY_SCORE = 5;
     private String text = "";
 
 
@@ -20,22 +21,33 @@ public class DescriptiveText {
         if (text.isEmpty()) {
             return 0;
         }
-        return 5 + scoreByLength(advertisementType);
+        return NON_EMPTY_SCORE + scoreByLength(advertisementType);
     }
 
     private int scoreByLength(AdvertisementType advertisementType) {
         if (HOUSE.equals(advertisementType)) {
-            if (isMedium()) {
-                return 10;
-            } else if (isLarge()) {
-                return 30;
-            }
+            return calculateHouseLengthScore();
         } else if (CHALET.equals(advertisementType)) {
-            if (isLarge()) {
-                return 20;
-            }
+            return calculateChaletLengthScore();
         }
         return 0;
+    }
+
+    private int calculateChaletLengthScore() {
+        if (isLarge()) {
+            return 20;
+        }
+        return 0;
+    }
+
+    private int calculateHouseLengthScore() {
+        if (isMedium()) {
+            return 10;
+        } else if (isLarge()) {
+            return 30;
+        } else {
+            return 0;
+        }
     }
 
     private boolean isMedium() {

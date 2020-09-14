@@ -21,8 +21,13 @@ public class Advertisement {
     }
 
     public int score() {
-        return descriptiveText.score(advertisementType) +
+        int score = descriptiveText.score(advertisementType) +
                 photoScore(photoList);
+        if (score < 0)
+        {
+            score = 0;
+        }
+        return score;
     }
 
     public void addPhotos(List<String> uris) {
@@ -34,6 +39,10 @@ public class Advertisement {
     }
 
     private int photoScore(List<Photo> photoList) {
+        if (photoList.isEmpty())
+        {
+            return -10;
+        }
         return photoList.stream().map(it -> it.score()).reduce(0, Integer::sum);
     }
 }

@@ -46,35 +46,50 @@ public class AdvertisementTest {
     @Test
     void shortHouseDescriptiveText() {
         Advertisement advertisement = new Advertisement(new DescriptiveText(generateRandomText(10)), HOUSE);
-        verifyScore(5, advertisement.score());
+        advertisement.addPhotos(asList("AnyUri"));
+        verifyScore(15, advertisement.score());
         advertisement = new Advertisement(new DescriptiveText(generateRandomText(19)), HOUSE);
-        verifyScore(5, advertisement.score());
+        advertisement.addPhotos(asList("AnyUri"));
+        verifyScore(15, advertisement.score());
     }
 
     @Test
     void mediumHouseDescriptiveText() {
         Advertisement advertisement = new Advertisement(new DescriptiveText(generateRandomText(30)), HOUSE);
-        verifyScore(15, advertisement.score());
+        advertisement.addPhotos(asList("AnyUri"));
+        verifyScore(25, advertisement.score());
         advertisement = new Advertisement(new DescriptiveText(generateRandomText(20)), HOUSE);
-        verifyScore(15, advertisement.score());
+        advertisement.addPhotos(asList("AnyUri"));
+        verifyScore(25, advertisement.score());
         advertisement = new Advertisement(new DescriptiveText(generateRandomText(49)), HOUSE);
-        verifyScore(15, advertisement.score());
+        advertisement.addPhotos(asList("AnyUri"));
+        verifyScore(25, advertisement.score());
     }
 
     @Test
     void largeHouseDescriptiveText() {
         Advertisement advertisement = new Advertisement(new DescriptiveText(generateRandomText(80)), HOUSE);
-        verifyScore(35, advertisement.score());
+        advertisement.addPhotos(asList("AnyUri"));
+        verifyScore(45, advertisement.score());
         advertisement = new Advertisement(new DescriptiveText(generateRandomText(50)), HOUSE);
-        verifyScore(35, advertisement.score());
+        advertisement.addPhotos(asList("AnyUri"));
+        verifyScore(45, advertisement.score());
     }
 
     @Test
     void largeChaletDescriptiveText() {
         Advertisement advertisement = new Advertisement(new DescriptiveText(generateRandomText(80)), CHALET);
-        verifyScore(25, advertisement.score());
+        advertisement.addPhotos(asList("AnyUri"));
+        verifyScore(35, advertisement.score());
         advertisement = new Advertisement(new DescriptiveText(generateRandomText(50)), CHALET);
-        verifyScore(25, advertisement.score());
+        advertisement.addPhotos(asList("AnyUri"));
+        verifyScore(35, advertisement.score());
+    }
+
+    @Test
+    void noPhoto() {
+        Advertisement advertisement = new Advertisement(new DescriptiveText(generateRandomText(80)), CHALET);
+        verifyScore(15, advertisement.score());
     }
 
     private String generateRandomText(int lenght)
