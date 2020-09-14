@@ -2,16 +2,15 @@ package com.idealista.domain.model;
 
 public class Photo {
     String uri;
-    boolean hq;
+    boolean highDefinition;
 
-    public Photo(String uri, boolean hq) {
+    public Photo(String uri, boolean highDefinition) {
         this.uri = uri;
-        this.hq = hq;
+        this.highDefinition = highDefinition;
     }
 
-    public int score()
-    {
-        if (hq) return 20;
+    public int score() {
+        if (highDefinition) return 20;
         return 10;
     }
 }

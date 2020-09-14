@@ -29,4 +29,12 @@ public class AdvertisementTest {
         advertisement.addPhoto(photo);
         verifyScore(10, advertisement.score());
     }
+
+    @Test
+    void oneHighDefinitionPhoto() {
+        Photo photo = new Photo("Anyuri",true);
+        Advertisement advertisement = new Advertisement();
+        advertisement.addPhoto(photo);
+        verifyScore(20, advertisement.score());
+    }
 }
