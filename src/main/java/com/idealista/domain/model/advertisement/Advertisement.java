@@ -5,18 +5,23 @@ import java.util.List;
 
 public class Advertisement {
 
-    private String descriptiveText = "";
+    private DescriptiveText descriptiveText;
     private List<Photo> photoList = new ArrayList<>();
+    private AdvertisementType advertisementType;
 
-    public Advertisement() {
+    public Advertisement(AdvertisementType advertisementType) {
+        this.descriptiveText = new DescriptiveText();
+        this.advertisementType = advertisementType;
     }
 
-    public Advertisement(String descriptiveText) {
+    public Advertisement(DescriptiveText descriptiveText,
+                         AdvertisementType advertisementType) {
         this.descriptiveText = descriptiveText;
+        this.advertisementType = advertisementType;
     }
 
     public int score() {
-        return descriptiveTextScore() +
+        return descriptiveText.score(advertisementType) +
                 photoScore(photoList);
     }
 
@@ -28,15 +33,7 @@ public class Advertisement {
         uris.stream().forEach(it->photoList.add(new HighDefinitionPhoto(it)));
     }
 
-    private int descriptiveTextScore() {
-        if (descriptiveText.isEmpty()) {
-            return 0;
-        }
-        return 5;
-    }
-
     private int photoScore(List<Photo> photoList) {
         return photoList.stream().map(it -> it.score()).reduce(0, Integer::sum);
     }
-
 }
