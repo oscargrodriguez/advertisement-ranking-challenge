@@ -1,6 +1,10 @@
-package com.idealista.domain.model;
+package com.idealista.domain.model.advertisement;
 
+import com.idealista.domain.model.advertisement.Advertisement;
+import com.idealista.domain.model.advertisement.Photo;
 import org.junit.jupiter.api.Test;
+
+import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,17 +28,23 @@ public class AdvertisementTest {
 
     @Test
     void onePhoto() {
-        Photo photo = new Photo("Anyuri",false);
         Advertisement advertisement = new Advertisement();
-        advertisement.addPhoto(photo);
+        advertisement.addPhoto(new Photo(URI.create("AnyUri")));
         verifyScore(10, advertisement.score());
     }
 
     @Test
     void oneHighDefinitionPhoto() {
-        Photo photo = new Photo("Anyuri",true);
         Advertisement advertisement = new Advertisement();
-        advertisement.addPhoto(photo);
+        advertisement.addPhoto(new HighDefinitionPhoto(URI.create("AnyUri")));
         verifyScore(20, advertisement.score());
+    }
+
+    @Test
+    void moreThanOnePhoto() {
+        Advertisement advertisement = new Advertisement();
+        advertisement.addPhoto(new HighDefinitionPhoto(URI.create("AnyUri")));
+        advertisement.addPhoto(new Photo(URI.create("AnyOtherUri")));
+        verifyScore(30, advertisement.score());
     }
 }

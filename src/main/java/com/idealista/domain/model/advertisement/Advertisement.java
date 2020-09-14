@@ -1,4 +1,4 @@
-package com.idealista.domain.model;
+package com.idealista.domain.model.advertisement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,20 +16,19 @@ public class Advertisement {
     }
 
     public int score() {
-        return descriptiveTextScore() + photoScore(photoList);
+        return descriptiveTextScore() +
+                photoScore(photoList);
     }
 
-    private int descriptiveTextScore()
-    {
-        if (descriptiveText.isEmpty())
-        {
+    private int descriptiveTextScore() {
+        if (descriptiveText.isEmpty()) {
             return 0;
         }
         return 5;
     }
 
     private int photoScore(List<Photo> photoList) {
-        return photoList.stream().map(it->it.score()).reduce(0, Integer::sum);
+        return photoList.stream().map(it -> it.score()).reduce(0, Integer::sum);
     }
 
     public void addPhoto(Photo photo) {
