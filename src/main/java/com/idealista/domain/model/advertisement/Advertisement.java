@@ -6,7 +6,6 @@ import java.util.function.Function;
 
 public class Advertisement {
 
-    public static final int NO_PHOTO_PENALTY = -10;
     private DescriptiveText descriptiveText;
     private List<Photo> photoList = new ArrayList<>();
     private AdvertisementType advertisementType;
@@ -22,13 +21,16 @@ public class Advertisement {
         this.advertisementType = advertisementType;
     }
 
-    public int score() {
-        int score = descriptiveText.score(advertisementType) +
-                photoScore(photoList);
-        if (score < 0) {
-            score = 0;
-        }
-        return score;
+    public DescriptiveText getDescriptiveText() {
+        return descriptiveText;
+    }
+
+    public List<Photo> getPhotoList() {
+        return photoList;
+    }
+
+    public AdvertisementType getAdvertisementType() {
+        return advertisementType;
     }
 
     public void addStandardPhotos(List<String> uris) {
@@ -42,12 +44,5 @@ public class Advertisement {
     private void addPhotos(List<String> uris,Function<String,Photo> fn )
     {
         uris.stream().forEach(it -> photoList.add(fn.apply(it)));
-    }
-
-    private int photoScore(List<Photo> photoList) {
-        if (photoList.isEmpty()) {
-            return NO_PHOTO_PENALTY;
-        }
-        return photoList.stream().map(it -> it.score()).reduce(0, Integer::sum);
     }
 }
