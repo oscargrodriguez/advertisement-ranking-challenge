@@ -14,10 +14,11 @@ class DescriptionScorerTest {
 
     private DescriptionScorer descriptionScorer;
     private KeywordScorer keywordScorer;
+    private LengthScorer lengthScorer;
 
     @BeforeEach
     void setUp() {
-        descriptionScorer = new DescriptionScorer(new KeywordScorer());
+        descriptionScorer = new DescriptionScorer(new KeywordScorer(), new LengthScorer());
     }
 
     @Test
