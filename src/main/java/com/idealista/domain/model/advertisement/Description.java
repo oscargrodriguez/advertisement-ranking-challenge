@@ -1,10 +1,11 @@
 package com.idealista.domain.model.advertisement;
 
+import java.util.Arrays;
+
 public class Description {
     public static final int SHORT_THRESHOLD = 20;
     public static final int LARGE_THRESHOLD = 50;
     private String text = "";
-
 
     public Description() {
     }
@@ -26,11 +27,14 @@ public class Description {
     }
 
     public Integer getKeywords() {
-        return text.toLowerCase().contains("luminoso") ||
-                text.toLowerCase().contains("nuevo") ||
-                text.toLowerCase().contains("céntrico") ||
-                text.toLowerCase().contains("reformado") ||
-                text.toLowerCase().contains("ático")
-                ? 1 : 0;
+        return Math.toIntExact(Arrays.stream(text.split(" ")).map(it -> it.toLowerCase()).filter(it -> isKeyword(it)).distinct().count());
+    }
+
+    private boolean isKeyword(String word) {
+        return word.equals("luminoso") ||
+                word.equals("nuevo") ||
+                word.equals("céntrico") ||
+                word.equals("reformado") ||
+                word.equals("ático");
     }
 }

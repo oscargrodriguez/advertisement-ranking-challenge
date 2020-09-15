@@ -72,6 +72,12 @@ class DescriptionScorerTest {
         verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with luminoso keyword added")));
     }
 
+    @Test
+    void severalKeywords() {
+        verifyScore(15, descriptionScorer.score(CHALET, new Description("Luminoso and Reformado")));
+        verifyScore(15, descriptionScorer.score(CHALET, new Description("Luminoso reformado cêntrico")));
+    }
+
     private void verifyScore(int expectedScore, int score) {
         assertEquals(expectedScore, score);
     }
