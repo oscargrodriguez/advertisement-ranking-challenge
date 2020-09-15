@@ -9,6 +9,7 @@ public class AdvertisementScorer {
     private DescriptionScorer descriptionScorer;
 
     private static final int MINIMAL_SCORE = 0;
+    private static final int MAXIMAL_SCORE = 100;
 
     public AdvertisementScorer(PhotoScorer photoScorer, DescriptionScorer descriptionScorer) {
         this.photoScorer = photoScorer;
@@ -18,6 +19,14 @@ public class AdvertisementScorer {
     public Integer score(Advertisement advertisement) {
         Integer score = photoScorer.score(advertisement.getPhotoList()) +
                 descriptionScorer.score(advertisement.getTypology(), advertisement.getDescription());
-        return score < MINIMAL_SCORE ? MINIMAL_SCORE : score;
+        return checkLimits(score);
     }
+
+    private Integer checkLimits(Integer score)
+    {
+        if (score < MINIMAL_SCORE ) score = MINIMAL_SCORE;
+        else if (score > MAXIMAL_SCORE) score = MAXIMAL_SCORE;
+        return score;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.idealista.domain.model.advertisement.score;
 
 import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.Description;
+import com.idealista.domain.model.advertisement.Typology;
 import com.idealista.domain.model.advertisement.score.description.DescriptionScorer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,6 +44,15 @@ class AdvertisementScorerTest {
         verifyScore(0, advertisementScorer.score(advertisement));
     }
 
+    @Test
+    void maximalScore() {
+        Typology typology = FLAT;
+        Advertisement advertisement = new Advertisement(new Description("AnyText"), typology);
+        when(photoScorer.score(advertisement.getPhotoList())).thenReturn(60);
+        when(descriptionScorer.score(typology,advertisement.getDescription())).thenReturn(60);
+
+        verifyScore(100, advertisementScorer.score(advertisement));
+    }
 
     private void verifyScore(int expectedScore, int score) {
         assertEquals(expectedScore, score);
