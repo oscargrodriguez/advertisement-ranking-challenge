@@ -3,6 +3,7 @@ package com.idealista.infrastructure.api;
 import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.score.AdvertisementScorer;
 import com.idealista.infrastructure.persistence.AdvertisementConverter;
+import com.idealista.infrastructure.persistence.AdvertisementRepository;
 import com.idealista.infrastructure.persistence.InMemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -18,13 +19,11 @@ import java.util.Optional;
 @RestController
 public class AdsController {
 
-    private InMemoryPersistence inMemoryPersistence;
+    @Autowired
+    private AdvertisementRepository inMemoryPersistence;
     @Autowired
     private AdvertisementScorer advertisementScorer;
 
-    public AdsController(InMemoryPersistence inMemoryPersistence) {
-        this.inMemoryPersistence = inMemoryPersistence;
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(AdsController.class, args);
