@@ -33,5 +33,4 @@ public class AdvertisementScorer {
         else if (score > MAXIMAL_SCORE) score = MAXIMAL_SCORE;
         return score;
     }
-
 }
