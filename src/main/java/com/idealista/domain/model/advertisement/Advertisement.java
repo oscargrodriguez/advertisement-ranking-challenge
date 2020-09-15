@@ -47,18 +47,6 @@ public abstract class Advertisement {
         return !photoList.isEmpty();
     }
 
-    public boolean isGarage() {
-        return GARAGE.equals(typology);
-    }
-
-    public boolean isFlat() {
-        return FLAT.equals(typology);
-    }
-
-    public boolean isChalet() {
-        return CHALET.equals(typology);
-    }
-
     public Typology getTypology() {
         return typology;
     }
