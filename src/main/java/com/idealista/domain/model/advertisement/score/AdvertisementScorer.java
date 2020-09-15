@@ -22,9 +22,8 @@ public class AdvertisementScorer {
         return checkLimits(score);
     }
 
-    private Integer checkLimits(Integer score)
-    {
-        if (score < MINIMAL_SCORE ) score = MINIMAL_SCORE;
+    private Integer checkLimits(Integer score) {
+        if (score < MINIMAL_SCORE) score = MINIMAL_SCORE;
         else if (score > MAXIMAL_SCORE) score = MAXIMAL_SCORE;
         return score;
     }
