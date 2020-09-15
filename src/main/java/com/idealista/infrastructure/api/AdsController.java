@@ -1,6 +1,5 @@
 package com.idealista.infrastructure.api;
 
-import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.score.AdvertisementScorer;
 import com.idealista.domain.model.ports.secondary.AdvertisementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +40,17 @@ public class AdsController {
 
     @GetMapping("/score/{advertisementId}")
     public ResponseEntity<Integer> calculateScore(@PathVariable int advertisementId) {
-        Optional<Advertisement> advertisement = inMemoryPersistence.findAdvertisement(advertisementId);
-        if (advertisement.isPresent()) {
-            int score = advertisementScorer.score(advertisement.get());
-            return ResponseEntity.ok(score);
+        Optional<Integer> score = score(advertisementId);
+        if (score.isPresent()) {
+            return ResponseEntity.ok(score.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+    }
+
+    private Optional<Integer> score(int advertisementId) {
+        return inMemoryPersistence.findAdvertisement(advertisementId)
+                .map(it -> Optional.of(advertisementScorer.score(it)))
+                .orElse(Optional.empty());
     }
 }
