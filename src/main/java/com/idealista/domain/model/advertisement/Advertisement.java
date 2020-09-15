@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import static com.idealista.domain.model.advertisement.Typology.*;
+
 public class Advertisement {
 
     private Description description;
@@ -48,5 +50,9 @@ public class Advertisement {
 
     public boolean hasPhoto() {
         return !photoList.isEmpty();
+    }
+
+    public boolean isGarage() {
+        return GARAGE.equals(typology);
     }
 }
