@@ -8,8 +8,8 @@ import static com.idealista.domain.model.advertisement.Typology.FLAT;
 
 public class LengthScorer {
 
-    public Integer score(Typology typology, Description description) {
-        Integer score = 0;
+    public int score(Typology typology, Description description) {
+        int score = 0;
         if (FLAT.equals(typology)) {
             score = flatScore(description);
         } else if (CHALET.equals(typology)) {
@@ -18,11 +18,11 @@ public class LengthScorer {
         return score;
     }
 
-    private Integer chaletScore(Description description) {
+    private int chaletScore(Description description) {
         return description.isLarge() ? 20 : 0;
     }
 
-    private Integer flatScore(Description description) {
+    private int flatScore(Description description) {
         Integer score = 0;
         if (description.isMedium()) {
             score = 10;

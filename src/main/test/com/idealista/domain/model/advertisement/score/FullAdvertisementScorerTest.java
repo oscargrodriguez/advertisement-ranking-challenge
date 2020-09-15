@@ -1,13 +1,13 @@
 package com.idealista.domain.model.advertisement.score;
 
-import com.idealista.domain.model.advertisement.Advertisement;
-import com.idealista.domain.model.advertisement.Description;
+import com.idealista.domain.model.advertisement.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static com.idealista.domain.model.advertisement.Typology.*;
+import static com.idealista.domain.model.advertisement.Typology.CHALET;
+import static com.idealista.domain.model.advertisement.Typology.FLAT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FullAdvertisementScorerTest {
@@ -21,72 +21,72 @@ class FullAdvertisementScorerTest {
 
     @Test
     void garage() {
-        Advertisement advertisement = new Advertisement(GARAGE);
+        GarageAdvertisement advertisement = new GarageAdvertisement();
         advertisement.addHighDefinitionPhotos(Arrays.asList("AnyUri"));
         verifyScore(40, fullAdScorer.score(advertisement));
     }
 
     @Test
     void garageWithNoPhotos() {
-        Advertisement advertisement = new Advertisement(GARAGE);
+        GarageAdvertisement advertisement = new GarageAdvertisement();
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void flatWithEmptyDescription() {
-        Advertisement advertisement = new Advertisement(FLAT);
+        FlatAdvertisement advertisement = new FlatAdvertisement();
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void chaletWithEmptyDescription() {
-        Advertisement advertisement = new Advertisement(CHALET);
+        ChaletAdvertisement advertisement = new ChaletAdvertisement();
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void flatWithEmptyPhotos() {
-        Advertisement advertisement = new Advertisement(new Description("AnyText"), FLAT);
+        FlatAdvertisement advertisement = new FlatAdvertisement(new Description("AnyText"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void chaletWithEmptyPhotos() {
-        Advertisement advertisement = new Advertisement(new Description("AnyText"), CHALET);
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(new Description("AnyText"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void flatWithEmptyHouseSize() {
-        Advertisement advertisement = new Advertisement(new Description("AnyText"), FLAT);
+        FlatAdvertisement advertisement = new FlatAdvertisement(new Description("AnyText"));
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void chaletWithEmptyHouseSize() {
-        Advertisement advertisement = new Advertisement(new Description("AnyText"), CHALET);
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(new Description("AnyText"));
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void flatFully() {
-        Advertisement advertisement = new Advertisement(new Description("AnyText"), FLAT, 100);
+        FlatAdvertisement advertisement = new FlatAdvertisement(new Description("AnyText"),100);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(40, fullAdScorer.score(advertisement));
     }
 
     @Test
     void chaletWithEmptyGardenSize() {
-        Advertisement advertisement = new Advertisement(new Description("AnyText"), CHALET, 100);
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(new Description("AnyText"),100);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void chaletFully() {
-        Advertisement advertisement = new Advertisement(new Description("AnyText"), CHALET, 100, 200);
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(new Description("AnyText"),100, 200);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(40, fullAdScorer.score(advertisement));
     }

@@ -18,14 +18,14 @@ public class AdvertisementScorer {
         this.fullAdvertisementScorer = fullAdvertisementScorer;
     }
 
-    public Integer score(Advertisement advertisement) {
-        Integer score = photoScorer.score(advertisement.getPhotoList()) +
+    public int score(Advertisement advertisement) {
+        int score = photoScorer.score(advertisement.getPhotoList()) +
                 descriptionScorer.score(advertisement.getTypology(), advertisement.getDescription()) +
                 fullAdvertisementScorer.score(advertisement);
         return checkLimits(score);
     }
 
-    private Integer checkLimits(Integer score) {
+    private int checkLimits(Integer score) {
         if (score < MINIMAL_SCORE) score = MINIMAL_SCORE;
         else if (score > MAXIMAL_SCORE) score = MAXIMAL_SCORE;
         return score;

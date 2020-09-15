@@ -6,36 +6,21 @@ import java.util.function.Function;
 
 import static com.idealista.domain.model.advertisement.Typology.*;
 
-public class Advertisement {
+public abstract class Advertisement {
 
     private Description description;
     private List<Photo> photoList = new ArrayList<>();
     private Typology typology;
-    private Integer houseSize;
-    private Integer gardenSize;
-
-    public Advertisement(Description description, Typology typology, Integer houseSize) {
-        this.description = description;
-        this.typology = typology;
-        this.houseSize = houseSize;
-    }
 
     public Advertisement(Typology typology) {
         this.description = new Description();
         this.typology = typology;
     }
 
-    public Advertisement(Description description,
-                         Typology typology) {
-        this.description = description;
+    public Advertisement(Typology typology,
+                         Description description) {
         this.typology = typology;
-    }
-
-    public Advertisement(Description description, Typology typology, Integer houseSize, Integer gardenSize) {
         this.description = description;
-        this.typology = typology;
-        this.houseSize = houseSize;
-        this.gardenSize = gardenSize;
     }
 
     public Description getDescription() {
@@ -46,20 +31,15 @@ public class Advertisement {
         return photoList;
     }
 
-    public Typology getTypology() {
-        return typology;
-    }
-
     public void addStandardPhotos(List<String> uris) {
         addPhotos(uris, Photo::new);
     }
 
     public void addHighDefinitionPhotos(List<String> uris) {
-        addPhotos(uris,HighDefinitionPhoto::new);
+        addPhotos(uris, HighDefinitionPhoto::new);
     }
 
-    private void addPhotos(List<String> uris,Function<String,Photo> fn )
-    {
+    private void addPhotos(List<String> uris, Function<String, Photo> fn) {
         uris.stream().forEach(it -> photoList.add(fn.apply(it)));
     }
 
@@ -79,15 +59,13 @@ public class Advertisement {
         return CHALET.equals(typology);
     }
 
+    public Typology getTypology() {
+        return typology;
+    }
+
     public boolean hasDescription() {
         return !description.isEmpty();
     }
 
-    public boolean hasHouseSize() {
-        return houseSize != null;
-    }
-
-    public boolean hasGardenSize() {
-        return gardenSize != null;
-    }
+    public abstract boolean hasSize();
 }

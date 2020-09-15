@@ -2,6 +2,7 @@ package com.idealista.domain.model.advertisement.score;
 
 import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.Description;
+import com.idealista.domain.model.advertisement.FlatAdvertisement;
 import com.idealista.domain.model.advertisement.Typology;
 import com.idealista.domain.model.advertisement.score.description.DescriptionScorer;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class AdvertisementScorerTest {
 
     @Test
     void score() {
-        Advertisement advertisement = new Advertisement(new Description("AnyText"), FLAT);
+        FlatAdvertisement advertisement = new FlatAdvertisement(new Description("AnyText"));
         advertisement.addStandardPhotos(asList("AnyUri"));
         advertisement.addHighDefinitionPhotos(asList("AnyHdUri"));
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(10);
@@ -40,7 +41,7 @@ class AdvertisementScorerTest {
 
     @Test
     void emptyAdvertisement() {
-        Advertisement advertisement = new Advertisement(new Description(""), FLAT);
+        FlatAdvertisement advertisement = new FlatAdvertisement(new Description(""));
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(-10);
         when(descriptionScorer.score(FLAT,advertisement.getDescription())).thenReturn(0);
         when(fullAdvertisementScorer.score(advertisement)).thenReturn(0);
@@ -51,7 +52,7 @@ class AdvertisementScorerTest {
     @Test
     void maximalScore() {
         Typology typology = FLAT;
-        Advertisement advertisement = new Advertisement(new Description("AnyText"), typology);
+        FlatAdvertisement advertisement = new FlatAdvertisement(new Description("AnyText"));
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(60);
         when(descriptionScorer.score(typology,advertisement.getDescription())).thenReturn(60);
         when(fullAdvertisementScorer.score(advertisement)).thenReturn(40);

@@ -17,7 +17,7 @@ public class DescriptionScorer {
         this.lengthScorer = lengthScorer;
     }
 
-    public Integer score(Typology typology, Description description) {
+    public int score(Typology typology, Description description) {
         return description.isEmpty() ? EMPTY_SCORE :
                 nonEmptyScore(typology, description);
     }
