@@ -1,7 +1,7 @@
 package com.idealista.infrastructure.api;
 
+import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.score.AdvertisementScorer;
-import com.idealista.infrastructure.persistence.AdVO;
 import com.idealista.infrastructure.persistence.InMemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -45,14 +44,17 @@ public class AdsController {
     }
 
     @GetMapping("/score/{advertisementId}")
-    public ResponseEntity<AdVO> calculateScore(@PathVariable int advertisementId) {
-        Optional<AdVO> adVo = inMemoryPersistence.findById(advertisementId);
-        if (adVo.isPresent()) {
-            int score = advertisementScorer.score(advertisementConverter.convert(adVo.get()).get());
-            adVo.get().setScore(score);
-            return ResponseEntity.ok(adVo.get());
+    public ResponseEntity<Integer> calculateScore(@PathVariable int advertisementId) {
+        Optional<Advertisement> advertisement = findAdvertisement(advertisementId);
+        if (advertisement.isPresent()) {
+            int score = advertisementScorer.score(advertisement.get());
+            return ResponseEntity.ok(score);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+    }
+
+    private Optional<Advertisement> findAdvertisement(int advertisementId) {
+        return inMemoryPersistence.findById(advertisementId).map(it -> advertisementConverter.convert(it)).orElse(Optional.empty());
     }
 }
