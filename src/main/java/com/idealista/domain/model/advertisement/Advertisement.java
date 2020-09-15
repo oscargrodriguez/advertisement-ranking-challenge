@@ -45,4 +45,8 @@ public class Advertisement {
     {
         uris.stream().forEach(it -> photoList.add(fn.apply(it)));
     }
+
+    public boolean hasPhoto() {
+        return !photoList.isEmpty();
+    }
 }
