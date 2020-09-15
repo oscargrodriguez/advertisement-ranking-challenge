@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryPersistence implements AdvertisementRepository {
@@ -41,8 +42,22 @@ public class InMemoryPersistence implements AdvertisementRepository {
     @Override
     public Optional<Advertisement> findAdvertisement(int advertisementId) {
         return findById(advertisementId).
-                map(it -> advertisementConverter.convert(it)).
+                map(it -> advertisementConverter.convert(it, findStandardPictures(it), findHdPictures(it))).
                 orElse(Optional.empty());
+    }
+
+    private List<PictureVO> findStandardPictures(AdVO adVO) {
+        return pictures.stream()
+                .filter(it -> adVO.getPictures().contains(it))
+                .filter(it -> it.getQuality().equals("SD"))
+                .collect(Collectors.toList());
+    }
+
+    private List<PictureVO> findHdPictures(AdVO adVO) {
+        return pictures.stream()
+                .filter(it -> adVO.getPictures().contains(it))
+                .filter(it -> it.getQuality().equals("HD"))
+                .collect(Collectors.toList());
     }
 
     private Optional<AdVO> findById(int id) {
