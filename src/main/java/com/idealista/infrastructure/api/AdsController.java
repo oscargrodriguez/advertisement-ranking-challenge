@@ -1,7 +1,6 @@
 package com.idealista.infrastructure.api;
 
-import com.idealista.domain.model.advertisement.score.AdvertisementScorer;
-import com.idealista.domain.model.ports.secondary.AdvertisementRepository;
+import com.idealista.domain.model.ports.primary.CalculateScoreUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.http.HttpStatus;
@@ -17,9 +16,7 @@ import java.util.Optional;
 public class AdsController {
 
     @Autowired
-    private AdvertisementRepository inMemoryPersistence;
-    @Autowired
-    private AdvertisementScorer advertisementScorer;
+    private CalculateScoreUseCase calculateScoreUseCase;
 
 
     public static void main(String[] args) {
@@ -40,17 +37,11 @@ public class AdsController {
 
     @GetMapping("/score/{advertisementId}")
     public ResponseEntity<Integer> calculateScore(@PathVariable int advertisementId) {
-        Optional<Integer> score = score(advertisementId);
+        Optional<Integer> score = calculateScoreUseCase.score(advertisementId);
         if (score.isPresent()) {
             return ResponseEntity.ok(score.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-    }
-
-    private Optional<Integer> score(int advertisementId) {
-        return inMemoryPersistence.findAdvertisement(advertisementId)
-                .map(it -> Optional.of(advertisementScorer.score(it)))
-                .orElse(Optional.empty());
     }
 }
