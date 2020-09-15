@@ -1,7 +1,5 @@
 package com.idealista.domain.model.advertisement;
 
-import java.net.URI;
-
 public class Photo {
     private static final int SCORE = 10;
 

@@ -1,15 +1,15 @@
 package com.idealista.domain.model.advertisement;
 
-public class DescriptiveText {
+public class Description {
     public static final int SHORT_THRESHOLD = 20;
     public static final int LARGE_THRESHOLD = 50;
     private String text = "";
 
 
-    public DescriptiveText() {
+    public Description() {
     }
 
-    public DescriptiveText(String text) {
+    public Description(String text) {
         this.text = text;
     }
 

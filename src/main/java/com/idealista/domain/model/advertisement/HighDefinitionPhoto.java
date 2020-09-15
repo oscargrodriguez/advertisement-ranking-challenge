@@ -1,7 +1,5 @@
 package com.idealista.domain.model.advertisement;
 
-import java.net.URI;
-
 public class HighDefinitionPhoto extends Photo {
 
     private static final int HD_SCORE = 20;

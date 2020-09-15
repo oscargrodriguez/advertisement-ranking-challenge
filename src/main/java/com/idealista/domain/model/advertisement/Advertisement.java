@@ -6,31 +6,31 @@ import java.util.function.Function;
 
 public class Advertisement {
 
-    private DescriptiveText descriptiveText;
+    private Description description;
     private List<Photo> photoList = new ArrayList<>();
-    private AdvertisementType advertisementType;
+    private Typology typology;
 
-    public Advertisement(AdvertisementType advertisementType) {
-        this.descriptiveText = new DescriptiveText();
-        this.advertisementType = advertisementType;
+    public Advertisement(Typology typology) {
+        this.description = new Description();
+        this.typology = typology;
     }
 
-    public Advertisement(DescriptiveText descriptiveText,
-                         AdvertisementType advertisementType) {
-        this.descriptiveText = descriptiveText;
-        this.advertisementType = advertisementType;
+    public Advertisement(Description description,
+                         Typology typology) {
+        this.description = description;
+        this.typology = typology;
     }
 
-    public DescriptiveText getDescriptiveText() {
-        return descriptiveText;
+    public Description getDescription() {
+        return description;
     }
 
     public List<Photo> getPhotoList() {
         return photoList;
     }
 
-    public AdvertisementType getAdvertisementType() {
-        return advertisementType;
+    public Typology getTypology() {
+        return typology;
     }
 
     public void addStandardPhotos(List<String> uris) {

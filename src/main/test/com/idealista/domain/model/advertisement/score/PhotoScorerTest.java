@@ -1,14 +1,12 @@
 package com.idealista.domain.model.advertisement.score;
 
-import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.HighDefinitionPhoto;
 import com.idealista.domain.model.advertisement.Photo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.idealista.domain.model.advertisement.AdvertisementType.HOUSE;
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PhotoScorerTest {
 
@@ -33,10 +31,9 @@ class PhotoScorerTest {
     void severalPhotos() {
         verifyScore(60, photoScorer.score(
                 asList(new HighDefinitionPhoto("AnyUri"),
-                new HighDefinitionPhoto("AnyUri"),
-                new Photo("AnyUri"),
-                new Photo("AnyUri")
-        )));
+                        new HighDefinitionPhoto("AnyUri"),
+                        new Photo("AnyUri"),
+                        new Photo("AnyUri"))));
     }
 
     @Test
