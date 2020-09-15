@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class AdsController {
@@ -37,11 +36,8 @@ public class AdsController {
 
     @GetMapping("/score/{advertisementId}")
     public ResponseEntity<Integer> calculateScore(@PathVariable int advertisementId) {
-        Optional<Integer> score = calculateScoreUseCase.score(advertisementId);
-        if (score.isPresent()) {
-            return ResponseEntity.ok(score.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+        return calculateScoreUseCase.score(advertisementId).
+                map(it -> ResponseEntity.ok(it)).
+                orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 }
