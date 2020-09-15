@@ -5,17 +5,18 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Component
 public class AdvertisementConverter {
     public Optional<Advertisement> convert(AdVO adVo, List<PictureVO> standardPictures, List<PictureVO> hdPictures) {
-        if (isGarage(adVo)) {
+        if (adVo.isGarage()) {
             return convertGarage(adVo, standardPictures, hdPictures);
         }
-        if (isFlat(adVo)) {
+        if (adVo.isFlat()) {
             return convertFlat(adVo, standardPictures, hdPictures);
-        } else if (isChalet(adVo)) {
+        } else if (adVo.isChalet()) {
             return convertChalet(adVo, standardPictures, hdPictures);
         }
         return Optional.empty();
@@ -24,25 +25,41 @@ public class AdvertisementConverter {
     private Optional<Advertisement> convertChalet(AdVO adVo,
                                                   List<PictureVO> standardPictures,
                                                   List<PictureVO> hdPictures) {
-        Optional<Advertisement> advertisement = Optional.of(new ChaletAdvertisement(new Description(adVo.getDescription()), adVo.getHouseSize(), adVo.getGardenSize()));
-        addPhotos(advertisement.get(), standardPictures, hdPictures);
-        return advertisement;
+        return convert(adVo, standardPictures, hdPictures, () -> getChaletAdvertisement(adVo));
+
+    }
+
+    private ChaletAdvertisement getChaletAdvertisement(AdVO adVo) {
+        return new ChaletAdvertisement(new Description(adVo.getDescription()), adVo.getHouseSize(), adVo.getGardenSize());
     }
 
     private Optional<Advertisement> convertFlat(AdVO adVo,
                                                 List<PictureVO> standardPictures,
                                                 List<PictureVO> hdPictures) {
-        Optional<Advertisement> advertisement = Optional.of(new FlatAdvertisement(new Description(adVo.getDescription()), adVo.getHouseSize()));
-        addPhotos(advertisement.get(), standardPictures, hdPictures);
-        return advertisement;
+        return convert(adVo, standardPictures, hdPictures, () -> getFlatAdvertisement(adVo));
+    }
+
+    private FlatAdvertisement getFlatAdvertisement(AdVO adVo) {
+        return new FlatAdvertisement(new Description(adVo.getDescription()), adVo.getHouseSize());
     }
 
     private Optional<Advertisement> convertGarage(AdVO adVo,
                                                   List<PictureVO> standardPictures,
                                                   List<PictureVO> hdPictures) {
-        Optional<Advertisement> advertisement = Optional.of(new GarageAdvertisement(new Description(adVo.getDescription())));
-        addPhotos(advertisement.get(), standardPictures, hdPictures);
-        return advertisement;
+        return convert(adVo, standardPictures, hdPictures, () -> getGarageAdvertisement(adVo));
+    }
+
+    private GarageAdvertisement getGarageAdvertisement(AdVO adVo) {
+        return new GarageAdvertisement(new Description(adVo.getDescription()));
+    }
+
+    private Optional<Advertisement> convert(AdVO adVo,
+                                            List<PictureVO> standardPictures,
+                                            List<PictureVO> hdPictures,
+                                            Supplier<Advertisement> supplier) {
+        Advertisement advertisement = supplier.get();
+        addPhotos(advertisement, standardPictures, hdPictures);
+        return Optional.of(advertisement);
     }
 
     private void addPhotos(Advertisement advertisement, List<PictureVO> standardPictures, List<PictureVO> hdPictures) {
@@ -52,17 +69,5 @@ public class AdvertisementConverter {
 
     private List<String> convertPictures(List<PictureVO> pictures) {
         return pictures.stream().map(PictureVO::getUrl).collect(Collectors.toList());
-    }
-
-    private boolean isFlat(AdVO adVo) {
-        return "FLAT".equals(adVo.getTypology());
-    }
-
-    private boolean isGarage(AdVO adVo) {
-        return "GARAGE".equals(adVo.getTypology());
-    }
-
-    private boolean isChalet(AdVO adVo) {
-        return "CHALET".equals(adVo.getTypology());
     }
 }

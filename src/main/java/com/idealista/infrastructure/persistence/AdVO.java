@@ -90,4 +90,21 @@ public class AdVO {
     public void setIrrelevantSince(Date irrelevantSince) {
         this.irrelevantSince = irrelevantSince;
     }
+
+    public boolean isFlat() {
+        return isTypology("FLAT");
+    }
+
+    public boolean isGarage() {
+        return isTypology("GARAGE");
+    }
+
+    public boolean isChalet() {
+        return isTypology("CHALET");
+    }
+
+    private boolean isTypology(String otherTypology)
+    {
+        return otherTypology.equals(typology);
+    }
 }
