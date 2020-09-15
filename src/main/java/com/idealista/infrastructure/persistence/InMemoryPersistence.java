@@ -1,14 +1,19 @@
 package com.idealista.infrastructure.persistence;
 
+import com.idealista.domain.model.advertisement.Advertisement;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Repository
-public class InMemoryPersistence {
+public class InMemoryPersistence implements AdvertisementRepository{
 
     private List<AdVO> ads;
     private List<PictureVO> pictures;
+
+    @Autowired
+    private AdvertisementConverter advertisementConverter;
 
     public InMemoryPersistence() {
         ads = new ArrayList<AdVO>();
@@ -32,8 +37,15 @@ public class InMemoryPersistence {
         pictures.add(new PictureVO(8, "http://www.idealista.com/pictures/8", "HD"));
     }
 
-    public Optional<AdVO> findById(int id) {
-        if (ads.size()>id) {
+    @Override
+    public Optional<Advertisement> findAdvertisement(int advertisementId) {
+        return findById(advertisementId).
+                map(it -> advertisementConverter.convert(it)).
+                orElse(Optional.empty());
+    }
+
+    private Optional<AdVO> findById(int id) {
+        if (ads.size() > id) {
             return Optional.of(ads.get(id));
         }
         return Optional.empty();

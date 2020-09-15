@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.api;
+package com.idealista.infrastructure.persistence;
 
 import com.idealista.domain.model.advertisement.*;
 import com.idealista.infrastructure.persistence.AdVO;

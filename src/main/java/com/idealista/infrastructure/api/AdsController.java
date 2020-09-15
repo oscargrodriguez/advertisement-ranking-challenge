@@ -2,6 +2,7 @@ package com.idealista.infrastructure.api;
 
 import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.score.AdvertisementScorer;
+import com.idealista.infrastructure.persistence.AdvertisementConverter;
 import com.idealista.infrastructure.persistence.InMemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -20,8 +21,6 @@ public class AdsController {
     private InMemoryPersistence inMemoryPersistence;
     @Autowired
     private AdvertisementScorer advertisementScorer;
-    @Autowired
-    private AdvertisementConverter advertisementConverter;
 
     public AdsController(InMemoryPersistence inMemoryPersistence) {
         this.inMemoryPersistence = inMemoryPersistence;
@@ -45,16 +44,12 @@ public class AdsController {
 
     @GetMapping("/score/{advertisementId}")
     public ResponseEntity<Integer> calculateScore(@PathVariable int advertisementId) {
-        Optional<Advertisement> advertisement = findAdvertisement(advertisementId);
+        Optional<Advertisement> advertisement = inMemoryPersistence.findAdvertisement(advertisementId);
         if (advertisement.isPresent()) {
             int score = advertisementScorer.score(advertisement.get());
             return ResponseEntity.ok(score);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-    }
-
-    private Optional<Advertisement> findAdvertisement(int advertisementId) {
-        return inMemoryPersistence.findById(advertisementId).map(it -> advertisementConverter.convert(it)).orElse(Optional.empty());
     }
 }
