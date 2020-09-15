@@ -11,35 +11,29 @@ public class DescriptiveTextScorer {
     public static final int NON_EMPTY_SCORE = 5;
 
     public int score(AdvertisementType advertisementType, DescriptiveText descriptiveText) {
-        if (descriptiveText.isEmpty()) {
-            return 0;
-        }
-        return NON_EMPTY_SCORE + scoreByLength(advertisementType, descriptiveText);
+        return descriptiveText.isEmpty() ? 0 : NON_EMPTY_SCORE + scoreByLength(advertisementType, descriptiveText);
     }
 
     private int scoreByLength(AdvertisementType advertisementType, DescriptiveText descriptiveText) {
+        int score = 0;
         if (HOUSE.equals(advertisementType)) {
-            return calculateHouseLengthScore(descriptiveText);
+            score =  calculateHouseLengthScore(descriptiveText);
         } else if (CHALET.equals(advertisementType)) {
-            return calculateChaletLengthScore(descriptiveText);
+            score = calculateChaletLengthScore(descriptiveText);
         }
-        return 0;
+        return score;
     }
 
-    private int calculateChaletLengthScore( DescriptiveText descriptiveText) {
-        if (descriptiveText.isLarge()) {
-            return 20;
-        }
-        return 0;
+    private int calculateChaletLengthScore(DescriptiveText descriptiveText) {
+        return descriptiveText.isLarge() ? 20 : 0;
     }
 
-    private int calculateHouseLengthScore( DescriptiveText descriptiveText) {
+    private int calculateHouseLengthScore(DescriptiveText descriptiveText) {
+        int score = 0;
         if (descriptiveText.isMedium()) {
-            return 10;
+            score =  10;
         } else if (descriptiveText.isLarge()) {
-            return 30;
-        } else {
-            return 0;
-        }
+            score = 30;
+        } return score;
     }
 }

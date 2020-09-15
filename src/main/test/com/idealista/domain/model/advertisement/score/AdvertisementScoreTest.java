@@ -26,8 +26,10 @@ class AdvertisementScoreTest {
     void score() {
         Advertisement advertisement = new Advertisement(new DescriptiveText("AnyText"), HOUSE);
         advertisement.addStandardPhotos(asList("AnyUri"));
+        advertisement.addHighDefinitionPhotos(asList("AnyHdUri"));
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(10);
         when(descriptiveTextScorer.score(HOUSE,advertisement.getDescriptiveText())).thenReturn(10);
+
         verifyScore(20, advertisementScorer.score(advertisement));
     }
 
@@ -36,6 +38,7 @@ class AdvertisementScoreTest {
         Advertisement advertisement = new Advertisement(new DescriptiveText(""), HOUSE);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(-10);
         when(descriptiveTextScorer.score(HOUSE,advertisement.getDescriptiveText())).thenReturn(0);
+
         verifyScore(0, advertisementScorer.score(advertisement));
     }
 
