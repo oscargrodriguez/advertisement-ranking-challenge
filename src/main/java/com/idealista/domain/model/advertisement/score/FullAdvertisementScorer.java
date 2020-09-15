@@ -1,8 +1,8 @@
-package com.idealista.domain.model.advertisement.score.description;
+package com.idealista.domain.model.advertisement.score;
 
 import com.idealista.domain.model.advertisement.Advertisement;
 
-public class FullAdScorer {
+public class FullAdvertisementScorer {
     public int score(Advertisement advertisement) {
         if (advertisement.isGarage()) {
             if (advertisement.hasPhoto()) {

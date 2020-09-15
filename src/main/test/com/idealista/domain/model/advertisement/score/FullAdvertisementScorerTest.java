@@ -1,8 +1,7 @@
-package com.idealista.domain.model.advertisement.score.description;
+package com.idealista.domain.model.advertisement.score;
 
 import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.Description;
-import com.idealista.domain.model.advertisement.Typology;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +10,13 @@ import java.util.Arrays;
 import static com.idealista.domain.model.advertisement.Typology.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FullAdScorerTest {
+class FullAdvertisementScorerTest {
 
-    private FullAdScorer fullAdScorer;
+    private FullAdvertisementScorer fullAdScorer;
 
     @BeforeEach
     void setUp() {
-        fullAdScorer = new FullAdScorer();
+        fullAdScorer = new FullAdvertisementScorer();
     }
 
     @Test

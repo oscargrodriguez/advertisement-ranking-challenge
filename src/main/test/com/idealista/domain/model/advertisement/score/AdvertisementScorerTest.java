@@ -21,6 +21,8 @@ class AdvertisementScorerTest {
     private PhotoScorer photoScorer;
     @Mock
     private DescriptionScorer descriptionScorer;
+    @Mock
+    private FullAdvertisementScorer fullAdvertisementScorer;
     @InjectMocks
     private AdvertisementScorer advertisementScorer;
 
@@ -31,8 +33,9 @@ class AdvertisementScorerTest {
         advertisement.addHighDefinitionPhotos(asList("AnyHdUri"));
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(10);
         when(descriptionScorer.score(FLAT,advertisement.getDescription())).thenReturn(10);
+        when(fullAdvertisementScorer.score(advertisement)).thenReturn(10);
 
-        verifyScore(20, advertisementScorer.score(advertisement));
+        verifyScore(30, advertisementScorer.score(advertisement));
     }
 
     @Test
@@ -40,6 +43,7 @@ class AdvertisementScorerTest {
         Advertisement advertisement = new Advertisement(new Description(""), FLAT);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(-10);
         when(descriptionScorer.score(FLAT,advertisement.getDescription())).thenReturn(0);
+        when(fullAdvertisementScorer.score(advertisement)).thenReturn(0);
 
         verifyScore(0, advertisementScorer.score(advertisement));
     }
@@ -50,6 +54,7 @@ class AdvertisementScorerTest {
         Advertisement advertisement = new Advertisement(new Description("AnyText"), typology);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(60);
         when(descriptionScorer.score(typology,advertisement.getDescription())).thenReturn(60);
+        when(fullAdvertisementScorer.score(advertisement)).thenReturn(40);
 
         verifyScore(100, advertisementScorer.score(advertisement));
     }
