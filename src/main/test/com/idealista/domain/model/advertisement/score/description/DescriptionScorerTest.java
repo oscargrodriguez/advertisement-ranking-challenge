@@ -1,77 +1,45 @@
 package com.idealista.domain.model.advertisement.score.description;
 
 import com.idealista.domain.model.advertisement.Description;
-import org.junit.jupiter.api.BeforeEach;
+import com.idealista.domain.model.advertisement.Typology;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Random;
-
-import static com.idealista.domain.model.advertisement.Typology.*;
+import static com.idealista.domain.model.advertisement.Typology.FLAT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class DescriptionScorerTest {
 
-    private DescriptionScorer descriptionScorer;
-    private KeywordScorer keywordScorer;
+    @Mock
     private LengthScorer lengthScorer;
+    @Mock
+    private KeywordScorer keywordScorer;
+    @InjectMocks
+    private DescriptionScorer descriptionScorer;
 
-    @BeforeEach
-    void setUp() {
-        descriptionScorer = new DescriptionScorer(new KeywordScorer(), new LengthScorer());
-    }
 
     @Test
     void emptyText() {
-        verifyScore(0, descriptionScorer.score(FLAT, new Description()));
+        Description description = new Description();
+        verifyScore(0, descriptionScorer.score(FLAT, description));
     }
 
     @Test
-    void shortFlat() {
-        verifyScore(5, descriptionScorer.score(FLAT, new Description(generateRandomText(10))));
-        verifyScore(5, descriptionScorer.score(FLAT, new Description(generateRandomText(19))));
-    }
+    void score() {
+        Description description = new Description("Any ");
+        Typology typology = FLAT;
+        when(lengthScorer.score(typology, description)).thenReturn(10);
+        when(keywordScorer.score(description)).thenReturn(10);
 
-    @Test
-    void mediumFlat() {
-        verifyScore(15, descriptionScorer.score(FLAT, new Description(generateRandomText(30))));
-        verifyScore(15, descriptionScorer.score(FLAT, new Description(generateRandomText(20))));
-        verifyScore(15, descriptionScorer.score(FLAT, new Description(generateRandomText(49))));
-    }
-
-    @Test
-    void largeFlat() {
-        verifyScore(35, descriptionScorer.score(FLAT, new Description(generateRandomText(80))));
-        verifyScore(35, descriptionScorer.score(FLAT, new Description(generateRandomText(50))));
-    }
-
-    @Test
-    void largeChalet() {
-        verifyScore(25, descriptionScorer.score(CHALET, new Description(generateRandomText(80))));
-        verifyScore(25, descriptionScorer.score(CHALET, new Description(generateRandomText(50))));
-    }
-
-    @Test
-    void shortChalet() {
-        verifyScore(5, descriptionScorer.score(CHALET, new Description("AnyShortText")));
-    }
-
-    @Test
-    void garage() {
-        verifyScore(5, descriptionScorer.score(GARAGE, new Description("AnyText")));
+        verifyScore(25, descriptionScorer.score(typology, description));
     }
 
     private void verifyScore(int expectedScore, int score) {
         assertEquals(expectedScore, score);
     }
-
-    private String generateRandomText(int length) {
-        String fakeText = "";
-        Random random = new Random();
-        String chars = "abcxyz";
-        for (int i = 0; i < length; i++) {
-            fakeText += chars.charAt(random.nextInt(chars.length()));
-        }
-        return fakeText;
-    }
-
 }
