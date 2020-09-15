@@ -1,5 +1,6 @@
 package com.idealista.infrastructure.persistence;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -33,6 +34,10 @@ public class InMemoryPersistence {
         pictures.add(new PictureVO(6, "http://www.idealista.com/pictures/6", "SD"));
         pictures.add(new PictureVO(7, "http://www.idealista.com/pictures/7", "SD"));
         pictures.add(new PictureVO(8, "http://www.idealista.com/pictures/8", "HD"));
+    }
+
+    public AdVO get(int i) {
+        return ads.get(i);
     }
 
     //TODO crea los métodos que necesites
