@@ -1,5 +1,6 @@
 package com.idealista.domain.model.advertisement;
 
+import java.text.Normalizer;
 import java.util.Arrays;
 
 public class Description {
@@ -27,14 +28,20 @@ public class Description {
     }
 
     public Integer getKeywords() {
-        return Math.toIntExact(Arrays.stream(text.split(" ")).map(it -> it.toLowerCase()).filter(it -> isKeyword(it)).distinct().count());
+        return Math.toIntExact(Arrays.stream(text.split(" "))
+                .map(it -> it.toLowerCase())
+                .filter(it -> isKeyword(it))
+                .distinct()
+                .count());
     }
 
     private boolean isKeyword(String word) {
         return word.equals("luminoso") ||
                 word.equals("nuevo") ||
+                word.equals("centrico") ||
                 word.equals("céntrico") ||
                 word.equals("reformado") ||
-                word.equals("ático");
+                word.equals("ático") ||
+                word.equals("atico");
     }
 }

@@ -24,8 +24,22 @@ class KeywordScorerTest {
     }
 
     @Test
-    void oneKeywordLowerCase() {
+    void severalSpaces() {
+        verifyScore(5, keywordScorer.score(new Description("Any   luminoso   any")));
+    }
+
+    @Test
+    void caseSensitive() {
         verifyScore(5, keywordScorer.score(new Description("Text with luminoso keyword added")));
+        verifyScore(5, keywordScorer.score(new Description("Text with LUMINOSO keyword added")));
+    }
+
+    @Test
+    void encoding() {
+        verifyScore(5, keywordScorer.score(new Description("any atico any")));
+        verifyScore(5, keywordScorer.score(new Description("any ático any")));
+        verifyScore(10, keywordScorer.score(new Description("any atico centrico any")));
+        verifyScore(10, keywordScorer.score(new Description("any ático céntrico any")));
     }
 
     @Test
@@ -34,6 +48,10 @@ class KeywordScorerTest {
         verifyScore(15, keywordScorer.score(new Description("Luminoso reformado céntrico")));
     }
 
+    @Test
+    void keywordContainedInTextButNotAWord() {
+        verifyScore(0, keywordScorer.score(new Description("anyany anyatico any")));
+    }
 
     private void verifyScore(int expectedScore, int score) {
         assertEquals(expectedScore, score);
