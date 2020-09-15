@@ -47,16 +47,17 @@ public class InMemoryPersistence implements AdvertisementRepository {
     }
 
     private List<PictureVO> findStandardPictures(AdVO adVO) {
-        return pictures.stream()
-                .filter(it -> adVO.getPictures().contains(it))
-                .filter(it -> it.getQuality().equals("SD"))
-                .collect(Collectors.toList());
+        return findPictures(adVO, "SD");
     }
 
     private List<PictureVO> findHdPictures(AdVO adVO) {
+        return findPictures(adVO, "HD");
+    }
+
+    private List<PictureVO> findPictures(AdVO adVO, String quality) {
         return pictures.stream()
-                .filter(it -> adVO.getPictures().contains(it))
-                .filter(it -> it.getQuality().equals("HD"))
+                .filter(it -> adVO.getPictures().contains(it.getId()))
+                .filter(it -> it.getQuality().equals(quality))
                 .collect(Collectors.toList());
     }
 
