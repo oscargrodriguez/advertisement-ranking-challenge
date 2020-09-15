@@ -2,9 +2,7 @@ package com.idealista.infrastructure.api;
 
 import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.score.AdvertisementScorer;
-import com.idealista.infrastructure.persistence.AdvertisementConverter;
-import com.idealista.infrastructure.persistence.AdvertisementRepository;
-import com.idealista.infrastructure.persistence.InMemoryPersistence;
+import com.idealista.domain.model.ports.secondary.AdvertisementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.http.HttpStatus;

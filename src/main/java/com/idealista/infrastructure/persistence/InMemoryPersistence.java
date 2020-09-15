@@ -1,13 +1,14 @@
 package com.idealista.infrastructure.persistence;
 
 import com.idealista.domain.model.advertisement.Advertisement;
+import com.idealista.domain.model.ports.secondary.AdvertisementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Repository
-public class InMemoryPersistence implements AdvertisementRepository{
+public class InMemoryPersistence implements AdvertisementRepository {
 
     private List<AdVO> ads;
     private List<PictureVO> pictures;
@@ -45,9 +46,6 @@ public class InMemoryPersistence implements AdvertisementRepository{
     }
 
     private Optional<AdVO> findById(int id) {
-        if (ads.size() > id) {
-            return Optional.of(ads.get(id));
-        }
-        return Optional.empty();
+        return ads.stream().filter(it -> it.getId() == id).findFirst();
     }
 }
