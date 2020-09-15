@@ -61,6 +61,15 @@ class DescriptionScorerTest {
     @Test
     void oneKeyword() {
         verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with Luminoso keyword added")));
+        verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with Nuevo keyword added")));
+        verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with Céntrico keyword added")));
+        verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with Reformado keyword added")));
+        verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with Ático keyword added")));
+    }
+
+    @Test
+    void oneKeywordLowerCase() {
+        verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with luminoso keyword added")));
     }
 
     private void verifyScore(int expectedScore, int score) {

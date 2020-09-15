@@ -26,6 +26,11 @@ public class Description {
     }
 
     public Integer getKeywords() {
-        return text.contains("Luminoso") ? 1 : 0;
+        return text.toLowerCase().contains("luminoso") ||
+                text.toLowerCase().contains("nuevo") ||
+                text.toLowerCase().contains("céntrico") ||
+                text.toLowerCase().contains("reformado") ||
+                text.toLowerCase().contains("ático")
+                ? 1 : 0;
     }
 }
