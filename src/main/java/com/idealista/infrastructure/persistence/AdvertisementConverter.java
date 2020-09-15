@@ -11,23 +11,43 @@ import java.util.stream.Collectors;
 public class AdvertisementConverter {
     public Optional<Advertisement> convert(AdVO adVo, List<PictureVO> standardPictures, List<PictureVO> hdPictures) {
         if (isGarage(adVo)) {
-            Optional<Advertisement> advertisement = Optional.of(new GarageAdvertisement(new Description(adVo.getDescription())));
-            advertisement.get().addStandardPhotos(convertPictures(standardPictures));
-            advertisement.get().addHighDefinitionPhotos(convertPictures(hdPictures));
-            return advertisement;
+            return convertGarage(adVo, standardPictures, hdPictures);
         }
         if (isFlat(adVo)) {
-            Optional<Advertisement> advertisement = Optional.of(new FlatAdvertisement(new Description(adVo.getDescription()), adVo.getHouseSize()));
-            advertisement.get().addStandardPhotos(convertPictures(standardPictures));
-            advertisement.get().addHighDefinitionPhotos(convertPictures(hdPictures));
-            return advertisement;
+            return convertFlat(adVo, standardPictures, hdPictures);
         } else if (isChalet(adVo)) {
-            Optional<Advertisement> advertisement = Optional.of(new ChaletAdvertisement(new Description(adVo.getDescription()), adVo.getHouseSize(), adVo.getGardenSize()));
-            advertisement.get().addStandardPhotos(convertPictures(standardPictures));
-            advertisement.get().addHighDefinitionPhotos(convertPictures(hdPictures));
-            return advertisement;
+            return convertChalet(adVo, standardPictures, hdPictures);
         }
         return Optional.empty();
+    }
+
+    private Optional<Advertisement> convertChalet(AdVO adVo,
+                                                  List<PictureVO> standardPictures,
+                                                  List<PictureVO> hdPictures) {
+        Optional<Advertisement> advertisement = Optional.of(new ChaletAdvertisement(new Description(adVo.getDescription()), adVo.getHouseSize(), adVo.getGardenSize()));
+        addPhotos(advertisement.get(), standardPictures, hdPictures);
+        return advertisement;
+    }
+
+    private Optional<Advertisement> convertFlat(AdVO adVo,
+                                                List<PictureVO> standardPictures,
+                                                List<PictureVO> hdPictures) {
+        Optional<Advertisement> advertisement = Optional.of(new FlatAdvertisement(new Description(adVo.getDescription()), adVo.getHouseSize()));
+        addPhotos(advertisement.get(), standardPictures, hdPictures);
+        return advertisement;
+    }
+
+    private Optional<Advertisement> convertGarage(AdVO adVo,
+                                                  List<PictureVO> standardPictures,
+                                                  List<PictureVO> hdPictures) {
+        Optional<Advertisement> advertisement = Optional.of(new GarageAdvertisement(new Description(adVo.getDescription())));
+        addPhotos(advertisement.get(), standardPictures, hdPictures);
+        return advertisement;
+    }
+
+    private void addPhotos(Advertisement advertisement, List<PictureVO> standardPictures, List<PictureVO> hdPictures) {
+        advertisement.addStandardPhotos(convertPictures(standardPictures));
+        advertisement.addHighDefinitionPhotos(convertPictures(hdPictures));
     }
 
     private List<String> convertPictures(List<PictureVO> pictures) {
