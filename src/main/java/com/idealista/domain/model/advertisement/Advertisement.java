@@ -11,6 +11,14 @@ public class Advertisement {
     private Description description;
     private List<Photo> photoList = new ArrayList<>();
     private Typology typology;
+    private Integer houseSize;
+    private Integer gardenSize;
+
+    public Advertisement(Description description, Typology typology, Integer houseSize) {
+        this.description = description;
+        this.typology = typology;
+        this.houseSize = houseSize;
+    }
 
     public Advertisement(Typology typology) {
         this.description = new Description();
@@ -21,6 +29,13 @@ public class Advertisement {
                          Typology typology) {
         this.description = description;
         this.typology = typology;
+    }
+
+    public Advertisement(Description description, Typology typology, Integer houseSize, Integer gardenSize) {
+        this.description = description;
+        this.typology = typology;
+        this.houseSize = houseSize;
+        this.gardenSize = gardenSize;
     }
 
     public Description getDescription() {
@@ -54,5 +69,25 @@ public class Advertisement {
 
     public boolean isGarage() {
         return GARAGE.equals(typology);
+    }
+
+    public boolean isFlat() {
+        return FLAT.equals(typology);
+    }
+
+    public boolean isChalet() {
+        return CHALET.equals(typology);
+    }
+
+    public boolean hasDescription() {
+        return !description.isEmpty();
+    }
+
+    public boolean hasHouseSize() {
+        return houseSize != null;
+    }
+
+    public boolean hasGardenSize() {
+        return gardenSize != null;
     }
 }

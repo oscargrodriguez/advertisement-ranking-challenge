@@ -57,6 +57,41 @@ class FullAdScorerTest {
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
+    @Test
+    void flatWithEmptyHouseSize() {
+        Advertisement advertisement = new Advertisement(new Description("AnyText"), FLAT);
+        advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
+        verifyScore(0, fullAdScorer.score(advertisement));
+    }
+
+    @Test
+    void chaletWithEmptyHouseSize() {
+        Advertisement advertisement = new Advertisement(new Description("AnyText"), CHALET);
+        advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
+        verifyScore(0, fullAdScorer.score(advertisement));
+    }
+
+    @Test
+    void flatFully() {
+        Advertisement advertisement = new Advertisement(new Description("AnyText"), FLAT, 100);
+        advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
+        verifyScore(40, fullAdScorer.score(advertisement));
+    }
+
+    @Test
+    void chaletWithEmptyGardenSize() {
+        Advertisement advertisement = new Advertisement(new Description("AnyText"), CHALET, 100);
+        advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
+        verifyScore(0, fullAdScorer.score(advertisement));
+    }
+
+    @Test
+    void chaletFully() {
+        Advertisement advertisement = new Advertisement(new Description("AnyText"), CHALET, 100, 200);
+        advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
+        verifyScore(40, fullAdScorer.score(advertisement));
+    }
+
     private void verifyScore(int expectedScore, int score) {
         assertEquals(expectedScore, score);
     }

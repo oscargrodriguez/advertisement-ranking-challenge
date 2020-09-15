@@ -9,6 +9,14 @@ public class FullAdScorer {
                 return 40;
             }
         }
+        else if (advertisement.isFlat())
+        {
+            if (advertisement.hasPhoto() && advertisement.hasDescription() && advertisement.hasHouseSize()) return 40;
+        }
+        else if (advertisement.isChalet())
+        {
+            if (advertisement.hasPhoto() && advertisement.hasDescription() && advertisement.hasHouseSize() && advertisement.hasGardenSize()) return 40;
+        }
         return 0;
     }
 }
