@@ -9,9 +9,14 @@ import static com.idealista.domain.model.advertisement.Typology.FLAT;
 public class DescriptionScorer {
 
     public static final int NON_EMPTY_SCORE = 5;
+    public static final int KEYWORD_SCORE = 5;
 
-    public int score(Typology typology, Description description) {
-        return description.isEmpty() ? 0 : NON_EMPTY_SCORE + scoreByLength(typology, description);
+    public Integer score(Typology typology, Description description) {
+        return description.isEmpty() ? 0 : NON_EMPTY_SCORE + scoreByLength(typology, description) + scoreByKeywords(description);
+    }
+
+    private Integer scoreByKeywords(Description description) {
+        return description.getKeywords() * KEYWORD_SCORE;
     }
 
     private Integer scoreByLength(Typology typology, Description description) {

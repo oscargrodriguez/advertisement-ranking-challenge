@@ -24,4 +24,8 @@ public class Description {
     public boolean isLarge() {
         return text.length() >= LARGE_THRESHOLD;
     }
+
+    public Integer getKeywords() {
+        return text.contains("Luminoso") ? 1 : 0;
+    }
 }
