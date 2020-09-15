@@ -8,5 +8,4 @@ public class KeywordScorer {
     public Integer score(Description description) {
         return description.getKeywords() * KEYWORD_SCORE;
     }
-
 }

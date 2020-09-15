@@ -1,7 +1,6 @@
 package com.idealista.domain.model.advertisement.score.description;
 
 import com.idealista.domain.model.advertisement.Description;
-import com.idealista.domain.model.advertisement.score.description.DescriptionScorer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,26 +58,6 @@ class DescriptionScorerTest {
     @Test
     void garage() {
         verifyScore(5, descriptionScorer.score(GARAGE, new Description("AnyText")));
-    }
-
-    @Test
-    void oneKeyword() {
-        verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with Luminoso keyword added")));
-        verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with Nuevo keyword added")));
-        verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with Céntrico keyword added")));
-        verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with Reformado keyword added")));
-        verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with Ático keyword added")));
-    }
-
-    @Test
-    void oneKeywordLowerCase() {
-        verifyScore(10, descriptionScorer.score(CHALET, new Description("Text with luminoso keyword added")));
-    }
-
-    @Test
-    void severalKeywords() {
-        verifyScore(15, descriptionScorer.score(CHALET, new Description("Luminoso and Reformado")));
-        verifyScore(15, descriptionScorer.score(CHALET, new Description("Luminoso reformado cêntrico")));
     }
 
     private void verifyScore(int expectedScore, int score) {
