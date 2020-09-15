@@ -4,18 +4,8 @@ import com.idealista.domain.model.advertisement.Advertisement;
 
 public class FullAdvertisementScorer {
     public int score(Advertisement advertisement) {
-        if (advertisement.isGarage()) {
-            if (advertisement.hasPhoto()) {
+        if (advertisement.isFull()) {
                 return 40;
-            }
-        }
-        else if (advertisement.isFlat())
-        {
-            if (advertisement.hasPhoto() && advertisement.hasDescription() && advertisement.hasSize()) return 40;
-        }
-        else if (advertisement.isChalet())
-        {
-            if (advertisement.hasPhoto() && advertisement.hasDescription() && advertisement.hasSize()) return 40;
         }
         return 0;
     }

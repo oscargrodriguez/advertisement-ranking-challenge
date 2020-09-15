@@ -18,6 +18,6 @@ public class FlatAdvertisement extends HouseAdvertisement {
 
     @Override
     public boolean hasSize() {
-        return houseSize!=null;
+        return hasHouseSize();
     }
 }

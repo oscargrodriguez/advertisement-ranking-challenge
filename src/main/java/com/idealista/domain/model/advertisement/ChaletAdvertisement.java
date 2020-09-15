@@ -26,7 +26,7 @@ public class ChaletAdvertisement extends HouseAdvertisement {
 
     @Override
     public boolean hasSize() {
-        return hasGardenSize() && houseSize != null;
+        return hasGardenSize() && hasHouseSize();
     }
 
     private boolean hasGardenSize() {

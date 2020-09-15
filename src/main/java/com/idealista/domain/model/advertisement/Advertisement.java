@@ -68,4 +68,6 @@ public abstract class Advertisement {
     }
 
     public abstract boolean hasSize();
+
+    public abstract boolean isFull();
 }
