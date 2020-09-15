@@ -1,7 +1,7 @@
-package com.idealista.domain.model.advertisement.score;
+package com.idealista.domain.model.advertisement.score.description;
 
-import com.idealista.domain.model.advertisement.Typology;
 import com.idealista.domain.model.advertisement.Description;
+import com.idealista.domain.model.advertisement.Typology;
 
 import static com.idealista.domain.model.advertisement.Typology.CHALET;
 import static com.idealista.domain.model.advertisement.Typology.FLAT;
@@ -9,20 +9,24 @@ import static com.idealista.domain.model.advertisement.Typology.FLAT;
 public class DescriptionScorer {
 
     public static final int NON_EMPTY_SCORE = 5;
-    public static final int KEYWORD_SCORE = 5;
 
-    public Integer score(Typology typology, Description description) {
-        return description.isEmpty() ? 0 : NON_EMPTY_SCORE + scoreByLength(typology, description) + scoreByKeywords(description);
+    private KeywordScorer keywordScorer;
+
+    public DescriptionScorer(KeywordScorer keywordScorer) {
+        this.keywordScorer = keywordScorer;
     }
 
-    private Integer scoreByKeywords(Description description) {
-        return description.getKeywords() * KEYWORD_SCORE;
+    public Integer score(Typology typology, Description description) {
+        return description.isEmpty() ? 0 :
+                NON_EMPTY_SCORE +
+                        scoreByLength(typology, description) +
+                        keywordScorer.score(description);
     }
 
     private Integer scoreByLength(Typology typology, Description description) {
         Integer score = 0;
         if (FLAT.equals(typology)) {
-            score =  flatLengthScore(description);
+            score = flatLengthScore(description);
         } else if (CHALET.equals(typology)) {
             score = chaletLengthScore(description);
         }
@@ -36,9 +40,10 @@ public class DescriptionScorer {
     private Integer flatLengthScore(Description description) {
         Integer score = 0;
         if (description.isMedium()) {
-            score =  10;
+            score = 10;
         } else if (description.isLarge()) {
             score = 30;
-        } return score;
+        }
+        return score;
     }
 }

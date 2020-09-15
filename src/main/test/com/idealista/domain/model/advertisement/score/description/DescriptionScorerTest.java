@@ -1,6 +1,7 @@
-package com.idealista.domain.model.advertisement.score;
+package com.idealista.domain.model.advertisement.score.description;
 
 import com.idealista.domain.model.advertisement.Description;
+import com.idealista.domain.model.advertisement.score.description.DescriptionScorer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,10 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DescriptionScorerTest {
 
     private DescriptionScorer descriptionScorer;
+    private KeywordScorer keywordScorer;
 
     @BeforeEach
     void setUp() {
-        descriptionScorer = new DescriptionScorer();
+        descriptionScorer = new DescriptionScorer(new KeywordScorer());
     }
 
     @Test

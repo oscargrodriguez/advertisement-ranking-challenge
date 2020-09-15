@@ -1,6 +1,7 @@
 package com.idealista.domain.model.advertisement.score;
 
 import com.idealista.domain.model.advertisement.Advertisement;
+import com.idealista.domain.model.advertisement.score.description.DescriptionScorer;
 
 public class AdvertisementScorer {
 
