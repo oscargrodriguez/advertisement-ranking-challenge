@@ -1,12 +1,8 @@
 package com.idealista.infrastructure.persistence;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class InMemoryPersistence {
@@ -36,9 +32,10 @@ public class InMemoryPersistence {
         pictures.add(new PictureVO(8, "http://www.idealista.com/pictures/8", "HD"));
     }
 
-    public AdVO get(int i) {
-        return ads.get(i);
+    public Optional<AdVO> findById(int id) {
+        if (ads.size()>id) {
+            return Optional.of(ads.get(id));
+        }
+        return Optional.empty();
     }
-
-    //TODO crea los métodos que necesites
 }

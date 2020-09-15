@@ -2,10 +2,12 @@ package com.idealista.domain.model.advertisement.score.description;
 
 import com.idealista.domain.model.advertisement.Description;
 import com.idealista.domain.model.advertisement.Typology;
+import org.springframework.stereotype.Component;
 
 import static com.idealista.domain.model.advertisement.Typology.CHALET;
 import static com.idealista.domain.model.advertisement.Typology.FLAT;
 
+@Component
 public class LengthScorer {
 
     public int score(Typology typology, Description description) {
