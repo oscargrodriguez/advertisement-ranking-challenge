@@ -19,10 +19,13 @@ public class AdvertisementScorer {
     }
 
     public int score(Advertisement advertisement) {
-        int score = photoScorer.score(advertisement.getPhotoList()) +
+        return checkLimits(getScore(advertisement));
+    }
+
+    private int getScore(Advertisement advertisement) {
+        return photoScorer.score(advertisement.getPhotoList()) +
                 descriptionScorer.score(advertisement.getTypology(), advertisement.getDescription()) +
                 fullAdvertisementScorer.score(advertisement);
-        return checkLimits(score);
     }
 
     private int checkLimits(Integer score) {
