@@ -41,7 +41,7 @@ public class AdsControllerTest {
     }
 
     @Test
-    void allQualityAdds() throws Exception {
+    void scoreAllAdds() throws Exception {
         List<Integer> expectedIds = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
         List<Integer> expectedScores = Arrays.asList(15, 100, 20, 100, 75, 50, 0, 45);
         mockMvc.perform(get("/ads/score-all"))
