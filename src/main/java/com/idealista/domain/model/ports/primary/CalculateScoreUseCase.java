@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -21,6 +22,15 @@ public class CalculateScoreUseCase {
         List<Advertisement> advertisements = inMemoryPersistence.findAll();
         advertisements.forEach(ad -> inMemoryPersistence.updateScore(ad.getId(), advertisementScorer.score(ad)));
         return inMemoryPersistence.findAll();
+    }
+
+    public Optional<Advertisement> score(int id) {
+        Optional<Advertisement> advertisement = inMemoryPersistence.find(id);
+        if (!advertisement.isPresent()) {
+            return Optional.empty();
+        }
+        inMemoryPersistence.updateScore(advertisement.get().getId(), advertisementScorer.score(advertisement.get()));
+        return inMemoryPersistence.find(id);
     }
 
     public List<Advertisement> getAllPublicAdsOrderedByRankingDesc() {

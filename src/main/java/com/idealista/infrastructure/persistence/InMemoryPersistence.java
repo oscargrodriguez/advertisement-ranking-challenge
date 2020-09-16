@@ -56,6 +56,13 @@ public class InMemoryPersistence implements AdvertisementRepository {
         }
     }
 
+    @Override
+    public Optional<Advertisement> find(Integer advertisementId) {
+        return findById(advertisementId).map(ad -> Optional.of(advertisementConverter.convert(ad, findStandardPictures(ad), findHdPictures(ad))))
+                .orElse(Optional.empty());
+
+    }
+
     private List<PictureVO> findStandardPictures(AdVO adVO) {
         return findPictures(adVO, STANDARD_QUALITY);
     }

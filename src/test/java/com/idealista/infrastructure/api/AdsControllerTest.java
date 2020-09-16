@@ -25,11 +25,24 @@ public class AdsControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+
     @Test
-    void getAllScores() throws Exception {
+    void advertisementIdNotFound() throws Exception {
+        mockMvc.perform(get("/ads/score/9999"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void scoreOneAd() throws Exception {
+        mockMvc.perform(get("/ads/score/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void allQualityAdds() throws Exception {
         List<Integer> expectedIds = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
         List<Integer> expectedScores = Arrays.asList(15, 100, 20, 100, 75, 50, 0, 45);
-        mockMvc.perform(get("/getAllScores"))
+        mockMvc.perform(get("/ads/score-all"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(8)))
                 .andExpect(jsonPath("$[0].score", equalTo(expectedScores.get(0))))
@@ -51,8 +64,8 @@ public class AdsControllerTest {
     }
 
     @Test
-    void getPublicAds() throws Exception {
-        mockMvc.perform(get("/getAllPublicAdvertisements"))
+    void publicAds() throws Exception {
+        mockMvc.perform(get("/ads/public"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(5)))
                 .andExpect(jsonPath("$[0].id", equalTo(2)))
@@ -63,8 +76,8 @@ public class AdsControllerTest {
     }
 
     @Test
-    void getIrrelevantAds() throws Exception {
-        mockMvc.perform(get("/getAllIrrelevantAdvertisements"))
+    void irrelevantAds() throws Exception {
+        mockMvc.perform(get("/ads/irrelevant"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[0].id", equalTo(1)))
