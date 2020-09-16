@@ -14,7 +14,14 @@ public class QualityAd {
     private Integer score;
     private Date irrelevantSince;
 
-    public QualityAd(Integer id, String typology, String description, List<String> pictureUrls, Integer houseSize, Integer gardenSize, Integer score) {
+    public QualityAd(Integer id,
+                     String typology,
+                     String description,
+                     List<String> pictureUrls,
+                     Integer houseSize,
+                     Integer gardenSize,
+                     Integer score,
+                     Date irrelevantSince) {
         this.id = id;
         this.typology = typology;
         this.description = description;
@@ -22,6 +29,7 @@ public class QualityAd {
         this.houseSize = houseSize;
         this.gardenSize = gardenSize;
         this.score = score;
+        this.irrelevantSince = irrelevantSince;
     }
 
     public Integer getId() {

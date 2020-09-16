@@ -53,6 +53,10 @@ public class InMemoryPersistence implements AdvertisementRepository {
         Optional<AdVO> adVo = findById(advertisementId);
         if (adVo.isPresent()) {
             adVo.get().setScore(score);
+            if (score<40)
+            {
+                adVo.get().setIrrelevantSince(new Date());
+            }
         }
     }
 

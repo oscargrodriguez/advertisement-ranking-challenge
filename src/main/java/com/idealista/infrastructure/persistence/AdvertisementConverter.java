@@ -16,6 +16,7 @@ public class AdvertisementConverter {
         Advertisement advertisement = adConverterFactory.getConverter(adVo).convert(adVo, standardPictures, hdPictures);
         advertisement.addPhotos(convertPictures(standardPictures), convertPictures(hdPictures));
         advertisement.setScore(adVo.getScore());
+        advertisement.setIrrelevantSince(adVo.getIrrelevantSince());
         return advertisement;
     }
 

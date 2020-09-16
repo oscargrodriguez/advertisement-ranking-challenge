@@ -3,9 +3,6 @@ package com.idealista.infrastructure.api;
 import com.idealista.domain.model.advertisement.Advertisement;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Component
 public class AdvertisementApiConverter {
     public QualityAd convertToQualityAd(Advertisement advertisement) {
@@ -15,7 +12,8 @@ public class AdvertisementApiConverter {
                 advertisement.getPhotoUrls(),
                 advertisement.getHouseSize(),
                 advertisement.getGardenSize(),
-                advertisement.getScore());
+                advertisement.getScore(),
+                advertisement.getIrrelevantSince());
     }
 
     public PublicAd convertToPublicAd(Advertisement advertisement) {

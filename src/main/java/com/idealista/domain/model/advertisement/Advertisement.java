@@ -1,6 +1,7 @@
 package com.idealista.domain.model.advertisement;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ public abstract class Advertisement {
     private Integer score;
     protected Integer houseSize;
     protected Integer gardenSize;
+    private Date irrelevantSince;
 
     public Advertisement(Integer id,
                          Typology typology) {
@@ -89,6 +91,14 @@ public abstract class Advertisement {
 
     public List<String> getPhotoUrls() {
         return photoList.stream().map(it -> it.getUri()).collect(Collectors.toList());
+    }
+
+    public Date getIrrelevantSince() {
+        return irrelevantSince;
+    }
+
+    public void setIrrelevantSince(Date irrelevantSince) {
+        this.irrelevantSince = irrelevantSince;
     }
 
     private void addPhotos(List<String> uris, Function<String, Photo> fn) {

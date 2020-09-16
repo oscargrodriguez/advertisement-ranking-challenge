@@ -38,7 +38,8 @@ public class AdsControllerTest {
         mockMvc.perform(put("/ads/score/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
-                .andExpect(jsonPath("$.score").value("15"));
+                .andExpect(jsonPath("$.score").value("15"))
+                .andExpect(jsonPath("$.irrelevantSince").isNotEmpty());
     }
 
     @Test
@@ -50,8 +51,10 @@ public class AdsControllerTest {
                 .andExpect(jsonPath("$", hasSize(8)))
                 .andExpect(jsonPath("$[0].score", equalTo(expectedScores.get(0))))
                 .andExpect(jsonPath("$[0].id", equalTo(expectedIds.get(0))))
+                .andExpect(jsonPath("$[0].irrelevantSince").isNotEmpty())
                 .andExpect(jsonPath("$[1].score", equalTo(expectedScores.get(1))))
                 .andExpect(jsonPath("$[1].id", equalTo(expectedIds.get(1))))
+                .andExpect(jsonPath("$[1].irrelevantSince").isEmpty())
                 .andExpect(jsonPath("$[2].score", equalTo(expectedScores.get(2))))
                 .andExpect(jsonPath("$[2].id", equalTo(expectedIds.get(2))))
                 .andExpect(jsonPath("$[3].score", equalTo(expectedScores.get(3))))
@@ -84,10 +87,13 @@ public class AdsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[0].id", equalTo(1)))
-                .andExpect(jsonPath("$[0].id", lessThan(IRRELEVANT_THRESHOLD)))
+                .andExpect(jsonPath("$[0].score", lessThan(IRRELEVANT_THRESHOLD)))
+                .andExpect(jsonPath("$[0].irrelevantSince").isNotEmpty())
                 .andExpect(jsonPath("$[1].id", equalTo(3)))
-                .andExpect(jsonPath("$[1].id", lessThan(IRRELEVANT_THRESHOLD)))
+                .andExpect(jsonPath("$[1].score", lessThan(IRRELEVANT_THRESHOLD)))
+                .andExpect(jsonPath("$[1].irrelevantSince").isNotEmpty())
                 .andExpect(jsonPath("$[2].id", equalTo(7)))
-                .andExpect(jsonPath("$[2].id", lessThan(IRRELEVANT_THRESHOLD)));
+                .andExpect(jsonPath("$[2].score", lessThan(IRRELEVANT_THRESHOLD)))
+                .andExpect(jsonPath("$[2].irrelevantSince").isNotEmpty());
     }
 }
