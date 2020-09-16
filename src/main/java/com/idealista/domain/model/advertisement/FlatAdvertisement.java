@@ -8,12 +8,11 @@ public class FlatAdvertisement extends HouseAdvertisement {
     }
 
     public FlatAdvertisement(Integer id, Description description) {
-        super(id, FLAT, description);
+        super(id, FLAT, description, null);
     }
 
     public FlatAdvertisement(Integer id, Description description, Integer houseSize) {
-        super(id, FLAT, description);
-        this.houseSize = houseSize;
+        super(id, FLAT, description, houseSize);
     }
 
     @Override

@@ -9,7 +9,7 @@ public class ChaletAdvertisement extends HouseAdvertisement {
     }
 
     public ChaletAdvertisement(Integer id, Description description) {
-        super(id, CHALET, description);
+        super(id, CHALET, description, null);
     }
 
     public ChaletAdvertisement(Integer id,
