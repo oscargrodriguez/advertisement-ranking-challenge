@@ -18,10 +18,6 @@ public class AdsController {
     @Autowired
     private AdvertisementApiConverter advertisementApiConverter;
 
-    public static void main(String[] args) {
-        SpringApplication.run(AdsController.class, args);
-    }
-
     @GetMapping("/score/getAllIrrelevantAdvertisements")
     public ResponseEntity<List<QualityAd>> qualityListing() {
         List<QualityAd> qualityAds = new ArrayList<>();

@@ -40,10 +40,6 @@ public class AdVO {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public List<Integer> getPictures() {
         return pictures;
     }

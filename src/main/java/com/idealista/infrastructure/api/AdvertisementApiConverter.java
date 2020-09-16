@@ -26,8 +26,4 @@ public class AdvertisementApiConverter {
                 advertisement.getHouseSize(),
                 advertisement.getScore());
     }
-
-    private List<String> getPhotoUrls(Advertisement advertisement) {
-        return advertisement.getPhotoList().stream().map(it -> it.getUri()).collect(Collectors.toList());
-    }
 }
