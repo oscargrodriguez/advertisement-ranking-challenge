@@ -35,7 +35,9 @@ public class AdsControllerTest {
     @Test
     void scoreOneAd() throws Exception {
         mockMvc.perform(get("/ads/score/1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("1"))
+                .andExpect(jsonPath("$.score").value("15"));
     }
 
     @Test
