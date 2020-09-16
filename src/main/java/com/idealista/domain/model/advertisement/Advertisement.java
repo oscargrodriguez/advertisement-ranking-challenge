@@ -71,10 +71,6 @@ public abstract class Advertisement {
         return houseSize;
     }
 
-    private void addPhotos(List<String> uris, Function<String, Photo> fn) {
-        uris.stream().forEach(it -> photoList.add(fn.apply(it)));
-    }
-
     public boolean hasPhoto() {
         return !photoList.isEmpty();
     }
@@ -93,5 +89,9 @@ public abstract class Advertisement {
 
     public List<String> getPhotoUrls() {
         return photoList.stream().map(it -> it.getUri()).collect(Collectors.toList());
+    }
+
+    private void addPhotos(List<String> uris, Function<String, Photo> fn) {
+        uris.stream().forEach(it -> photoList.add(fn.apply(it)));
     }
 }

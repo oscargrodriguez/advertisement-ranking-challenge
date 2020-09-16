@@ -8,10 +8,6 @@ public class ChaletAdvertisement extends HouseAdvertisement {
         super(id, CHALET);
     }
 
-    public ChaletAdvertisement(Integer id, Description description) {
-        super(id, CHALET, description, null);
-    }
-
     public ChaletAdvertisement(Integer id,
                                Description description,
                                Integer houseSize,
