@@ -16,7 +16,7 @@ public class CalculateScoreUseCase {
 
     public Optional<Integer> score(int advertisementId) {
         return inMemoryPersistence.findAdvertisement(advertisementId)
-                .map(it -> Optional.of(advertisementScorer.score(it)))
+                .map(ad -> Optional.of(advertisementScorer.score(ad)))
                 .orElse(Optional.empty());
     }
 }

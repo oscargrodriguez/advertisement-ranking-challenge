@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryPersistence implements AdvertisementRepository {
 
+    public static final String STANDARD_QUALITY = "SD";
+    public static final String HIGH_DEFINITION_QUALITY = "HD";
     private List<AdVO> ads;
     private List<PictureVO> pictures;
 
@@ -29,39 +32,46 @@ public class InMemoryPersistence implements AdvertisementRepository {
         ads.add(new AdVO(8, "CHALET", "Maravilloso chalet situado en lAs afueras de un pequeño pueblo rural. El entorno es espectacular, las vistas magníficas. ¡Cómprelo ahora!", Arrays.asList(1, 7), 300, null, null, null));
 
         pictures = new ArrayList<PictureVO>();
-        pictures.add(new PictureVO(1, "http://www.idealista.com/pictures/1", "SD"));
-        pictures.add(new PictureVO(2, "http://www.idealista.com/pictures/2", "HD"));
-        pictures.add(new PictureVO(3, "http://www.idealista.com/pictures/3", "SD"));
-        pictures.add(new PictureVO(4, "http://www.idealista.com/pictures/4", "HD"));
-        pictures.add(new PictureVO(5, "http://www.idealista.com/pictures/5", "SD"));
-        pictures.add(new PictureVO(6, "http://www.idealista.com/pictures/6", "SD"));
-        pictures.add(new PictureVO(7, "http://www.idealista.com/pictures/7", "SD"));
-        pictures.add(new PictureVO(8, "http://www.idealista.com/pictures/8", "HD"));
+        pictures.add(new PictureVO(1, "http://www.idealista.com/pictures/1", STANDARD_QUALITY));
+        pictures.add(new PictureVO(2, "http://www.idealista.com/pictures/2", HIGH_DEFINITION_QUALITY));
+        pictures.add(new PictureVO(3, "http://www.idealista.com/pictures/3", STANDARD_QUALITY));
+        pictures.add(new PictureVO(4, "http://www.idealista.com/pictures/4", HIGH_DEFINITION_QUALITY));
+        pictures.add(new PictureVO(5, "http://www.idealista.com/pictures/5", STANDARD_QUALITY));
+        pictures.add(new PictureVO(6, "http://www.idealista.com/pictures/6", STANDARD_QUALITY));
+        pictures.add(new PictureVO(7, "http://www.idealista.com/pictures/7", STANDARD_QUALITY));
+        pictures.add(new PictureVO(8, "http://www.idealista.com/pictures/8", HIGH_DEFINITION_QUALITY));
     }
 
     @Override
     public Optional<Advertisement> findAdvertisement(int advertisementId) {
         return findById(advertisementId).
-                map(it -> advertisementConverter.convert(it, findStandardPictures(it), findHdPictures(it))).
+                map(adVo -> advertisementConverter.convert(adVo, findStandardPictures(adVo), findHdPictures(adVo))).
                 orElse(Optional.empty());
     }
 
     private List<PictureVO> findStandardPictures(AdVO adVO) {
-        return findPictures(adVO, "SD");
+        return findPictures(adVO, STANDARD_QUALITY);
     }
 
     private List<PictureVO> findHdPictures(AdVO adVO) {
-        return findPictures(adVO, "HD");
+        return findPictures(adVO, HIGH_DEFINITION_QUALITY);
     }
 
     private List<PictureVO> findPictures(AdVO adVO, String quality) {
         return pictures.stream()
-                .filter(it -> adVO.getPictures().contains(it.getId()))
-                .filter(it -> it.getQuality().equals(quality))
+                .filter(isPictureContained(adVO).and(hasQuality(quality)))
                 .collect(Collectors.toList());
+    }
+
+    private Predicate<PictureVO> isPictureContained(AdVO adVO) {
+        return pictureVO -> adVO.getPictures().contains(pictureVO.getId());
     }
 
     private Optional<AdVO> findById(int id) {
         return ads.stream().filter(it -> it.getId() == id).findFirst();
+    }
+
+    private Predicate<PictureVO> hasQuality(String quality) {
+        return it -> it.getQuality().equals(quality);
     }
 }

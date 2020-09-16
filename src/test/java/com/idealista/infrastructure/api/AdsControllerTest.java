@@ -26,14 +26,14 @@ public class AdsControllerTest {
     }
 
     @Test
-    public void chaletLongDescriptedWithoutPhotos() throws Exception {
+    void chaletLongDescriptedWithoutPhotos() throws Exception {
         mockMvc.perform(get("/score/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("15")));
     }
 
     @Test
-    public void flatFullyWithKeywords() throws Exception{
+    void flatFullyWithKeywords() throws Exception {
         mockMvc.perform(get("/score/2"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("100")));
@@ -41,7 +41,7 @@ public class AdsControllerTest {
 
 
     @Test
-    public void garageWithoutPhotosWithOneKeyword() throws Exception {
+    void garageWithoutPhotosWithOneKeyword() throws Exception {
         mockMvc.perform(get("/score/7"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("0")));

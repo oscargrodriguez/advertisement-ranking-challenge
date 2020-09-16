@@ -37,7 +37,7 @@ public class AdsController {
     @GetMapping("/score/{advertisementId}")
     public ResponseEntity<Integer> calculateScore(@PathVariable int advertisementId) {
         return calculateScoreUseCase.score(advertisementId).
-                map(it -> ResponseEntity.ok(it)).
+                map(score -> ResponseEntity.ok(score)).
                 orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 }
