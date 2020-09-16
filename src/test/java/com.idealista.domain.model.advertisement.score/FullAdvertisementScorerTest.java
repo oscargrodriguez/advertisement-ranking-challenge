@@ -30,7 +30,7 @@ class FullAdvertisementScorerTest {
     @Test
     void garage() {
         GarageAdvertisement advertisement = new GarageAdvertisement(new Description("AnyText"));
-        advertisement.addHighDefinitionPhotos(Arrays.asList("AnyUri"));
+        advertisement.addPhotos(Arrays.asList(),Arrays.asList("AnyUri"));
         verifyScore(40, fullAdScorer.score(advertisement));
     }
 

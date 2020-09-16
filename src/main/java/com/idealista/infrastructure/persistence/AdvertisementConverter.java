@@ -19,13 +19,8 @@ public class AdvertisementConverter {
 
     private Advertisement getAdvertisement(AdVO adVo, List<PictureVO> standardPictures, List<PictureVO> hdPictures, AdConverter adConverter) {
         Advertisement advertisement = adConverter.convert(adVo, standardPictures, hdPictures);
-        addPhotos(advertisement, standardPictures, hdPictures);
+        advertisement.addPhotos(convertPictures(standardPictures), convertPictures(hdPictures));
         return advertisement;
-    }
-
-    private void addPhotos(Advertisement advertisement, List<PictureVO> standardPictures, List<PictureVO> hdPictures) {
-        advertisement.addStandardPhotos(convertPictures(standardPictures));
-        advertisement.addHighDefinitionPhotos(convertPictures(hdPictures));
     }
 
     private List<String> convertPictures(List<PictureVO> pictures) {

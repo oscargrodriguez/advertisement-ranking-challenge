@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.idealista.domain.model.advertisement.Typology.*;
-
 public abstract class Advertisement {
 
     private Description description;
@@ -29,6 +27,11 @@ public abstract class Advertisement {
 
     public List<Photo> getPhotoList() {
         return photoList;
+    }
+
+    public void addPhotos(List<String> standardPictures, List<String> hdPictures) {
+        addStandardPhotos(standardPictures);
+        addHighDefinitionPhotos(hdPictures);
     }
 
     public void addStandardPhotos(List<String> uris) {

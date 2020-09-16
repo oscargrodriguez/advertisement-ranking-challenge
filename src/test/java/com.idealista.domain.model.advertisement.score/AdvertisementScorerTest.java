@@ -29,8 +29,7 @@ class AdvertisementScorerTest {
     @Test
     void score() {
         FlatAdvertisement advertisement = new FlatAdvertisement(new Description("AnyText"));
-        advertisement.addStandardPhotos(asList("AnyUri"));
-        advertisement.addHighDefinitionPhotos(asList("AnyHdUri"));
+        advertisement.addPhotos(asList("AnyUri"),asList("AnyHdUri"));
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(10);
         when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(10);
         when(fullAdvertisementScorer.score(advertisement)).thenReturn(10);
