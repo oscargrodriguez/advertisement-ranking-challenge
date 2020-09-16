@@ -3,6 +3,7 @@ package com.idealista.domain.model.advertisement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public abstract class Advertisement {
 
@@ -89,4 +90,8 @@ public abstract class Advertisement {
     public abstract boolean hasSize();
 
     public abstract boolean isFull();
+
+    public List<String> getPhotoUrls() {
+        return photoList.stream().map(it -> it.getUri()).collect(Collectors.toList());
+    }
 }
