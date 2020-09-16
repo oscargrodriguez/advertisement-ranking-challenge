@@ -38,4 +38,26 @@ public class AdsControllerTest {
                 .andExpect(jsonPath("$[6].score", equalTo(expectedResult.get(6))))
                 .andExpect(jsonPath("$[7].score", equalTo(expectedResult.get(7))));
     }
+
+    @Test
+    void getPublicAds() throws Exception {
+        mockMvc.perform(get("/score/getAllPublicAdvertisements"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(5)))
+                .andExpect(jsonPath("$[0].id", equalTo(2)))
+                .andExpect(jsonPath("$[1].id", equalTo(4)))
+                .andExpect(jsonPath("$[2].id", equalTo(5)))
+                .andExpect(jsonPath("$[3].id", equalTo(6)))
+                .andExpect(jsonPath("$[4].id", equalTo(8)));
+    }
+
+    @Test
+    void getIrrelevantAds() throws Exception {
+        mockMvc.perform(get("/score/getAllIrrelevantAdvertisements"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[0].id", equalTo(1)))
+                .andExpect(jsonPath("$[1].id", equalTo(3)))
+                .andExpect(jsonPath("$[2].id", equalTo(7)));
+    }
 }
