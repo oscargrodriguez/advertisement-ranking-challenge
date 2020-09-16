@@ -16,6 +16,8 @@ public class AdsController {
 
     @Autowired
     private CalculateScoreUseCase calculateScoreUseCase;
+    @Autowired
+    private AdvertisementApiConverter advertisementApiConverter;
 
 
     public static void main(String[] args) {
@@ -38,17 +40,7 @@ public class AdsController {
     public ResponseEntity<List<QualityAd>> calculateScore() {
         List<QualityAd> qualityAds = new ArrayList<>();
         List<Advertisement> advertisements = calculateScoreUseCase.scoreAll();
-        advertisements.forEach(it -> qualityAds.add(convert(it)));
+        advertisements.forEach(it -> qualityAds.add(advertisementApiConverter.convert(it)));
         return ResponseEntity.ok(qualityAds);
-    }
-
-    private QualityAd convert(Advertisement advertisement) {
-        return new QualityAd(advertisement.getId(),
-                advertisement.getTypology().name(),
-                null,
-                null,
-                null,
-                null,
-                advertisement.getScore());
     }
 }
