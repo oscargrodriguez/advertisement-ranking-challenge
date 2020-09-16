@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class CalculateScoreUseCase {
@@ -15,12 +14,6 @@ public class CalculateScoreUseCase {
     private AdvertisementRepository inMemoryPersistence;
     @Autowired
     private AdvertisementScorer advertisementScorer;
-
-    public Optional<Integer> score(int advertisementId) {
-        return inMemoryPersistence.findAdvertisement(advertisementId)
-                .map(ad -> Optional.of(advertisementScorer.score(ad)))
-                .orElse(Optional.empty());
-    }
 
     public List<Advertisement> scoreAll() {
         List<Advertisement> advertisements = inMemoryPersistence.findAll();

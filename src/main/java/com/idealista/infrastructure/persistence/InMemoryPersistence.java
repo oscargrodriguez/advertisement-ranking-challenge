@@ -42,13 +42,6 @@ public class InMemoryPersistence implements AdvertisementRepository {
     }
 
     @Override
-    public Optional<Advertisement> findAdvertisement(int advertisementId) {
-        return findById(advertisementId).
-                map(adVo -> Optional.of(advertisementConverter.convert(adVo, findStandardPictures(adVo), findHdPictures(adVo)))).
-                orElse(Optional.empty());
-    }
-
-    @Override
     public List<Advertisement> findAll() {
         List<Advertisement> advertisements = new ArrayList<>();
         ads.stream().forEach(ad -> advertisements.add(advertisementConverter.convert(ad, findStandardPictures(ad), findHdPictures(ad))));
@@ -58,8 +51,7 @@ public class InMemoryPersistence implements AdvertisementRepository {
     @Override
     public void updateScore(int advertisementId, Integer score) {
         Optional<AdVO> adVo = findById(advertisementId);
-        if (adVo.isPresent())
-        {
+        if (adVo.isPresent()) {
             adVo.get().setScore(score);
         }
     }

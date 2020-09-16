@@ -13,7 +13,8 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @SpringBootTest(classes = Main.class)
@@ -21,34 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AdsControllerTest {
     @Autowired
     private MockMvc mockMvc;
-
-    @Test
-    void advertisementIdNotFound() throws Exception {
-        mockMvc.perform(get("/score/9999"))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    void chaletLongDescriptedWithoutPhotos() throws Exception {
-        mockMvc.perform(get("/score/1"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("15")));
-    }
-
-    @Test
-    void flatFullyWithKeywords() throws Exception {
-        mockMvc.perform(get("/score/2"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("100")));
-    }
-
-
-    @Test
-    void garageWithoutPhotosWithOneKeyword() throws Exception {
-        mockMvc.perform(get("/score/7"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("0")));
-    }
 
     @Test
     void getAllScores() throws Exception {
