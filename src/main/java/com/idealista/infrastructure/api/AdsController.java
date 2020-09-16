@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class AdsController {
@@ -35,8 +35,20 @@ public class AdsController {
     }
 
     @GetMapping("/score/getAllScores")
-    public ResponseEntity<List<Integer>> calculateScore() {
+    public ResponseEntity<List<QualityAd>> calculateScore() {
+        List<QualityAd> qualityAds = new ArrayList<>();
         List<Advertisement> advertisements = calculateScoreUseCase.scoreAll();
-        return ResponseEntity.ok(advertisements.stream().map(Advertisement::getScore).collect(Collectors.toList()));
+        advertisements.forEach(it -> qualityAds.add(convert(it)));
+        return ResponseEntity.ok(qualityAds);
+    }
+
+    private QualityAd convert(Advertisement advertisement) {
+        return new QualityAd(advertisement.getId(),
+                advertisement.getTypology().name(),
+                null,
+                null,
+                null,
+                null,
+                advertisement.getScore());
     }
 }

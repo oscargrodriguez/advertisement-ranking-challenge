@@ -29,13 +29,13 @@ public class AdsControllerTest {
         mockMvc.perform(get("/score/getAllScores"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(8)))
-                .andExpect(jsonPath("$[0]", equalTo(expectedResult.get(0))))
-                .andExpect(jsonPath("$[1]", equalTo(expectedResult.get(1))))
-                .andExpect(jsonPath("$[2]", equalTo(expectedResult.get(2))))
-                .andExpect(jsonPath("$[3]", equalTo(expectedResult.get(3))))
-                .andExpect(jsonPath("$[4]", equalTo(expectedResult.get(4))))
-                .andExpect(jsonPath("$[5]", equalTo(expectedResult.get(5))))
-                .andExpect(jsonPath("$[6]", equalTo(expectedResult.get(6))))
-                .andExpect(jsonPath("$[7]", equalTo(expectedResult.get(7))));
+                .andExpect(jsonPath("$[0].score", equalTo(expectedResult.get(0))))
+                .andExpect(jsonPath("$[1].score", equalTo(expectedResult.get(1))))
+                .andExpect(jsonPath("$[2].score", equalTo(expectedResult.get(2))))
+                .andExpect(jsonPath("$[3].score", equalTo(expectedResult.get(3))))
+                .andExpect(jsonPath("$[4].score", equalTo(expectedResult.get(4))))
+                .andExpect(jsonPath("$[5].score", equalTo(expectedResult.get(5))))
+                .andExpect(jsonPath("$[6].score", equalTo(expectedResult.get(6))))
+                .andExpect(jsonPath("$[7].score", equalTo(expectedResult.get(7))));
     }
 }
