@@ -4,8 +4,6 @@ import static com.idealista.domain.model.advertisement.Typology.CHALET;
 
 public class ChaletAdvertisement extends HouseAdvertisement {
 
-    private Integer gardenSize;
-
     public ChaletAdvertisement(Integer id) {
         super(id, CHALET);
     }

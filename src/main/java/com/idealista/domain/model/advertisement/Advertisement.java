@@ -11,6 +11,8 @@ public abstract class Advertisement {
     private List<Photo> photoList = new ArrayList<>();
     private Typology typology;
     private Integer score;
+    protected Integer houseSize;
+    protected Integer gardenSize;
 
     public Advertisement(Integer id,
                          Typology typology) {
@@ -58,6 +60,14 @@ public abstract class Advertisement {
 
     public Integer getId() {
         return id;
+    }
+
+    public Integer getGardenSize() {
+        return gardenSize;
+    }
+
+    public Integer getHouseSize() {
+        return houseSize;
     }
 
     private void addPhotos(List<String> uris, Function<String, Photo> fn) {

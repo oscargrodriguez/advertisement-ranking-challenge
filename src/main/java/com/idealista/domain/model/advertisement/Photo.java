@@ -12,4 +12,8 @@ public class Photo {
     public int score() {
         return SCORE;
     }
+
+    public String getUri() {
+        return uri;
+    }
 }

@@ -15,6 +15,10 @@ public class Description {
         this.text = text;
     }
 
+    public String getText() {
+        return text;
+    }
+
     public boolean isEmpty() {
         return text.isEmpty();
     }
