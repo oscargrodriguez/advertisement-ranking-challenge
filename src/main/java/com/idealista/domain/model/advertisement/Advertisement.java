@@ -10,6 +10,7 @@ public abstract class Advertisement {
     private Description description;
     private List<Photo> photoList = new ArrayList<>();
     private Typology typology;
+    private Integer score;
 
     public Advertisement(Integer id,
                          Typology typology) {
@@ -45,6 +46,18 @@ public abstract class Advertisement {
 
     public void addHighDefinitionPhotos(List<String> uris) {
         addPhotos(uris, HighDefinitionPhoto::new);
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     private void addPhotos(List<String> uris, Function<String, Photo> fn) {

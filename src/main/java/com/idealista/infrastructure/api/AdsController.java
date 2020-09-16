@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class AdsController {
@@ -45,8 +46,8 @@ public class AdsController {
     }
 
     @GetMapping("/score/getAllScores")
-    public ResponseEntity<List<QualityAd>> calculateAllScores() {
+    public ResponseEntity<List<Integer>> calculateAllScores() {
         List<Advertisement> advertisements = calculateScoreUseCase.scoreAll();
-        return ResponseEntity.ok(Arrays.asList());
+        return ResponseEntity.ok(advertisements.stream().map(Advertisement::getScore).collect(Collectors.toList()));
     }
 }
