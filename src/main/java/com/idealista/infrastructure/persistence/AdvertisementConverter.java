@@ -15,14 +15,14 @@ public class AdvertisementConverter {
 
     public Optional<Advertisement> convert(AdVO adVo, List<PictureVO> standardPictures, List<PictureVO> hdPictures) {
         return adConverterFactory.getConverter(adVo)
-                .map(converter -> getAdvertisement(adVo, standardPictures, hdPictures, converter))
+                .map(converter -> Optional.of(getAdvertisement(adVo, standardPictures, hdPictures, converter)))
                 .orElse(Optional.empty());
     }
 
-    private Optional<Advertisement> getAdvertisement(AdVO adVo, List<PictureVO> standardPictures, List<PictureVO> hdPictures, AdConverter adConverter) {
+    private Advertisement getAdvertisement(AdVO adVo, List<PictureVO> standardPictures, List<PictureVO> hdPictures, AdConverter adConverter) {
         Advertisement advertisement = adConverter.convert(adVo, standardPictures, hdPictures);
         addPhotos(advertisement, standardPictures, hdPictures);
-        return Optional.of(advertisement);
+        return advertisement;
     }
 
     private void addPhotos(Advertisement advertisement, List<PictureVO> standardPictures, List<PictureVO> hdPictures) {
