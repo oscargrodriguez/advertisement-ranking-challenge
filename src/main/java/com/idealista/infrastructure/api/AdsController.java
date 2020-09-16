@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -33,14 +34,14 @@ public class AdsController {
         return ResponseEntity.ok(publicAds);
     }
 
-    @GetMapping("/ads/score-all")
+    @PutMapping("/ads/score-all")
     public ResponseEntity<List<QualityAd>> calculateScore() {
         List<QualityAd> qualityAds = new ArrayList<>();
         calculateScoreUseCase.scoreAll().forEach(it -> qualityAds.add(advertisementApiConverter.convertToQualityAd(it)));
         return ResponseEntity.ok(qualityAds);
     }
 
-    @GetMapping("/ads/score/{id}")
+    @PutMapping("/ads/score/{id}")
     public ResponseEntity<QualityAd> calculateScore(@PathVariable int id) {
         return calculateScoreUseCase.score(id).
                 map(it-> advertisementApiConverter.convertToQualityAd(it)).

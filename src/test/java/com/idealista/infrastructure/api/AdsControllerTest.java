@@ -14,6 +14,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.lessThan;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,13 +29,13 @@ public class AdsControllerTest {
 
     @Test
     void advertisementIdNotFound() throws Exception {
-        mockMvc.perform(get("/ads/score/9999"))
+        mockMvc.perform(put("/ads/score/9999"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void scoreOneAd() throws Exception {
-        mockMvc.perform(get("/ads/score/1"))
+        mockMvc.perform(put("/ads/score/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
                 .andExpect(jsonPath("$.score").value("15"));
@@ -44,7 +45,7 @@ public class AdsControllerTest {
     void scoreAllAdds() throws Exception {
         List<Integer> expectedIds = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
         List<Integer> expectedScores = Arrays.asList(15, 100, 20, 100, 75, 50, 0, 45);
-        mockMvc.perform(get("/ads/score-all"))
+        mockMvc.perform(put("/ads/score-all"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(8)))
                 .andExpect(jsonPath("$[0].score", equalTo(expectedScores.get(0))))
