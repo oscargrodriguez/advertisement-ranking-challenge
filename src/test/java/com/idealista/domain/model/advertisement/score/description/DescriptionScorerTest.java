@@ -22,7 +22,6 @@ class DescriptionScorerTest {
     @InjectMocks
     private DescriptionScorer descriptionScorer;
 
-
     @Test
     void emptyText() {
         Description description = new Description();

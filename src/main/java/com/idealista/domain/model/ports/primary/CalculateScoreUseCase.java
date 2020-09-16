@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Component
 public class CalculateScoreUseCase {
-
     @Autowired
     private AdvertisementRepository inMemoryPersistence;
     @Autowired
