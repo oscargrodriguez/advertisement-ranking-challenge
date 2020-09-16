@@ -14,12 +14,8 @@ public class ChaletAdvertisement extends HouseAdvertisement {
 
     public ChaletAdvertisement(Integer id,
                                Description description,
-                               Integer houseSize) {
-        super(id, CHALET, description);
-        this.houseSize = houseSize;
-    }
-
-    public ChaletAdvertisement(Integer id, Description description, Integer houseSize, Integer gardenSize) {
+                               Integer houseSize,
+                               Integer gardenSize) {
         super(id, CHALET, description, houseSize);
         this.gardenSize = gardenSize;
     }

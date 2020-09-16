@@ -87,7 +87,7 @@ class FullAdvertisementScorerTest {
 
     @Test
     void chaletWithEmptyGardenSize() {
-        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), 100);
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), 100, null);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
