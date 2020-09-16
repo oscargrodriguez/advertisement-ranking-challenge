@@ -32,16 +32,8 @@ public class AdVO {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getTypology() {
         return typology;
-    }
-
-    public void setTypology(String typology) {
-        this.typology = typology;
     }
 
     public String getDescription() {
@@ -56,24 +48,12 @@ public class AdVO {
         return pictures;
     }
 
-    public void setPictures(List<Integer> pictures) {
-        this.pictures = pictures;
-    }
-
     public Integer getHouseSize() {
         return houseSize;
     }
 
-    public void setHouseSize(Integer houseSize) {
-        this.houseSize = houseSize;
-    }
-
     public Integer getGardenSize() {
         return gardenSize;
-    }
-
-    public void setGardenSize(Integer gardenSize) {
-        this.gardenSize = gardenSize;
     }
 
     public Integer getScore() {
@@ -98,10 +78,6 @@ public class AdVO {
 
     public boolean isGarage() {
         return isTypology("GARAGE");
-    }
-
-    public boolean isChalet() {
-        return isTypology("CHALET");
     }
 
     public Predicate<PictureVO> pictureContained() {
