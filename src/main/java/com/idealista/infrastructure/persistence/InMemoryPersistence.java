@@ -55,6 +55,15 @@ public class InMemoryPersistence implements AdvertisementRepository {
         return advertisements;
     }
 
+    @Override
+    public void updateScore(int advertisementId, Integer score) {
+        Optional<AdVO> adVo = findById(advertisementId);
+        if (adVo.isPresent())
+        {
+            adVo.get().setScore(score);
+        }
+    }
+
     private List<PictureVO> findStandardPictures(AdVO adVO) {
         return findPictures(adVO, STANDARD_QUALITY);
     }

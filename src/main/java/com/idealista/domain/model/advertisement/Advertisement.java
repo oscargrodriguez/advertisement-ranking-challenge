@@ -6,17 +6,22 @@ import java.util.function.Function;
 
 public abstract class Advertisement {
 
+    private Integer id;
     private Description description;
     private List<Photo> photoList = new ArrayList<>();
     private Typology typology;
 
-    public Advertisement(Typology typology) {
+    public Advertisement(Integer id,
+                         Typology typology) {
+        this.id = id;
         this.description = new Description();
         this.typology = typology;
     }
 
-    public Advertisement(Typology typology,
+    public Advertisement(Integer id,
+                         Typology typology,
                          Description description) {
+        this.id = id;
         this.typology = typology;
         this.description = description;
     }

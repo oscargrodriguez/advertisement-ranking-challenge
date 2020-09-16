@@ -1,19 +1,22 @@
 package com.idealista.domain.model.advertisement;
 
 public abstract class HouseAdvertisement extends Advertisement {
-    public HouseAdvertisement(Typology typology) {
-        super(typology);
+    public HouseAdvertisement(Integer id,
+                              Typology typology) {
+        super(id, typology);
     }
 
-    public HouseAdvertisement(Typology typology,
+    public HouseAdvertisement(Integer id,
+                              Typology typology,
                               Description description) {
-        super(typology, description);
+        super(id, typology, description);
     }
 
-    public HouseAdvertisement(Typology typology,
+    public HouseAdvertisement(Integer id,
+                              Typology typology,
                               Description description,
                               Integer houseSize) {
-        super(typology, description);
+        super(id, typology, description);
         this.houseSize = houseSize;
     }
 

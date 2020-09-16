@@ -9,4 +9,6 @@ public interface AdvertisementRepository {
     Optional<Advertisement> findAdvertisement(int advertisementId);
 
     List<Advertisement> findAll();
+
+    void updateScore(int advertisementId, Integer score);
 }

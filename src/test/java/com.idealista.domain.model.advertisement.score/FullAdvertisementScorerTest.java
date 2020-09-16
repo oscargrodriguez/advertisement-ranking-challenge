@@ -22,79 +22,79 @@ class FullAdvertisementScorerTest {
 
     @Test
     void garageWithEmptyDescription() {
-        GarageAdvertisement advertisement = new GarageAdvertisement();
+        GarageAdvertisement advertisement = new GarageAdvertisement(1);
         advertisement.addHighDefinitionPhotos(Arrays.asList("AnyUri"));
         verifyScore(40, fullAdScorer.score(advertisement));
     }
 
     @Test
     void garage() {
-        GarageAdvertisement advertisement = new GarageAdvertisement(new Description("AnyText"));
-        advertisement.addPhotos(Arrays.asList(),Arrays.asList("AnyUri"));
+        GarageAdvertisement advertisement = new GarageAdvertisement(1, new Description("AnyText"));
+        advertisement.addPhotos(Arrays.asList(), Arrays.asList("AnyUri"));
         verifyScore(40, fullAdScorer.score(advertisement));
     }
 
     @Test
     void garageWithNoPhotos() {
-        GarageAdvertisement advertisement = new GarageAdvertisement();
+        GarageAdvertisement advertisement = new GarageAdvertisement(1);
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void flatWithEmptyDescription() {
-        FlatAdvertisement advertisement = new FlatAdvertisement();
+        FlatAdvertisement advertisement = new FlatAdvertisement(1);
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void chaletWithEmptyDescription() {
-        ChaletAdvertisement advertisement = new ChaletAdvertisement();
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(1);
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void flatWithEmptyPhotos() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(new Description("AnyText"));
+        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void chaletWithEmptyPhotos() {
-        ChaletAdvertisement advertisement = new ChaletAdvertisement(new Description("AnyText"));
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void flatWithEmptyHouseSize() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(new Description("AnyText"));
+        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"));
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void chaletWithEmptyHouseSize() {
-        ChaletAdvertisement advertisement = new ChaletAdvertisement(new Description("AnyText"));
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"));
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void flatFully() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(new Description("AnyText"), 100);
+        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), 100);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(40, fullAdScorer.score(advertisement));
     }
 
     @Test
     void chaletWithEmptyGardenSize() {
-        ChaletAdvertisement advertisement = new ChaletAdvertisement(new Description("AnyText"), 100);
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), 100);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
     void chaletFully() {
-        ChaletAdvertisement advertisement = new ChaletAdvertisement(new Description("AnyText"), 100, 200);
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), 100, 200);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(40, fullAdScorer.score(advertisement));
     }

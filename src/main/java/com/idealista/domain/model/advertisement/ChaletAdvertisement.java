@@ -6,21 +6,23 @@ public class ChaletAdvertisement extends HouseAdvertisement {
 
     private Integer gardenSize;
 
-    public ChaletAdvertisement() {
-        super(CHALET);
+    public ChaletAdvertisement(Integer id) {
+        super(id, CHALET);
     }
 
-    public ChaletAdvertisement(Description description) {
-        super(CHALET, description);
+    public ChaletAdvertisement(Integer id, Description description) {
+        super(id, CHALET, description);
     }
 
-    public ChaletAdvertisement(Description description, Integer houseSize) {
-        super(CHALET, description);
+    public ChaletAdvertisement(Integer id,
+                               Description description,
+                               Integer houseSize) {
+        super(id, CHALET, description);
         this.houseSize = houseSize;
     }
 
-    public ChaletAdvertisement(Description description, Integer houseSize, Integer gardenSize) {
-        super(CHALET, description, houseSize);
+    public ChaletAdvertisement(Integer id, Description description, Integer houseSize, Integer gardenSize) {
+        super(id, CHALET, description, houseSize);
         this.gardenSize = gardenSize;
     }
 

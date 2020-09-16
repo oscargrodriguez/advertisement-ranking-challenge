@@ -11,6 +11,6 @@ import java.util.List;
 public class FlatConverter implements AdConverter {
     @Override
     public Advertisement convert(AdVO adVo, List<PictureVO> standardPictures, List<PictureVO> hdPictures) {
-        return new FlatAdvertisement(new Description(adVo.getDescription()), adVo.getHouseSize());
+        return new FlatAdvertisement(adVo.getId(), new Description(adVo.getDescription()), adVo.getHouseSize());
     }
 }
