@@ -2,6 +2,7 @@ package com.idealista.infrastructure.persistence;
 
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class AdVO {
 
@@ -101,6 +102,14 @@ public class AdVO {
 
     public boolean isChalet() {
         return isTypology("CHALET");
+    }
+
+    public Predicate<PictureVO> pictureContained() {
+        return pictureVO -> pictures.contains(pictureVO.getId());
+    }
+
+    public Predicate<PictureVO> hasPhotoQuality(String quality) {
+        return it -> it.getQuality().equals(quality);
     }
 
     private boolean isTypology(String otherTypology)

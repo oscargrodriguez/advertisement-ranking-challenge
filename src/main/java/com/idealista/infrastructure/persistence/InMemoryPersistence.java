@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Repository
@@ -59,19 +58,11 @@ public class InMemoryPersistence implements AdvertisementRepository {
 
     private List<PictureVO> findPictures(AdVO adVO, String quality) {
         return pictures.stream()
-                .filter(isPictureContained(adVO).and(hasQuality(quality)))
+                .filter(adVO.pictureContained().and(adVO.hasPhotoQuality(quality)))
                 .collect(Collectors.toList());
-    }
-
-    private Predicate<PictureVO> isPictureContained(AdVO adVO) {
-        return pictureVO -> adVO.getPictures().contains(pictureVO.getId());
     }
 
     private Optional<AdVO> findById(int id) {
         return ads.stream().filter(it -> it.getId() == id).findFirst();
-    }
-
-    private Predicate<PictureVO> hasQuality(String quality) {
-        return it -> it.getQuality().equals(quality);
     }
 }
