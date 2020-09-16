@@ -54,7 +54,7 @@ class FullAdvertisementScorerTest {
 
     @Test
     void flatWithEmptyPhotos() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"));
+        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), null);
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
@@ -66,7 +66,7 @@ class FullAdvertisementScorerTest {
 
     @Test
     void flatWithEmptyHouseSize() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"));
+        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), null);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }

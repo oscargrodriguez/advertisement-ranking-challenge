@@ -6,7 +6,9 @@ import com.idealista.domain.model.ports.secondary.AdvertisementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CalculateScoreUseCase {
@@ -19,5 +21,16 @@ public class CalculateScoreUseCase {
         List<Advertisement> advertisements = inMemoryPersistence.findAll();
         advertisements.forEach(ad -> inMemoryPersistence.updateScore(ad.getId(), advertisementScorer.score(ad)));
         return inMemoryPersistence.findAll();
+    }
+
+    public List<Advertisement> getAllPublicAdsOrderedByRankingDesc() {
+        return scoreAll().stream().filter(it -> it.getScore() > 40)
+                .sorted(Comparator.comparingInt(Advertisement::getScore).reversed())
+                .collect(Collectors.toList());
+    }
+
+    public List<Advertisement> getAllIrrelevantAds() {
+        return scoreAll().stream().filter(it -> it.getScore() <= 40)
+                .collect(Collectors.toList());
     }
 }
