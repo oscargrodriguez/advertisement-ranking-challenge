@@ -14,9 +14,7 @@ public class AdvertisementConverter {
     AdConverterFactory adConverterFactory;
 
     public Optional<Advertisement> convert(AdVO adVo, List<PictureVO> standardPictures, List<PictureVO> hdPictures) {
-        return adConverterFactory.getConverter(adVo)
-                .map(converter -> Optional.of(getAdvertisement(adVo, standardPictures, hdPictures, converter)))
-                .orElse(Optional.empty());
+        return adConverterFactory.getConverter(adVo).map(converter -> getAdvertisement(adVo, standardPictures, hdPictures, converter));
     }
 
     private Advertisement getAdvertisement(AdVO adVo, List<PictureVO> standardPictures, List<PictureVO> hdPictures, AdConverter adConverter) {
