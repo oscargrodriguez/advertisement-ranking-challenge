@@ -55,11 +55,12 @@ public class InMemoryPersistence implements AdvertisementRepository {
 
     @Override
     public void updateIrrelevantDate(int advertisementId, int irrelevantThreshold) {
-        Optional<AdVO> adVo = findById(advertisementId);
-        if (adVo.isPresent()) {
-            if (adVo.get().getScore() < irrelevantThreshold) {
-                adVo.get().setIrrelevantSince(new Date());
-            }
+        findById(advertisementId).ifPresent(adVo -> updateIrrelevantDate(irrelevantThreshold, adVo));
+    }
+
+    private void updateIrrelevantDate(int irrelevantThreshold, AdVO adVo) {
+        if (adVo.getScore() < irrelevantThreshold) {
+            adVo.setIrrelevantSince(new Date());
         }
     }
 
