@@ -4,17 +4,21 @@ import com.idealista.domain.model.advertisement.HighDefinitionPhoto;
 import com.idealista.domain.model.advertisement.Photo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PhotoScorerTest {
 
+    private static final int EMPTY_PENALTY = -10;
+
     private PhotoScorer photoScorer;
 
     @BeforeEach
     void setUp() {
         photoScorer = new PhotoScorer();
+        ReflectionTestUtils.setField(photoScorer, "emptyPenalty", EMPTY_PENALTY);
     }
 
     @Test

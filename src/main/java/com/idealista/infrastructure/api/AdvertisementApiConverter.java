@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 public class AdvertisementApiConverter {
     public QualityAd convertToQualityAd(Advertisement advertisement) {
         return new QualityAd(advertisement.getId(),
-                advertisement.getTypology().name(),
-                advertisement.getDescription().getText(),
+                advertisement.getTypologyName(),
+                advertisement.getDescriptionText(),
                 advertisement.getPhotoUrls(),
                 advertisement.getHouseSize(),
                 advertisement.getGardenSize(),
@@ -18,8 +18,8 @@ public class AdvertisementApiConverter {
 
     public PublicAd convertToPublicAd(Advertisement advertisement) {
         return new PublicAd(advertisement.getId(),
-                advertisement.getTypology().name(),
-                advertisement.getDescription().getText(),
+                advertisement.getTypologyName(),
+                advertisement.getDescriptionText(),
                 advertisement.getPhotoUrls(),
                 advertisement.getHouseSize(),
                 advertisement.getScore());

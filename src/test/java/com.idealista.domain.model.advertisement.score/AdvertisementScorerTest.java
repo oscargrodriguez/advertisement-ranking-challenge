@@ -23,8 +23,8 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AdvertisementScorerTest {
-    public static final int MAX_SCORE = 100;
-    public static final int MIN_SCORE = 0;
+    private static final int MAX_SCORE = 100;
+    private static final int MIN_SCORE = 0;
     @Mock
     private PhotoScorer photoScorer;
     @Mock

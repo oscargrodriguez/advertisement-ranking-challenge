@@ -11,8 +11,9 @@ import java.util.stream.Collectors;
 @Repository
 public class InMemoryPersistence implements AdvertisementRepository {
 
-    public static final String STANDARD_QUALITY = "SD";
-    public static final String HIGH_DEFINITION_QUALITY = "HD";
+    private static final String STANDARD_QUALITY = "SD";
+    private static final String HIGH_DEFINITION_QUALITY = "HD";
+    private static final int IRRELEVANT_THRESHOLD = 40;
     private List<AdVO> ads;
     private List<PictureVO> pictures;
 
@@ -53,8 +54,7 @@ public class InMemoryPersistence implements AdvertisementRepository {
         Optional<AdVO> adVo = findById(advertisementId);
         if (adVo.isPresent()) {
             adVo.get().setScore(score);
-            if (score<40)
-            {
+            if (score < IRRELEVANT_THRESHOLD) {
                 adVo.get().setIrrelevantSince(new Date());
             }
         }
@@ -62,7 +62,8 @@ public class InMemoryPersistence implements AdvertisementRepository {
 
     @Override
     public Optional<Advertisement> find(Integer advertisementId) {
-        return findById(advertisementId).map(ad -> Optional.of(advertisementConverter.convert(ad, findStandardPictures(ad), findHdPictures(ad))))
+        return findById(advertisementId)
+                .map(ad -> Optional.of(advertisementConverter.convert(ad, findStandardPictures(ad), findHdPictures(ad))))
                 .orElse(Optional.empty());
 
     }

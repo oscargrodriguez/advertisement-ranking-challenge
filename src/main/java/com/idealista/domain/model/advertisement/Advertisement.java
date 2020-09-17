@@ -81,6 +81,10 @@ public abstract class Advertisement {
         return typology;
     }
 
+    public String getTypologyName() {
+        return typology.name();
+    }
+
     public boolean hasDescription() {
         return !description.isEmpty();
     }
@@ -99,6 +103,11 @@ public abstract class Advertisement {
 
     public void setIrrelevantSince(Date irrelevantSince) {
         this.irrelevantSince = irrelevantSince;
+    }
+
+    public String getDescriptionText()
+    {
+        return description.getText();
     }
 
     private void addPhotos(List<String> uris, Function<String, Photo> fn) {
