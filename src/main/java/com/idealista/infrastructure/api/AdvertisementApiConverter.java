@@ -22,6 +22,6 @@ public class AdvertisementApiConverter {
                 advertisement.getDescriptionText(),
                 advertisement.getPhotoUrls(),
                 advertisement.getHouseSize(),
-                advertisement.getScore());
+                advertisement.getGardenSize());
     }
 }
