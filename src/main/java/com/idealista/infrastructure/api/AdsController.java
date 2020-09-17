@@ -35,7 +35,7 @@ public class AdsController {
     }
 
     @PutMapping("/ads/score-all")
-    public ResponseEntity<List<QualityAd>> calculateScore() {
+    public ResponseEntity<List<QualityAd>> calculateScores() {
         List<QualityAd> qualityAds = new ArrayList<>();
         calculateScoreUseCase.scoreAll().forEach(it -> qualityAds.add(adConverter.convertToQualityAd(it)));
         return ResponseEntity.ok(qualityAds);
