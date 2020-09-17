@@ -50,10 +50,7 @@ public class InMemoryPersistence implements AdvertisementRepository {
 
     @Override
     public void updateScore(int advertisementId, Integer score) {
-        Optional<AdVO> adVo = findById(advertisementId);
-        if (adVo.isPresent()) {
-            adVo.get().setScore(score);
-        }
+        findById(advertisementId).ifPresent(it -> it.setScore(score));
     }
 
     @Override
