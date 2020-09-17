@@ -23,14 +23,14 @@ public class AdsController {
     @GetMapping("/ads/irrelevant")
     public ResponseEntity<List<QualityAd>> qualityListing() {
         List<QualityAd> qualityAds = new ArrayList<>();
-        calculateScoreUseCase.getAllIrrelevantAds().forEach(it -> qualityAds.add(adConverter.convertToQualityAd(it)));
+        calculateScoreUseCase.getIrrelevantAds().forEach(it -> qualityAds.add(adConverter.convertToQualityAd(it)));
         return ResponseEntity.ok(qualityAds);
     }
 
     @GetMapping("/ads/public")
     public ResponseEntity<List<PublicAd>> publicListing() {
         List<PublicAd> publicAds = new ArrayList<>();
-        calculateScoreUseCase.getAllPublicAdsOrderedByScoreDesc().forEach(it -> publicAds.add(adConverter.convertToPublicAd(it)));
+        calculateScoreUseCase.getPublicAdsOrderedByScoreDesc().forEach(it -> publicAds.add(adConverter.convertToPublicAd(it)));
         return ResponseEntity.ok(publicAds);
     }
 

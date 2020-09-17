@@ -38,13 +38,13 @@ public class CalculateScoreUseCase {
         inMemoryPersistence.updateIrrelevantDate(advertisement.getId(), 40);
     }
 
-    public List<Advertisement> getAllPublicAdsOrderedByScoreDesc() {
+    public List<Advertisement> getPublicAdsOrderedByScoreDesc() {
         return scoreAll().stream().filter(it -> it.getScore() > 40)
                 .sorted(Comparator.comparingInt(Advertisement::getScore).reversed())
                 .collect(Collectors.toList());
     }
 
-    public List<Advertisement> getAllIrrelevantAds() {
+    public List<Advertisement> getIrrelevantAds() {
         return scoreAll().stream().filter(it -> it.getScore() <= 40)
                 .collect(Collectors.toList());
     }
