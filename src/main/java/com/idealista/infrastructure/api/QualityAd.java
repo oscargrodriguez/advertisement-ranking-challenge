@@ -3,7 +3,7 @@ package com.idealista.infrastructure.api;
 import java.util.Date;
 import java.util.List;
 
-public class QualityAd {
+public class QualityAd extends PublicAd {
 
     private Integer id;
     private String typology;
@@ -22,38 +22,9 @@ public class QualityAd {
                      Integer gardenSize,
                      Integer score,
                      Date irrelevantSince) {
-        this.id = id;
-        this.typology = typology;
-        this.description = description;
-        this.pictureUrls = pictureUrls;
-        this.houseSize = houseSize;
-        this.gardenSize = gardenSize;
+        super(id, typology, description, pictureUrls, houseSize, gardenSize);
         this.score = score;
         this.irrelevantSince = irrelevantSince;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getTypology() {
-        return typology;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public List<String> getPictureUrls() {
-        return pictureUrls;
-    }
-
-    public Integer getHouseSize() {
-        return houseSize;
-    }
-
-    public Integer getGardenSize() {
-        return gardenSize;
     }
 
     public Integer getScore() {
