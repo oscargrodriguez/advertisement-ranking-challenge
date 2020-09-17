@@ -43,8 +43,7 @@ class AdvertisementScorerTest {
 
     @Test
     void score() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), null);
-        advertisement.addPhotos(asList("AnyUri"), asList("AnyHdUri"));
+        FlatAdvertisement advertisement = new FlatAdvertisement(1, null, null);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(10);
         when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(10);
         when(fullAdvertisementScorer.score(advertisement)).thenReturn(10);
@@ -54,7 +53,7 @@ class AdvertisementScorerTest {
 
     @Test
     void emptyAdvertisement() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description(""), null);
+        FlatAdvertisement advertisement = new FlatAdvertisement(1, null, null);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(-10);
         when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(MIN_SCORE);
         when(fullAdvertisementScorer.score(advertisement)).thenReturn(MIN_SCORE);
@@ -63,11 +62,10 @@ class AdvertisementScorerTest {
     }
 
     @Test
-    void maximalScore() {
-        Typology typology = FLAT;
-        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), null);
+    void when_score_over_maximal_should_return_maximal_score() {
+        FlatAdvertisement advertisement = new FlatAdvertisement(1, null, null);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(60);
-        when(descriptionScorer.score(typology, advertisement.getDescription())).thenReturn(60);
+        when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(60);
         when(fullAdvertisementScorer.score(advertisement)).thenReturn(40);
 
         verifyScore(MAX_SCORE, advertisementScorer.score(advertisement));
