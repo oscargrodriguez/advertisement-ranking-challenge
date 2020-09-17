@@ -23,6 +23,8 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AdvertisementScorerTest {
+    public static final int MAX_SCORE = 100;
+    public static final int MIN_SCORE = 0;
     @Mock
     private PhotoScorer photoScorer;
     @Mock
@@ -34,8 +36,8 @@ class AdvertisementScorerTest {
 
     @BeforeEach
     public void setUp() {
-        ReflectionTestUtils.setField(advertisementScorer, "maxValue", 100);
-        ReflectionTestUtils.setField(advertisementScorer, "minValue", 0);
+        ReflectionTestUtils.setField(advertisementScorer, "maxValue", MAX_SCORE);
+        ReflectionTestUtils.setField(advertisementScorer, "minValue", MIN_SCORE);
     }
 
 
@@ -54,10 +56,10 @@ class AdvertisementScorerTest {
     void emptyAdvertisement() {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description(""), null);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(-10);
-        when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(0);
-        when(fullAdvertisementScorer.score(advertisement)).thenReturn(0);
+        when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(MIN_SCORE);
+        when(fullAdvertisementScorer.score(advertisement)).thenReturn(MIN_SCORE);
 
-        verifyScore(0, advertisementScorer.score(advertisement));
+        verifyScore(MIN_SCORE, advertisementScorer.score(advertisement));
     }
 
     @Test
@@ -68,7 +70,7 @@ class AdvertisementScorerTest {
         when(descriptionScorer.score(typology, advertisement.getDescription())).thenReturn(60);
         when(fullAdvertisementScorer.score(advertisement)).thenReturn(40);
 
-        verifyScore(100, advertisementScorer.score(advertisement));
+        verifyScore(MAX_SCORE, advertisementScorer.score(advertisement));
     }
 
     private void verifyScore(int expectedScore, int score) {
