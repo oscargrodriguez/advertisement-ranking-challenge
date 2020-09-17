@@ -30,7 +30,7 @@ public class AdsController {
     @GetMapping("/ads/public")
     public ResponseEntity<List<PublicAd>> publicListing() {
         List<PublicAd> publicAds = new ArrayList<>();
-        calculateScoreUseCase.getAllPublicAdsOrderedByRankingDesc().forEach(it -> publicAds.add(adConverter.convertToPublicAd(it)));
+        calculateScoreUseCase.getAllPublicAdsOrderedByScoreDesc().forEach(it -> publicAds.add(adConverter.convertToPublicAd(it)));
         return ResponseEntity.ok(publicAds);
     }
 

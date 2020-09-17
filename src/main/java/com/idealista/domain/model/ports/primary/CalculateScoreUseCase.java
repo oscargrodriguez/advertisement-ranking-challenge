@@ -38,7 +38,7 @@ public class CalculateScoreUseCase {
         inMemoryPersistence.updateIrrelevantDate(advertisement.getId(), 40);
     }
 
-    public List<Advertisement> getAllPublicAdsOrderedByRankingDesc() {
+    public List<Advertisement> getAllPublicAdsOrderedByScoreDesc() {
         return scoreAll().stream().filter(it -> it.getScore() > 40)
                 .sorted(Comparator.comparingInt(Advertisement::getScore).reversed())
                 .collect(Collectors.toList());
