@@ -1,4 +1,4 @@
-package com.idealista.domain.model.advertisement.score;
+package com.idealista.domain.model.advertisement.score.photo;
 
 import com.idealista.domain.model.advertisement.Photo;
 import org.springframework.beans.factory.annotation.Value;

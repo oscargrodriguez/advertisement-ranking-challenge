@@ -1,7 +1,8 @@
-package com.idealista.domain.model.advertisement.score;
+package com.idealista.domain.model.advertisement.score.photo;
 
 import com.idealista.domain.model.advertisement.HighDefinitionPhoto;
 import com.idealista.domain.model.advertisement.Photo;
+import com.idealista.domain.model.advertisement.score.photo.PhotoScorer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;

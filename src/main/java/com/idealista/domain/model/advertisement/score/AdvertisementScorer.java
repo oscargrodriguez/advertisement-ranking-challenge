@@ -2,11 +2,10 @@ package com.idealista.domain.model.advertisement.score;
 
 import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.score.description.DescriptionScorer;
+import com.idealista.domain.model.advertisement.score.photo.PhotoScorer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.util.function.Function;
 
 @Component
 public class AdvertisementScorer {
