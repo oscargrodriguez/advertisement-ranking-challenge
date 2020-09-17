@@ -35,12 +35,4 @@ public class AdvertisementScorer {
         else if (score > maxValue) score = maxValue;
         return score;
     }
-
-    protected void setMaxValue(int maxValue) {
-        this.maxValue = maxValue;
-    }
-
-    protected void setMinValue(int minValue) {
-        this.minValue = minValue;
-    }
 }

@@ -34,8 +34,8 @@ class AdvertisementScorerTest {
 
     @BeforeEach
     public void setUp() {
-        advertisementScorer.setMaxValue(100);
-        advertisementScorer.setMinValue(0);
+        ReflectionTestUtils.setField(advertisementScorer, "maxValue", 100);
+        ReflectionTestUtils.setField(advertisementScorer, "minValue", 0);
     }
 
 
