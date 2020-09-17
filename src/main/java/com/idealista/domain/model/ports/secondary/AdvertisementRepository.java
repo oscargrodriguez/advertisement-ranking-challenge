@@ -10,5 +10,7 @@ public interface AdvertisementRepository {
 
     void updateScore(int advertisementId, Integer score);
 
+    void updateIrrelevantDate(int advertisementId);
+
     Optional<Advertisement> find(Integer advertisementId);
 }

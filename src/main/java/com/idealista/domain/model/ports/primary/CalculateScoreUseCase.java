@@ -20,7 +20,7 @@ public class CalculateScoreUseCase {
 
     public List<Advertisement> scoreAll() {
         List<Advertisement> advertisements = inMemoryPersistence.findAll();
-        advertisements.forEach(ad -> inMemoryPersistence.updateScore(ad.getId(), advertisementScorer.score(ad)));
+        advertisements.forEach(ad -> updateScore(ad));
         return inMemoryPersistence.findAll();
     }
 
@@ -29,8 +29,13 @@ public class CalculateScoreUseCase {
         if (!advertisement.isPresent()) {
             return Optional.empty();
         }
-        inMemoryPersistence.updateScore(advertisement.get().getId(), advertisementScorer.score(advertisement.get()));
+        updateScore(advertisement.get());
         return inMemoryPersistence.find(id);
+    }
+
+    private void updateScore(Advertisement advertisement) {
+        inMemoryPersistence.updateScore(advertisement.getId(), advertisementScorer.score(advertisement));
+        inMemoryPersistence.updateIrrelevantDate(advertisement.getId());
     }
 
     public List<Advertisement> getAllPublicAdsOrderedByRankingDesc() {
