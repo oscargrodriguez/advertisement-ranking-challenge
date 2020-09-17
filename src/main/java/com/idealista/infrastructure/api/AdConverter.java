@@ -4,7 +4,7 @@ import com.idealista.domain.model.advertisement.Advertisement;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AdvertisementApiConverter {
+public class AdConverter {
     public QualityAd convertToQualityAd(Advertisement advertisement) {
         return new QualityAd(advertisement.getId(),
                 advertisement.getTypologyName(),

@@ -18,33 +18,33 @@ public class AdsController {
     @Autowired
     private CalculateScoreUseCase calculateScoreUseCase;
     @Autowired
-    private AdvertisementApiConverter advertisementApiConverter;
+    private AdConverter adConverter;
 
     @GetMapping("/ads/irrelevant")
     public ResponseEntity<List<QualityAd>> qualityListing() {
         List<QualityAd> qualityAds = new ArrayList<>();
-        calculateScoreUseCase.getAllIrrelevantAds().forEach(it -> qualityAds.add(advertisementApiConverter.convertToQualityAd(it)));
+        calculateScoreUseCase.getAllIrrelevantAds().forEach(it -> qualityAds.add(adConverter.convertToQualityAd(it)));
         return ResponseEntity.ok(qualityAds);
     }
 
     @GetMapping("/ads/public")
     public ResponseEntity<List<PublicAd>> publicListing() {
         List<PublicAd> publicAds = new ArrayList<>();
-        calculateScoreUseCase.getAllPublicAdsOrderedByRankingDesc().forEach(it -> publicAds.add(advertisementApiConverter.convertToPublicAd(it)));
+        calculateScoreUseCase.getAllPublicAdsOrderedByRankingDesc().forEach(it -> publicAds.add(adConverter.convertToPublicAd(it)));
         return ResponseEntity.ok(publicAds);
     }
 
     @PutMapping("/ads/score-all")
     public ResponseEntity<List<QualityAd>> calculateScore() {
         List<QualityAd> qualityAds = new ArrayList<>();
-        calculateScoreUseCase.scoreAll().forEach(it -> qualityAds.add(advertisementApiConverter.convertToQualityAd(it)));
+        calculateScoreUseCase.scoreAll().forEach(it -> qualityAds.add(adConverter.convertToQualityAd(it)));
         return ResponseEntity.ok(qualityAds);
     }
 
     @PutMapping("/ads/score/{id}")
     public ResponseEntity<QualityAd> calculateScore(@PathVariable int id) {
         return calculateScoreUseCase.score(id).
-                map(it-> advertisementApiConverter.convertToQualityAd(it)).
+                map(it-> adConverter.convertToQualityAd(it)).
                 map(it -> ResponseEntity.ok(it)).
                 orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
