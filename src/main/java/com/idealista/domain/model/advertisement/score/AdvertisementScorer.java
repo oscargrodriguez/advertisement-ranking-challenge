@@ -3,6 +3,7 @@ package com.idealista.domain.model.advertisement.score;
 import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.score.description.DescriptionScorer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,9 +15,10 @@ public class AdvertisementScorer {
     @Autowired
     private FullAdvertisementScorer fullAdvertisementScorer;
 
-    private static final int MINIMAL_SCORE = 0;
-    private static final int MAXIMAL_SCORE = 100;
-
+    @Value("${score.max}")
+    private int maxValue;
+    @Value("${score.min}")
+    private int minValue;
 
     public int score(Advertisement advertisement) {
         return checkLimits(getScore(advertisement));
@@ -29,8 +31,16 @@ public class AdvertisementScorer {
     }
 
     private int checkLimits(Integer score) {
-        if (score < MINIMAL_SCORE) score = MINIMAL_SCORE;
-        else if (score > MAXIMAL_SCORE) score = MAXIMAL_SCORE;
+        if (score < minValue) score = minValue;
+        else if (score > maxValue) score = maxValue;
         return score;
+    }
+
+    protected void setMaxValue(int maxValue) {
+        this.maxValue = maxValue;
+    }
+
+    protected void setMinValue(int minValue) {
+        this.minValue = minValue;
     }
 }

@@ -4,11 +4,17 @@ import com.idealista.domain.model.advertisement.Description;
 import com.idealista.domain.model.advertisement.FlatAdvertisement;
 import com.idealista.domain.model.advertisement.Typology;
 import com.idealista.domain.model.advertisement.score.description.DescriptionScorer;
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static com.idealista.domain.model.advertisement.Typology.FLAT;
 import static java.util.Arrays.asList;
@@ -25,6 +31,13 @@ class AdvertisementScorerTest {
     private FullAdvertisementScorer fullAdvertisementScorer;
     @InjectMocks
     private AdvertisementScorer advertisementScorer;
+
+    @BeforeEach
+    public void setUp() {
+        advertisementScorer.setMaxValue(100);
+        advertisementScorer.setMinValue(0);
+    }
+
 
     @Test
     void score() {
