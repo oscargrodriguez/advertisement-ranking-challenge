@@ -20,7 +20,7 @@ public class InMemoryPersistence implements AdvertisementRepository {
     private AdvertisementConverter advertisementConverter;
 
     public InMemoryPersistence() {
-        ads = new ArrayList<AdVO>();
+        ads = new ArrayList<>();
         ads.add(new AdVO(1, "CHALET", "Este piso es una ganga, compra, compra, COMPRA!!!!!", Collections.<Integer>emptyList(), 300, null, null, null));
         ads.add(new AdVO(2, "FLAT", "Nuevo ático céntrico recién reformado. No deje pasar la oportunidad y adquiera este ático de lujo", Arrays.asList(4), 300, null, null, null));
         ads.add(new AdVO(3, "CHALET", "", Arrays.asList(2), 300, null, null, null));
@@ -30,7 +30,7 @@ public class InMemoryPersistence implements AdvertisementRepository {
         ads.add(new AdVO(7, "GARAGE", "Garaje en el centro de Albacete", Collections.<Integer>emptyList(), 300, null, null, null));
         ads.add(new AdVO(8, "CHALET", "Maravilloso chalet situado en lAs afueras de un pequeño pueblo rural. El entorno es espectacular, las vistas magníficas. ¡Cómprelo ahora!", Arrays.asList(1, 7), 300, null, null, null));
 
-        pictures = new ArrayList<PictureVO>();
+        pictures = new ArrayList<>();
         pictures.add(new PictureVO(1, "http://www.idealista.com/pictures/1", STANDARD_QUALITY));
         pictures.add(new PictureVO(2, "http://www.idealista.com/pictures/2", HIGH_DEFINITION_QUALITY));
         pictures.add(new PictureVO(3, "http://www.idealista.com/pictures/3", STANDARD_QUALITY));
@@ -55,13 +55,11 @@ public class InMemoryPersistence implements AdvertisementRepository {
 
     @Override
     public void updateIrrelevantDate(int advertisementId, int irrelevantThreshold) {
-        findById(advertisementId).ifPresent(adVo -> updateIrrelevantDate(irrelevantThreshold, adVo));
-    }
-
-    private void updateIrrelevantDate(int irrelevantThreshold, AdVO adVo) {
-        if (adVo.getScore() < irrelevantThreshold) {
-            adVo.setIrrelevantSince(new Date());
-        }
+        findById(advertisementId).ifPresent(adVo -> {
+            if (adVo.getScore() < irrelevantThreshold) {
+                adVo.setIrrelevantSince(new Date());
+            }
+        });
     }
 
     @Override
