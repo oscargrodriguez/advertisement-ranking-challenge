@@ -1,9 +1,10 @@
 package com.idealista.domain.model.ports.primary;
 
 import com.idealista.domain.model.advertisement.Advertisement;
-import com.idealista.domain.score.AdvertisementScorer;
 import com.idealista.domain.model.ports.secondary.AdvertisementRepository;
+import com.idealista.domain.score.AdvertisementScorer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
@@ -17,6 +18,8 @@ public class CalculateScoreUseCase {
     private AdvertisementRepository inMemoryPersistence;
     @Autowired
     private AdvertisementScorer advertisementScorer;
+    @Value("${score.irrelevant_threshold}")
+    private int irrelevantThreashold;
 
     public List<Advertisement> scoreAll() {
         List<Advertisement> advertisements = inMemoryPersistence.findAll();
@@ -35,17 +38,17 @@ public class CalculateScoreUseCase {
 
     private void updateScore(Advertisement advertisement) {
         inMemoryPersistence.updateScore(advertisement.getId(), advertisementScorer.score(advertisement));
-        inMemoryPersistence.updateIrrelevantDate(advertisement.getId(), 40);
+        inMemoryPersistence.updateIrrelevantDate(advertisement.getId(), irrelevantThreashold);
     }
 
     public List<Advertisement> getPublicAdsOrderedByScoreDesc() {
-        return scoreAll().stream().filter(it -> it.getScore() > 40)
+        return scoreAll().stream().filter(it -> it.getScore() > irrelevantThreashold)
                 .sorted(Comparator.comparingInt(Advertisement::getScore).reversed())
                 .collect(Collectors.toList());
     }
 
     public List<Advertisement> getIrrelevantAds() {
-        return scoreAll().stream().filter(it -> it.getScore() <= 40)
+        return scoreAll().stream().filter(it -> it.getScore() <= irrelevantThreashold)
                 .collect(Collectors.toList());
     }
 }

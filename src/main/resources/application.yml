@@ -3,3 +3,4 @@ score:
   min: 0
   photo:
     empty_penalty: -10
+  irrelevant_threshold: 40
