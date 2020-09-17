@@ -3,4 +3,7 @@ score:
   min: 0
   photo:
     empty_penalty: -10
+    quality:
+      high_definition: 20
+      standard: 10
   irrelevant_threshold: 40
