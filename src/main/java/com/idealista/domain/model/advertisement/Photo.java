@@ -4,15 +4,15 @@ public class Photo {
 
     private String uri;
 
-    private String quality;
+    private PhotoQuality quality;
 
-    public Photo(String uri, String quality) {
+    public Photo(String uri, PhotoQuality quality) {
         this.uri = uri;
         this.quality = quality;
     }
 
     public boolean isHighDefinition() {
-        return "HD".equals(quality);
+        return PhotoQuality.HIGH_DEFINITION.equals(quality);
     }
 
     public String getUri() {

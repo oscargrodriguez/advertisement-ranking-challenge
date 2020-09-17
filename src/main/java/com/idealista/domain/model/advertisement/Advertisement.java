@@ -3,8 +3,10 @@ package com.idealista.domain.model.advertisement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static com.idealista.domain.model.advertisement.PhotoQuality.HIGH_DEFINITION;
+import static com.idealista.domain.model.advertisement.PhotoQuality.STANDARD;
 
 public abstract class Advertisement {
 
@@ -46,11 +48,11 @@ public abstract class Advertisement {
     }
 
     public void addStandardPhotos(List<String> uris) {
-        addPhotos(uris, "SD");
+        addPhotos(uris, STANDARD);
     }
 
     public void addHighDefinitionPhotos(List<String> uris) {
-        addPhotos(uris, "HD");
+        addPhotos(uris, HIGH_DEFINITION);
     }
 
     public void setScore(Integer score) {
@@ -105,12 +107,11 @@ public abstract class Advertisement {
         this.irrelevantSince = irrelevantSince;
     }
 
-    public String getDescriptionText()
-    {
+    public String getDescriptionText() {
         return description.getText();
     }
 
-    private void addPhotos(List<String> uris, String quality) {
+    private void addPhotos(List<String> uris, PhotoQuality quality) {
         uris.stream().forEach(uri -> photoList.add(new Photo(uri, quality)));
     }
 }
