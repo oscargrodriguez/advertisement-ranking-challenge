@@ -35,7 +35,7 @@ public class CalculateScoreUseCase {
 
     private void updateScore(Advertisement advertisement) {
         inMemoryPersistence.updateScore(advertisement.getId(), advertisementScorer.score(advertisement));
-        inMemoryPersistence.updateIrrelevantDate(advertisement.getId());
+        inMemoryPersistence.updateIrrelevantDate(advertisement.getId(), 40);
     }
 
     public List<Advertisement> getAllPublicAdsOrderedByRankingDesc() {

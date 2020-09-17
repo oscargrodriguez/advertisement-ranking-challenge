@@ -13,7 +13,6 @@ public class InMemoryPersistence implements AdvertisementRepository {
 
     private static final String STANDARD_QUALITY = "SD";
     private static final String HIGH_DEFINITION_QUALITY = "HD";
-    private static final int IRRELEVANT_THRESHOLD = 40;
     private List<AdVO> ads;
     private List<PictureVO> pictures;
 
@@ -58,10 +57,10 @@ public class InMemoryPersistence implements AdvertisementRepository {
     }
 
     @Override
-    public void updateIrrelevantDate(int advertisementId) {
+    public void updateIrrelevantDate(int advertisementId, int irrelevantThreshold) {
         Optional<AdVO> adVo = findById(advertisementId);
         if (adVo.isPresent()) {
-            if (adVo.get().getScore() < IRRELEVANT_THRESHOLD) {
+            if (adVo.get().getScore() < irrelevantThreshold) {
                 adVo.get().setIrrelevantSince(new Date());
             }
         }
