@@ -1,7 +1,7 @@
 package com.idealista.domain.model.ports.primary;
 
 import com.idealista.domain.model.advertisement.Advertisement;
-import com.idealista.domain.model.advertisement.score.AdvertisementScorer;
+import com.idealista.domain.score.AdvertisementScorer;
 import com.idealista.domain.model.ports.secondary.AdvertisementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

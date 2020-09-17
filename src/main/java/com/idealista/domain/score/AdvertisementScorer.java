@@ -1,8 +1,8 @@
-package com.idealista.domain.model.advertisement.score;
+package com.idealista.domain.score;
 
 import com.idealista.domain.model.advertisement.Advertisement;
-import com.idealista.domain.model.advertisement.score.description.DescriptionScorer;
-import com.idealista.domain.model.advertisement.score.photo.PhotoScorer;
+import com.idealista.domain.score.description.DescriptionScorer;
+import com.idealista.domain.score.photo.PhotoScorer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

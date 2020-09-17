@@ -1,6 +1,6 @@
-package com.idealista.domain.model.advertisement.score.photo;
+package com.idealista.domain.score.photo;
 
-import com.idealista.domain.model.advertisement.Photo;
+import com.idealista.domain.model.advertisement.photo.Photo;
 import org.springframework.stereotype.Component;
 
 @Component

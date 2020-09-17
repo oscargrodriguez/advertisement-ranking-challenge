@@ -1,4 +1,4 @@
-package com.idealista.domain.model.advertisement.score.description;
+package com.idealista.domain.score.description;
 
 import com.idealista.domain.model.advertisement.Description;
 import org.springframework.stereotype.Component;

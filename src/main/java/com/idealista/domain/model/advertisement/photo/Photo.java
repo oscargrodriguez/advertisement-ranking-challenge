@@ -1,4 +1,4 @@
-package com.idealista.domain.model.advertisement;
+package com.idealista.domain.model.advertisement.photo;
 
 public class Photo {
 

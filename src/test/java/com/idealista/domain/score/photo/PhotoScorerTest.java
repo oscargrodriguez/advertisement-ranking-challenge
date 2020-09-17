@@ -1,17 +1,15 @@
-package com.idealista.domain.model.advertisement.score.photo;
+package com.idealista.domain.score.photo;
 
-import com.idealista.domain.model.advertisement.Photo;
-import com.idealista.domain.model.advertisement.PhotoQuality;
+import com.idealista.domain.model.advertisement.photo.Photo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.matchers.Any;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import static com.idealista.domain.model.advertisement.PhotoQuality.*;
+import static com.idealista.domain.model.advertisement.photo.PhotoQuality.*;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
