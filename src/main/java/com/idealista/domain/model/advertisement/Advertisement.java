@@ -46,11 +46,11 @@ public abstract class Advertisement {
     }
 
     public void addStandardPhotos(List<String> uris) {
-        addPhotos(uris, Photo::new);
+        addPhotos(uris, "SD");
     }
 
     public void addHighDefinitionPhotos(List<String> uris) {
-        addPhotos(uris, HighDefinitionPhoto::new);
+        addPhotos(uris, "HD");
     }
 
     public void setScore(Integer score) {
@@ -110,7 +110,7 @@ public abstract class Advertisement {
         return description.getText();
     }
 
-    private void addPhotos(List<String> uris, Function<String, Photo> fn) {
-        uris.stream().forEach(it -> photoList.add(fn.apply(it)));
+    private void addPhotos(List<String> uris, String quality) {
+        uris.stream().forEach(uri -> photoList.add(new Photo(uri, quality)));
     }
 }

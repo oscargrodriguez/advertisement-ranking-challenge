@@ -1,16 +1,18 @@
 package com.idealista.domain.model.advertisement;
 
 public class Photo {
-    private static final int SCORE = 10;
 
     private String uri;
 
-    public Photo(String uri) {
+    private String quality;
+
+    public Photo(String uri, String quality) {
         this.uri = uri;
+        this.quality = quality;
     }
 
-    public int score() {
-        return SCORE;
+    public boolean isHighDefinition() {
+        return "HD".equals(quality);
     }
 
     public String getUri() {
