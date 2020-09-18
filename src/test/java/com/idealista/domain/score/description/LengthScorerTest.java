@@ -23,10 +23,10 @@ class LengthScorerTest {
     @BeforeEach
     void setUp() {
         lengthScorer = new LengthScorer();
-        ReflectionTestUtils.setField(lengthScorer, "shortFlat", FLAT_SHORT_DESCRIPTION_SCORE);
-        ReflectionTestUtils.setField(lengthScorer, "mediumFlat", FLAT_MEDIUM_DESCRIPTION_SCORE);
-        ReflectionTestUtils.setField(lengthScorer, "largeFlat", FLAT_LARGE_DESCRIPTION_SCORE);
-        ReflectionTestUtils.setField(lengthScorer, "largeChalet", CHALET_LARGE_DESCRIPTION_SCORE);
+        ReflectionTestUtils.setField(lengthScorer, "flatShort", FLAT_SHORT_DESCRIPTION_SCORE);
+        ReflectionTestUtils.setField(lengthScorer, "flatMedium", FLAT_MEDIUM_DESCRIPTION_SCORE);
+        ReflectionTestUtils.setField(lengthScorer, "flatLarge", FLAT_LARGE_DESCRIPTION_SCORE);
+        ReflectionTestUtils.setField(lengthScorer, "chaletLarge", CHALET_LARGE_DESCRIPTION_SCORE);
     }
 
     @Test

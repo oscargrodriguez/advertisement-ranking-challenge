@@ -12,13 +12,13 @@ import static com.idealista.domain.model.advertisement.Typology.FLAT;
 public class LengthScorer {
 
     @Value("${score.description.length.flat.short}")
-    private int shortFlat;
+    private int flatShort;
     @Value("${score.description.length.flat.medium}")
-    private int mediumFlat;
+    private int flatMedium;
     @Value("${score.description.length.flat.large}")
-    private int largeFlat;
+    private int flatLarge;
     @Value("${score.description.length.chalet.large}")
-    private int largeChalet;
+    private int chaletLarge;
 
 
     public int score(Typology typology, Description description) {
@@ -32,15 +32,15 @@ public class LengthScorer {
     }
 
     private int chaletScore(Description description) {
-        return description.isLarge() ? largeChalet : 0;
+        return description.isLarge() ? chaletLarge : 0;
     }
 
     private int flatScore(Description description) {
-        Integer score = shortFlat;
+        Integer score = flatShort;
         if (description.isMedium()) {
-            score = mediumFlat;
+            score = flatMedium;
         } else if (description.isLarge()) {
-            score = largeFlat;
+            score = flatLarge;
         }
         return score;
     }
