@@ -12,10 +12,10 @@ public class PhotoScorer {
     @Value("${score.photo.empty_penalty}")
     private int emptyPenalty;
     @Autowired
-    private PhotoByQualityScorer photoByQualityScorer;
+    private QualityScorer qualityScorer;
 
     public int score(List<Photo> photoList) {
         return photoList.isEmpty() ? emptyPenalty :
-                photoList.stream().map(photo -> photoByQualityScorer.score(photo)).reduce(0, Integer::sum);
+                photoList.stream().map(photo -> qualityScorer.score(photo)).reduce(0, Integer::sum);
     }
 }

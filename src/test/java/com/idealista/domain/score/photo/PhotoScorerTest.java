@@ -23,7 +23,7 @@ class PhotoScorerTest {
     private static final int HD_SCORE = 20;
 
     @Mock
-    private PhotoByQualityScorer photoByQualityScorer;
+    private QualityScorer qualityScorer;
     @InjectMocks
     private PhotoScorer photoScorer;
 
@@ -35,14 +35,14 @@ class PhotoScorerTest {
     @Test
     void onePhoto() {
         Photo photo = new Photo("AnyUri", STANDARD);
-        when(photoByQualityScorer.score(photo)).thenReturn(STANDARD_SCORE);
+        when(qualityScorer.score(photo)).thenReturn(STANDARD_SCORE);
         verifyScore(10, photoScorer.score(asList(photo)));
     }
 
     @Test
     void oneHighDefinitionPhoto() {
         Photo photo = new Photo("AnyUri", HIGH_DEFINITION);
-        when(photoByQualityScorer.score(photo)).thenReturn(HD_SCORE);
+        when(qualityScorer.score(photo)).thenReturn(HD_SCORE);
         verifyScore(20, photoScorer.score(asList(photo)));
     }
 
@@ -50,7 +50,7 @@ class PhotoScorerTest {
     void severalPhotos() {
         Photo hdPhotoOne = new Photo("hdPhotoOne", HIGH_DEFINITION);
         Photo hdPhotoTwo = new Photo("hdPhotoTwo", HIGH_DEFINITION);
-        when(photoByQualityScorer.score(any())).thenReturn(HD_SCORE);
+        when(qualityScorer.score(any())).thenReturn(HD_SCORE);
 
         verifyScore(40, photoScorer.score(asList(hdPhotoOne,hdPhotoTwo)));
     }
