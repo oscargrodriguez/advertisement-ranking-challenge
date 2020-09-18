@@ -3,39 +3,46 @@ package com.idealista.domain.score.description;
 import com.idealista.domain.model.advertisement.Description;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Random;
 
 import static com.idealista.domain.model.advertisement.Typology.CHALET;
 import static com.idealista.domain.model.advertisement.Typology.FLAT;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LengthScorerTest {
 
+    public static final int FLAT_SHORT_DESCRIPTION_SCORE = 0;
+    public static final int FLAT_MEDIUM_DESCRIPTION_SCORE = 10;
+    public static final int FLAT_LARGE_DESCRIPTION_SCORE = 30;
     private LengthScorer lengthScorer;
 
     @BeforeEach
     void setUp() {
         lengthScorer = new LengthScorer();
+        ReflectionTestUtils.setField(lengthScorer, "shortFlat", FLAT_SHORT_DESCRIPTION_SCORE);
+        ReflectionTestUtils.setField(lengthScorer, "mediumFlat", FLAT_MEDIUM_DESCRIPTION_SCORE);
+        ReflectionTestUtils.setField(lengthScorer, "largeFlat", FLAT_LARGE_DESCRIPTION_SCORE);
     }
 
     @Test
     void shortFlat() {
-        verifyScore(0, lengthScorer.score(FLAT, new Description(generateRandomText(10))));
-        verifyScore(0, lengthScorer.score(FLAT, new Description(generateRandomText(19))));
+        verifyScore(FLAT_SHORT_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(10))));
+        verifyScore(FLAT_SHORT_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(19))));
     }
 
     @Test
     void mediumFlat() {
-        verifyScore(10, lengthScorer.score(FLAT, new Description(generateRandomText(30))));
-        verifyScore(10, lengthScorer.score(FLAT, new Description(generateRandomText(20))));
-        verifyScore(10, lengthScorer.score(FLAT, new Description(generateRandomText(49))));
+        verifyScore(FLAT_MEDIUM_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(30))));
+        verifyScore(FLAT_MEDIUM_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(20))));
+        verifyScore(FLAT_MEDIUM_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(49))));
     }
 
     @Test
     void largeFlat() {
-        verifyScore(30, lengthScorer.score(FLAT, new Description(generateRandomText(80))));
-        verifyScore(30, lengthScorer.score(FLAT, new Description(generateRandomText(50))));
+        verifyScore(FLAT_LARGE_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(80))));
+        verifyScore(FLAT_LARGE_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(50))));
     }
 
     @Test

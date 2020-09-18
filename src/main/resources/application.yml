@@ -10,4 +10,9 @@ score:
   description:
     empty: 0
     non_empty: 5
+    length:
+      flat:
+        short: 0
+        medium: 10
+        large: 30
   keyword: 5
