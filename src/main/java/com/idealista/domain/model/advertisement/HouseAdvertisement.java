@@ -10,11 +10,6 @@ public abstract class HouseAdvertisement extends Advertisement {
         this.houseSize = houseSize;
     }
 
-    @Override
-    public boolean isFull() {
-        return hasPhoto() && hasDescription() && hasSize();
-    }
-
     protected boolean hasHouseSize() {
         return houseSize != null;
     }

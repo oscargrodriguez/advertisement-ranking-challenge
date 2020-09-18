@@ -12,9 +12,4 @@ public class GarageAdvertisement extends Advertisement {
     public boolean hasSize() {
         return true;
     }
-
-    @Override
-    public boolean isFull() {
-        return hasPhoto() && hasSize();
-    }
 }

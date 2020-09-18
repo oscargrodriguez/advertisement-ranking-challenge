@@ -91,8 +91,6 @@ public abstract class Advertisement {
 
     public abstract boolean hasSize();
 
-    public abstract boolean isFull();
-
     public List<String> getPhotoUrls() {
         return photoList.stream().map(it -> it.getUri()).collect(Collectors.toList());
     }
@@ -115,5 +113,9 @@ public abstract class Advertisement {
 
     private void addPhotos(List<String> uris, PhotoQuality quality) {
         uris.stream().forEach(uri -> photoList.add(new Photo(uri, quality)));
+    }
+
+    public boolean isGarage() {
+        return Typology.GARAGE.equals(typology);
     }
 }

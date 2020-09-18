@@ -5,6 +5,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class FullVerifier {
     public boolean verify(Advertisement advertisement) {
-        return advertisement.isFull();
+        if (advertisement.isGarage()) {
+            return advertisement.hasPhoto() && advertisement.hasSize();
+        }
+        return advertisement.hasPhoto() && advertisement.hasDescription() && advertisement.hasSize();
     }
 }
