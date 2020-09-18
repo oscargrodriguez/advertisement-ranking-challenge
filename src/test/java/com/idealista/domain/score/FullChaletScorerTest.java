@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FullScorerTest {
+class FullChaletScorerTest {
 
     public static final int FULL_SCORE = 40;
     private FullScorer fullAdScorer;
@@ -24,79 +24,34 @@ class FullScorerTest {
     }
 
     @Test
-    void garageWithEmptyDescription() {
-        GarageAdvertisement advertisement = new GarageAdvertisement(1, null);
-        advertisement.addHighDefinitionPhotos(Arrays.asList("AnyUri"));
-        verifyFullScore(fullAdScorer.score(advertisement));
-    }
-
-    @Test
-    void garage() {
-        GarageAdvertisement advertisement = new GarageAdvertisement(1, new Description("AnyText"));
-        advertisement.addPhotos(Arrays.asList(), Arrays.asList("AnyUri"));
-        verifyFullScore(fullAdScorer.score(advertisement));
-    }
-
-    @Test
-    void garageWithNoPhotos() {
-        GarageAdvertisement advertisement = new GarageAdvertisement(1, null);
+    void emptyDescription() {
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, null, null, null);
         verifyEmptyScore(fullAdScorer.score(advertisement));
     }
 
-    @Test
-    void flatWithEmptyDescription() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(1, null, null);
-        verifyEmptyScore(fullAdScorer.score(advertisement));
-    }
 
     @Test
-    void chaletWithEmptyDescription() {
-        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, null,null,null);
-        verifyEmptyScore(fullAdScorer.score(advertisement));
-    }
-
-    @Test
-    void flatWithEmptyPhotos() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), null);
-        verifyEmptyScore(fullAdScorer.score(advertisement));
-    }
-
-    @Test
-    void chaletWithEmptyPhotos() {
+    void descriptionEmptyPhotos() {
         ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), null, null);
         verifyEmptyScore(fullAdScorer.score(advertisement));
     }
 
     @Test
-    void flatWithEmptyHouseSize() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), null);
-        advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
-        verifyEmptyScore(fullAdScorer.score(advertisement));
-    }
-
-    @Test
-    void chaletWithEmptyHouseSize() {
+    void descriptionPhotosEmptyHouseSize() {
         ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), null, null);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyEmptyScore(fullAdScorer.score(advertisement));
     }
 
     @Test
-    void flatFully() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), 100);
-        advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
-        verifyFullScore(fullAdScorer.score(advertisement));
-    }
-
-    @Test
-    void chaletWithEmptyGardenSize() {
+    void descriptionPhotosHouseSizeEmptyGardenSize() {
         ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), 100, null);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyScore(0, fullAdScorer.score(advertisement));
     }
 
     @Test
-    void chaletFully() {
+    void descriptionPhotosHouseSizeGardenSize() {
         ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), 100, 200);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyFullScore(fullAdScorer.score(advertisement));
