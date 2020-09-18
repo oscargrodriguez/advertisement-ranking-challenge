@@ -10,3 +10,4 @@ score:
   description:
     empty: 0
     non_empty: 5
+  keyword: 5
