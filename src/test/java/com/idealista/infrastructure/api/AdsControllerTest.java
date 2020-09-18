@@ -38,6 +38,11 @@ public class AdsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
                 .andExpect(jsonPath("$.score").value("15"))
+                .andExpect(jsonPath("$.typology").value("CHALET"))
+                .andExpect(jsonPath("$.description").isNotEmpty())
+                .andExpect(jsonPath("$.pictureUrls", hasSize(0)))
+                .andExpect(jsonPath("$.houseSize").value("300"))
+                .andExpect(jsonPath("$.gardenSize").isEmpty())
                 .andExpect(jsonPath("$.irrelevantSince").isNotEmpty());
     }
 

@@ -1,9 +1,10 @@
 package com.idealista.domain.model.advertisement.photo;
 
+import static com.idealista.domain.model.advertisement.photo.PhotoQuality.*;
+
 public class Photo {
 
     private String uri;
-
     private PhotoQuality quality;
 
     public Photo(String uri, PhotoQuality quality) {
@@ -12,7 +13,7 @@ public class Photo {
     }
 
     public boolean isHighDefinition() {
-        return PhotoQuality.HIGH_DEFINITION.equals(quality);
+        return HIGH_DEFINITION.equals(quality);
     }
 
     public String getUri() {
