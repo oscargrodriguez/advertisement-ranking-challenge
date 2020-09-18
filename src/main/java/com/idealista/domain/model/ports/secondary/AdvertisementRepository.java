@@ -1,6 +1,7 @@
 package com.idealista.domain.model.ports.secondary;
 
 import com.idealista.domain.model.advertisement.Advertisement;
+import com.idealista.domain.model.advertisement.AdvertisementScored;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,5 +13,8 @@ public interface AdvertisementRepository {
 
     void updateIrrelevantDate(int advertisementId, int irrelevantThreshold);
 
+    Optional<AdvertisementScored> findScored(Integer advertisementId);
+
     Optional<Advertisement> find(Integer advertisementId);
+
 }

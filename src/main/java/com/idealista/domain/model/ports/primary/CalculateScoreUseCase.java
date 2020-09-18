@@ -1,6 +1,7 @@
 package com.idealista.domain.model.ports.primary;
 
 import com.idealista.domain.model.advertisement.Advertisement;
+import com.idealista.domain.model.advertisement.AdvertisementScored;
 import com.idealista.domain.model.ports.secondary.AdvertisementRepository;
 import com.idealista.domain.score.AdvertisementScorer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static com.idealista.domain.model.advertisement.Advertisement.scoreDescComparator;
+import static com.idealista.domain.model.advertisement.AdvertisementScored.scoreDescComparator;
 
 @Component
 public class CalculateScoreUseCase {
@@ -24,40 +25,40 @@ public class CalculateScoreUseCase {
     @Value("${score.irrelevant_threshold}")
     private int irrelevantThreashold;
 
-    public List<Advertisement> scoreAll() {
-        List<Advertisement> scoredAdvertisements = new ArrayList<>();
+    public List<AdvertisementScored> scoreAll() {
+        List<AdvertisementScored> scoredAdvertisements = new ArrayList<>();
         inMemoryPersistence.findAll().forEach(ad -> scoredAdvertisements.add(updateScore(ad).get()));
         return scoredAdvertisements;
     }
 
-    public Optional<Advertisement> score(int id) {
+    public Optional<AdvertisementScored> score(int id) {
         return inMemoryPersistence.find(id).map(ad -> updateScore(ad)).orElse(Optional.empty());
     }
 
-    public List<Advertisement> getPublicAdsOrderedByScoreDesc() {
+    public List<AdvertisementScored> getPublicAdsOrderedByScoreDesc() {
         return scoreAll().stream()
                 .filter(relevant())
                 .sorted(scoreDescComparator())
                 .collect(Collectors.toList());
     }
 
-    public List<Advertisement> getIrrelevantAds() {
+    public List<AdvertisementScored> getIrrelevantAds() {
         return scoreAll().stream()
                 .filter(irrelevant())
                 .collect(Collectors.toList());
     }
 
-    private Optional<Advertisement> updateScore(Advertisement advertisement) {
+    private Optional<AdvertisementScored> updateScore(Advertisement advertisement) {
         inMemoryPersistence.updateScore(advertisement.getId(), advertisementScorer.score(advertisement));
         inMemoryPersistence.updateIrrelevantDate(advertisement.getId(), irrelevantThreashold);
-        return inMemoryPersistence.find(advertisement.getId());
+        return inMemoryPersistence.findScored(advertisement.getId());
     }
 
-    private Predicate<Advertisement> irrelevant() {
+    private Predicate<AdvertisementScored> irrelevant() {
         return ad -> ad.getScore() <= irrelevantThreashold;
     }
 
-    private Predicate<Advertisement> relevant() {
+    private Predicate<AdvertisementScored> relevant() {
         return ad -> ad.getScore() > irrelevantThreashold;
     }
 }

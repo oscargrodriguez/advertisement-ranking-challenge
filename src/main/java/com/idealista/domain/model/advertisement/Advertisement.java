@@ -19,10 +19,8 @@ public class Advertisement {
     private Description description;
     private List<Photo> photoList = new ArrayList<>();
     private Typology typology;
-    private Integer score;
     protected Integer houseSize;
     protected Integer gardenSize;
-    private Date irrelevantSince;
 
     public Advertisement(Integer id,
                          Typology typology,
@@ -51,14 +49,6 @@ public class Advertisement {
 
     public void addHighDefinitionPhotos(List<String> uris) {
         addPhotos(uris, HIGH_DEFINITION);
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public Integer getScore() {
-        return score;
     }
 
     public Integer getId() {
@@ -93,20 +83,8 @@ public class Advertisement {
         return photoList.stream().map(it -> it.getUri()).collect(Collectors.toList());
     }
 
-    public Date getIrrelevantSince() {
-        return irrelevantSince;
-    }
-
-    public void setIrrelevantSince(Date irrelevantSince) {
-        this.irrelevantSince = irrelevantSince;
-    }
-
     public String getDescriptionText() {
         return description.getText();
-    }
-
-    public static Comparator<Advertisement> scoreDescComparator() {
-        return Comparator.comparingInt(Advertisement::getScore).reversed();
     }
 
     private void addPhotos(List<String> uris, PhotoQuality quality) {

@@ -1,12 +1,12 @@
 package com.idealista.infrastructure.api;
 
-import com.idealista.domain.model.advertisement.Advertisement;
+import com.idealista.domain.model.advertisement.AdvertisementScored;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AdConverter {
-    public QualityAd convertToQualityAd(Advertisement advertisement) {
-        return new QualityAd(advertisement.getId(),
+    public QualityAd convertToQualityAd(AdvertisementScored advertisement) {
+        return new QualityAd(advertisement.getAdvertisement().getId(),
                 advertisement.getTypologyName(),
                 advertisement.getDescriptionText(),
                 advertisement.getPhotoUrls(),
@@ -16,8 +16,8 @@ public class AdConverter {
                 advertisement.getIrrelevantSince());
     }
 
-    public PublicAd convertToPublicAd(Advertisement advertisement) {
-        return new PublicAd(advertisement.getId(),
+    public PublicAd convertToPublicAd(AdvertisementScored advertisement) {
+        return new PublicAd(advertisement.getAdvertisement().getId(),
                 advertisement.getTypologyName(),
                 advertisement.getDescriptionText(),
                 advertisement.getPhotoUrls(),

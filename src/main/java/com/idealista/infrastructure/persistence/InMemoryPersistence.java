@@ -1,6 +1,7 @@
 package com.idealista.infrastructure.persistence;
 
 import com.idealista.domain.model.advertisement.Advertisement;
+import com.idealista.domain.model.advertisement.AdvertisementScored;
 import com.idealista.domain.model.ports.secondary.AdvertisementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -66,6 +67,14 @@ public class InMemoryPersistence implements AdvertisementRepository {
     public Optional<Advertisement> find(Integer advertisementId) {
         return findById(advertisementId)
                 .map(ad -> Optional.of(advertisementConverter.convert(ad, findStandardPictures(ad), findHdPictures(ad))))
+                .orElse(Optional.empty());
+
+    }
+
+    @Override
+    public Optional<AdvertisementScored> findScored(Integer advertisementId) {
+        return findById(advertisementId)
+                .map(ad -> Optional.of(advertisementConverter.convertScored(ad, findStandardPictures(ad), findHdPictures(ad))))
                 .orElse(Optional.empty());
 
     }
