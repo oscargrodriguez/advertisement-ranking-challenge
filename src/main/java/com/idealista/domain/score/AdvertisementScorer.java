@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.function.Function;
+
 @Component
 public class AdvertisementScorer {
     @Autowired
@@ -20,19 +22,22 @@ public class AdvertisementScorer {
     @Value("${score.min}")
     private int minValue;
 
+
     public int score(Advertisement advertisement) {
-        return checkLimits(calculateScore(advertisement));
+        return calculateScore().andThen(checkLimits()).apply(advertisement);
     }
 
-    private int calculateScore(Advertisement advertisement) {
-        return photoScorer.score(advertisement.getPhotoList()) +
-                descriptionScorer.score(advertisement.getTypology(), advertisement.getDescription()) +
-                fullScorer.score(advertisement);
+    private Function<Advertisement, Integer> calculateScore() {
+        return ad -> photoScorer.score(ad.getPhotoList()) +
+                descriptionScorer.score(ad.getTypology(), ad.getDescription()) +
+                fullScorer.score(ad);
     }
 
-    private int checkLimits(Integer score) {
-        if (score < minValue) score = minValue;
-        else if (score > maxValue) score = maxValue;
-        return score;
+    private Function<Integer, Integer> checkLimits() {
+        return score -> {
+            if (score < minValue) score = minValue;
+            else if (score > maxValue) score = maxValue;
+            return score;
+        };
     }
 }
