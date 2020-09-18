@@ -1,66 +1,58 @@
 package com.idealista.domain.score;
 
-import com.idealista.domain.model.advertisement.ChaletAdvertisement;
+import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.Description;
 import com.idealista.domain.model.advertisement.FlatAdvertisement;
-import com.idealista.domain.model.advertisement.GarageAdvertisement;
+import com.idealista.domain.model.advertisement.FullVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FullFlatScorerTest {
+class FullFlatVerifierTest {
 
-    public static final int FULL_SCORE = 40;
-    private FullScorer fullAdScorer;
+    private FullVerifier fullVerifier;
 
     @BeforeEach
     void setUp() {
-        fullAdScorer = new FullScorer();
-        ReflectionTestUtils.setField(fullAdScorer, "fullScore", FULL_SCORE);
+        fullVerifier = new FullVerifier();
     }
 
     @Test
     void emptyDescription() {
-        verifyEmptyScore(fullAdScorer.score(flatWithNoDescription()));
+        verifyNonFull(flatWithNoDescription());
     }
 
     @Test
     void descriptionEmptyPhotos() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), null);
-        verifyEmptyScore(fullAdScorer.score(advertisement));
+        verifyNonFull(new FlatAdvertisement(1, new Description("AnyText"), null));
     }
 
     @Test
     void descriptionPhotosEmptyHouseSize() {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), null);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
-        verifyEmptyScore(fullAdScorer.score(advertisement));
+        verifyNonFull(advertisement);
     }
 
     @Test
     void descriptionPhotosHouseSize() {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), 100);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
-        verifyFullScore(fullAdScorer.score(advertisement));
+        verifyFull(advertisement);
     }
 
     private FlatAdvertisement flatWithNoDescription() {
         return new FlatAdvertisement(1, null, null);
     }
 
-    private void verifyFullScore(int score) {
-        verifyScore(FULL_SCORE, score);
+    private void verifyNonFull(Advertisement advertisement) {
+        assertEquals(false, fullVerifier.verify(advertisement));
     }
 
-    private void verifyEmptyScore(int score) {
-        verifyScore(0, score);
-    }
-
-    private void verifyScore(int expectedScore, int score) {
-        assertEquals(expectedScore, score);
+    private void verifyFull(Advertisement advertisement) {
+        assertEquals(true, fullVerifier.verify(advertisement));
     }
 }

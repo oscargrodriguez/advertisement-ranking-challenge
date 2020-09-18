@@ -1,9 +1,6 @@
 package com.idealista.domain.score;
 
-import com.idealista.domain.model.advertisement.ChaletAdvertisement;
-import com.idealista.domain.model.advertisement.Description;
-import com.idealista.domain.model.advertisement.FlatAdvertisement;
-import com.idealista.domain.model.advertisement.GarageAdvertisement;
+import com.idealista.domain.model.advertisement.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -12,30 +9,28 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FullGarageScorerTest {
+class FullGarageVerifierTest {
 
-    public static final int FULL_SCORE = 40;
-    private FullScorer fullAdScorer;
+    private FullVerifier fullVerifier;
 
     @BeforeEach
     void setUp() {
-        fullAdScorer = new FullScorer();
-        ReflectionTestUtils.setField(fullAdScorer, "fullScore", FULL_SCORE);
+        fullVerifier = new FullVerifier();
     }
 
     @Test
     void garageWithEmptyDescriptionAndPhotos() {
-        verifyFullScore(fullAdScorer.score(garageEmptyDescriptionWithOneHdPhoto()));
+        verifyFull(garageEmptyDescriptionWithOneHdPhoto());
     }
 
     @Test
     void garageWithDescriptionAndPhotos() {
-        verifyFullScore(fullAdScorer.score(garageWithDescriptionAndOneStandardPhoto()));
+        verifyFull(garageWithDescriptionAndOneStandardPhoto());
     }
 
     @Test
     void garageWithEmptyDescriptionNoPhotos() {
-        verifyEmptyScore(fullAdScorer.score(garageWithNoDescription()));
+        verifyNonFull(garageWithNoDescription());
     }
 
     private GarageAdvertisement garageWithNoDescription() {
@@ -54,15 +49,11 @@ class FullGarageScorerTest {
         return advertisement;
     }
 
-    private void verifyFullScore(int score) {
-        verifyScore(FULL_SCORE, score);
+    private void verifyNonFull(Advertisement advertisement) {
+        assertEquals(false, fullVerifier.verify(advertisement));
     }
 
-    private void verifyEmptyScore(int score) {
-        verifyScore(0, score);
-    }
-
-    private void verifyScore(int expectedScore, int score) {
-        assertEquals(expectedScore, score);
+    private void verifyFull(Advertisement advertisement) {
+        assertEquals(true, fullVerifier.verify(advertisement));
     }
 }
