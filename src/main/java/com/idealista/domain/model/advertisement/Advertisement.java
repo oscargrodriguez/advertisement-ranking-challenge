@@ -25,18 +25,11 @@ public abstract class Advertisement {
     private Date irrelevantSince;
 
     public Advertisement(Integer id,
-                         Typology typology) {
-        this.id = id;
-        this.description = new Description();
-        this.typology = typology;
-    }
-
-    public Advertisement(Integer id,
                          Typology typology,
                          Description description) {
         this.id = id;
         this.typology = typology;
-        this.description = description;
+        this.description = description == null ? new Description() : description;
     }
 
     public Description getDescription() {

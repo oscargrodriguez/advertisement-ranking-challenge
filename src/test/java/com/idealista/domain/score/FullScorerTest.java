@@ -25,7 +25,7 @@ class FullScorerTest {
 
     @Test
     void garageWithEmptyDescription() {
-        GarageAdvertisement advertisement = new GarageAdvertisement(1);
+        GarageAdvertisement advertisement = new GarageAdvertisement(1, null);
         advertisement.addHighDefinitionPhotos(Arrays.asList("AnyUri"));
         verifyFullScore(fullAdScorer.score(advertisement));
     }
@@ -39,19 +39,19 @@ class FullScorerTest {
 
     @Test
     void garageWithNoPhotos() {
-        GarageAdvertisement advertisement = new GarageAdvertisement(1);
+        GarageAdvertisement advertisement = new GarageAdvertisement(1, null);
         verifyEmptyScore(fullAdScorer.score(advertisement));
     }
 
     @Test
     void flatWithEmptyDescription() {
-        FlatAdvertisement advertisement = new FlatAdvertisement(1);
+        FlatAdvertisement advertisement = new FlatAdvertisement(1, null, null);
         verifyEmptyScore(fullAdScorer.score(advertisement));
     }
 
     @Test
     void chaletWithEmptyDescription() {
-        ChaletAdvertisement advertisement = new ChaletAdvertisement(1);
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, null,null,null);
         verifyEmptyScore(fullAdScorer.score(advertisement));
     }
 
