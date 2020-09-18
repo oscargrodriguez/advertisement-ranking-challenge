@@ -4,8 +4,10 @@ import com.idealista.domain.model.advertisement.photo.Photo;
 import com.idealista.domain.model.advertisement.photo.PhotoQuality;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.idealista.domain.model.advertisement.photo.PhotoQuality.HIGH_DEFINITION;
@@ -112,6 +114,10 @@ public abstract class Advertisement {
 
     public String getDescriptionText() {
         return description.getText();
+    }
+
+    public static Comparator<Advertisement> scoreDescComparator() {
+        return Comparator.comparingInt(Advertisement::getScore).reversed();
     }
 
     private void addPhotos(List<String> uris, PhotoQuality quality) {

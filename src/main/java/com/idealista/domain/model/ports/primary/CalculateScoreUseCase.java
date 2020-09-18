@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static com.idealista.domain.model.advertisement.Advertisement.scoreDescComparator;
 
 @Component
 public class CalculateScoreUseCase {
@@ -34,13 +35,15 @@ public class CalculateScoreUseCase {
     }
 
     public List<Advertisement> getPublicAdsOrderedByScoreDesc() {
-        return scoreAll().stream().filter(relevant())
-                .sorted(Comparator.comparingInt(Advertisement::getScore).reversed())
+        return scoreAll().stream()
+                .filter(relevant())
+                .sorted(scoreDescComparator())
                 .collect(Collectors.toList());
     }
 
     public List<Advertisement> getIrrelevantAds() {
-        return scoreAll().stream().filter(irrelevant())
+        return scoreAll().stream()
+                .filter(irrelevant())
                 .collect(Collectors.toList());
     }
 
