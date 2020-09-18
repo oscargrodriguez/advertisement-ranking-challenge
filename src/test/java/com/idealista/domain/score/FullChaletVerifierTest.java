@@ -1,13 +1,11 @@
 package com.idealista.domain.score;
 
 import com.idealista.domain.model.advertisement.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Arrays;
 
@@ -35,21 +33,15 @@ class FullChaletVerifierTest {
     }
 
     @Test
-    void descriptionPhotosEmptyHouseSize() {
+    void descriptionPhotosNoSized() {
         ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), null, null);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
+        when(sizeVerifier.verify(advertisement)).thenReturn(false);
         verifyNonFull(advertisement);
     }
 
     @Test
-    void descriptionPhotosHouseSizeEmptyGardenSize() {
-        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), 100, null);
-        advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
-        verifyNonFull(advertisement);
-    }
-
-    @Test
-    void descriptionPhotosHouseSizeGardenSize() {
+    void descriptionPhotosSized() {
         ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), 100, 200);
         when(sizeVerifier.verify(advertisement)).thenReturn(true);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
@@ -57,10 +49,10 @@ class FullChaletVerifierTest {
     }
 
     private void verifyNonFull(Advertisement advertisement) {
-        assertEquals(false,fullVerifier.verify(advertisement));
+        assertEquals(false, fullVerifier.verify(advertisement));
     }
 
     private void verifyFull(Advertisement advertisement) {
-        assertEquals(true,fullVerifier.verify(advertisement));
+        assertEquals(true, fullVerifier.verify(advertisement));
     }
 }

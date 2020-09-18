@@ -32,17 +32,20 @@ class FullFlatVerifierTest {
     }
 
     @Test
-    void descriptionPhotosEmptyHouseSize() {
+    void descriptionPhotosNoSized() {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), null);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
+        when(sizeVerifier.verify(advertisement)).thenReturn(false);
+
         verifyNonFull(advertisement);
     }
 
     @Test
-    void descriptionPhotosHouseSize() {
+    void descriptionPhotosSized() {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), 100);
-        when(sizeVerifier.verify(advertisement)).thenReturn(true);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
+        when(sizeVerifier.verify(advertisement)).thenReturn(true);
+
         verifyFull(advertisement);
     }
 
