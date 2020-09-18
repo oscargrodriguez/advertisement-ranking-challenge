@@ -7,3 +7,6 @@ score:
       high_definition: 20
       standard: 10
   irrelevant_threshold: 40
+  description:
+    empty: 0
+    non_empty: 5
