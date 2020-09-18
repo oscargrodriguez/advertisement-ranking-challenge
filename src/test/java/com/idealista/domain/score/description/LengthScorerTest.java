@@ -16,6 +16,8 @@ class LengthScorerTest {
     public static final int FLAT_SHORT_DESCRIPTION_SCORE = 0;
     public static final int FLAT_MEDIUM_DESCRIPTION_SCORE = 10;
     public static final int FLAT_LARGE_DESCRIPTION_SCORE = 30;
+    public static final int CHALET_LARGE_DESCRIPTION_SCORE = 20;
+
     private LengthScorer lengthScorer;
 
     @BeforeEach
@@ -24,6 +26,7 @@ class LengthScorerTest {
         ReflectionTestUtils.setField(lengthScorer, "shortFlat", FLAT_SHORT_DESCRIPTION_SCORE);
         ReflectionTestUtils.setField(lengthScorer, "mediumFlat", FLAT_MEDIUM_DESCRIPTION_SCORE);
         ReflectionTestUtils.setField(lengthScorer, "largeFlat", FLAT_LARGE_DESCRIPTION_SCORE);
+        ReflectionTestUtils.setField(lengthScorer, "largeChalet", CHALET_LARGE_DESCRIPTION_SCORE);
     }
 
     @Test

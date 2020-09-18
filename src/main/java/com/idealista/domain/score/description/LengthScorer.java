@@ -17,6 +17,8 @@ public class LengthScorer {
     private int mediumFlat;
     @Value("${score.description.length.flat.large}")
     private int largeFlat;
+    @Value("${score.description.length.chalet.large}")
+    private int largeChalet;
 
 
     public int score(Typology typology, Description description) {
@@ -30,7 +32,7 @@ public class LengthScorer {
     }
 
     private int chaletScore(Description description) {
-        return description.isLarge() ? 20 : 0;
+        return description.isLarge() ? largeChalet : 0;
     }
 
     private int flatScore(Description description) {

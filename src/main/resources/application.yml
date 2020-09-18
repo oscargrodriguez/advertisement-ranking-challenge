@@ -15,4 +15,6 @@ score:
         short: 0
         medium: 10
         large: 30
+      chalet:
+        large: 20
   keyword: 5
