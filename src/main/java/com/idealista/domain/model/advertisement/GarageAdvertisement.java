@@ -7,9 +7,4 @@ public class GarageAdvertisement extends Advertisement {
     public GarageAdvertisement(Integer id, Description description) {
         super(id, GARAGE, description);
     }
-
-    @Override
-    public boolean hasSize() {
-        return true;
-    }
 }

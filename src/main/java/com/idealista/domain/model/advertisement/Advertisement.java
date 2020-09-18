@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import static com.idealista.domain.model.advertisement.photo.PhotoQuality.HIGH_DEFINITION;
 import static com.idealista.domain.model.advertisement.photo.PhotoQuality.STANDARD;
 
-public abstract class Advertisement {
+public class Advertisement {
 
     private Integer id;
     private Description description;
@@ -89,8 +89,6 @@ public abstract class Advertisement {
         return !description.isEmpty();
     }
 
-    public abstract boolean hasSize();
-
     public List<String> getPhotoUrls() {
         return photoList.stream().map(it -> it.getUri()).collect(Collectors.toList());
     }
@@ -117,5 +115,17 @@ public abstract class Advertisement {
 
     public boolean isGarage() {
         return Typology.GARAGE.equals(typology);
+    }
+
+    public boolean isFlat() {
+        return Typology.FLAT.equals(typology);
+    }
+
+    public boolean hasHouseSize() {
+        return houseSize != null;
+    }
+
+    public boolean hasGardenSize() {
+        return gardenSize != null;
     }
 }

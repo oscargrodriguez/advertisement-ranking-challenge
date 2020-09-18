@@ -7,9 +7,4 @@ public class FlatAdvertisement extends HouseAdvertisement {
     public FlatAdvertisement(Integer id, Description description, Integer houseSize) {
         super(id, FLAT, description, houseSize);
     }
-
-    @Override
-    public boolean hasSize() {
-        return hasHouseSize();
-    }
 }

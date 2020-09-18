@@ -11,13 +11,4 @@ public class ChaletAdvertisement extends HouseAdvertisement {
         super(id, CHALET, description, houseSize);
         this.gardenSize = gardenSize;
     }
-
-    @Override
-    public boolean hasSize() {
-        return hasGardenSize() && hasHouseSize();
-    }
-
-    private boolean hasGardenSize() {
-        return gardenSize != null;
-    }
 }

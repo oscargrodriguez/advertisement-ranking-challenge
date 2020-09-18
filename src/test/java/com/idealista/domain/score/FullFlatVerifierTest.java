@@ -1,24 +1,25 @@
 package com.idealista.domain.score;
 
-import com.idealista.domain.model.advertisement.Advertisement;
-import com.idealista.domain.model.advertisement.Description;
-import com.idealista.domain.model.advertisement.FlatAdvertisement;
-import com.idealista.domain.model.advertisement.FullVerifier;
+import com.idealista.domain.model.advertisement.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class FullFlatVerifierTest {
-
+    @Mock
+    SizeVerifier sizeVerifier;
+    @InjectMocks
     private FullVerifier fullVerifier;
 
-    @BeforeEach
-    void setUp() {
-        fullVerifier = new FullVerifier();
-    }
 
     @Test
     void emptyDescription() {
@@ -40,6 +41,7 @@ class FullFlatVerifierTest {
     @Test
     void descriptionPhotosHouseSize() {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), 100);
+        when(sizeVerifier.verify(advertisement)).thenReturn(true);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
         verifyFull(advertisement);
     }

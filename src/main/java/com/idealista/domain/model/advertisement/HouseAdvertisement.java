@@ -9,8 +9,4 @@ public abstract class HouseAdvertisement extends Advertisement {
         super(id, typology, description);
         this.houseSize = houseSize;
     }
-
-    protected boolean hasHouseSize() {
-        return houseSize != null;
-    }
 }

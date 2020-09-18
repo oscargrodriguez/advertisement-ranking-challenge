@@ -3,29 +3,38 @@ package com.idealista.domain.score;
 import com.idealista.domain.model.advertisement.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 
 class FullGarageVerifierTest {
 
+    @Mock
+    SizeVerifier sizeVerifier;
+    @InjectMocks
     private FullVerifier fullVerifier;
-
-    @BeforeEach
-    void setUp() {
-        fullVerifier = new FullVerifier();
-    }
 
     @Test
     void garageWithEmptyDescriptionAndPhotos() {
-        verifyFull(garageEmptyDescriptionWithOneHdPhoto());
+        GarageAdvertisement advertisement = garageEmptyDescriptionWithOneHdPhoto();
+        when(sizeVerifier.verify(advertisement)).thenReturn(true);
+        verifyFull(advertisement);
     }
 
     @Test
     void garageWithDescriptionAndPhotos() {
-        verifyFull(garageWithDescriptionAndOneStandardPhoto());
+        GarageAdvertisement advertisement = garageWithDescriptionAndOneStandardPhoto();
+        when(sizeVerifier.verify(advertisement)).thenReturn(true);
+        verifyFull(advertisement);
     }
 
     @Test
