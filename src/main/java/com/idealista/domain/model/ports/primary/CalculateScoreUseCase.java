@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Component
@@ -33,13 +34,13 @@ public class CalculateScoreUseCase {
     }
 
     public List<Advertisement> getPublicAdsOrderedByScoreDesc() {
-        return scoreAll().stream().filter(ad -> ad.getScore() > irrelevantThreashold)
+        return scoreAll().stream().filter(relevant())
                 .sorted(Comparator.comparingInt(Advertisement::getScore).reversed())
                 .collect(Collectors.toList());
     }
 
     public List<Advertisement> getIrrelevantAds() {
-        return scoreAll().stream().filter(ad -> ad.getScore() <= irrelevantThreashold)
+        return scoreAll().stream().filter(irrelevant())
                 .collect(Collectors.toList());
     }
 
@@ -49,5 +50,11 @@ public class CalculateScoreUseCase {
         return inMemoryPersistence.find(advertisement.getId());
     }
 
+    private Predicate<Advertisement> irrelevant() {
+        return ad -> ad.getScore() <= irrelevantThreashold;
+    }
 
+    private Predicate<Advertisement> relevant() {
+        return ad -> ad.getScore() > irrelevantThreashold;
+    }
 }
