@@ -6,6 +6,7 @@ import com.idealista.domain.model.advertisement.FlatAdvertisement;
 import com.idealista.domain.model.advertisement.GarageAdvertisement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Arrays;
 
@@ -13,25 +14,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FullAdvertisementScorerTest {
 
+    public static final int FULL_SCORE = 40;
     private FullAdvertisementScorer fullAdScorer;
 
     @BeforeEach
     void setUp() {
         fullAdScorer = new FullAdvertisementScorer();
+        ReflectionTestUtils.setField(fullAdScorer, "fullScore", FULL_SCORE);
     }
 
     @Test
     void garageWithEmptyDescription() {
         GarageAdvertisement advertisement = new GarageAdvertisement(1);
         advertisement.addHighDefinitionPhotos(Arrays.asList("AnyUri"));
-        verifyScore(40, fullAdScorer.score(advertisement));
+        verifyScore(FULL_SCORE, fullAdScorer.score(advertisement));
     }
 
     @Test
     void garage() {
         GarageAdvertisement advertisement = new GarageAdvertisement(1, new Description("AnyText"));
         advertisement.addPhotos(Arrays.asList(), Arrays.asList("AnyUri"));
-        verifyScore(40, fullAdScorer.score(advertisement));
+        verifyScore(FULL_SCORE, fullAdScorer.score(advertisement));
     }
 
     @Test
@@ -82,7 +85,7 @@ class FullAdvertisementScorerTest {
     void flatFully() {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description("AnyText"), 100);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
-        verifyScore(40, fullAdScorer.score(advertisement));
+        verifyScore(FULL_SCORE, fullAdScorer.score(advertisement));
     }
 
     @Test
@@ -96,7 +99,7 @@ class FullAdvertisementScorerTest {
     void chaletFully() {
         ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyText"), 100, 200);
         advertisement.addStandardPhotos(Arrays.asList("AnyUri"));
-        verifyScore(40, fullAdScorer.score(advertisement));
+        verifyScore(FULL_SCORE, fullAdScorer.score(advertisement));
     }
 
     private void verifyScore(int expectedScore, int score) {

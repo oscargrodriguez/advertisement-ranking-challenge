@@ -1,15 +1,17 @@
 package com.idealista.domain.score;
 
 import com.idealista.domain.model.advertisement.Advertisement;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FullAdvertisementScorer {
 
-    public static final int FULL_AD_SCORE = 40;
+    @Value("${score.full}")
+    private int fullScore;
     public static final int NON_FULL_AD_SCORE = 0;
 
     public int score(Advertisement advertisement) {
-        return advertisement.isFull() ? FULL_AD_SCORE : NON_FULL_AD_SCORE;
+        return advertisement.isFull() ? fullScore : NON_FULL_AD_SCORE;
     }
 }
