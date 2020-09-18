@@ -12,14 +12,14 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FullAdvertisementScorerTest {
+class FullScorerTest {
 
     public static final int FULL_SCORE = 40;
-    private FullAdvertisementScorer fullAdScorer;
+    private FullScorer fullAdScorer;
 
     @BeforeEach
     void setUp() {
-        fullAdScorer = new FullAdvertisementScorer();
+        fullAdScorer = new FullScorer();
         ReflectionTestUtils.setField(fullAdScorer, "fullScore", FULL_SCORE);
     }
 

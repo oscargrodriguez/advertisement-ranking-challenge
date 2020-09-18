@@ -24,7 +24,7 @@ class AdvertisementScorerTest {
     @Mock
     private DescriptionScorer descriptionScorer;
     @Mock
-    private FullAdvertisementScorer fullAdvertisementScorer;
+    private FullScorer fullScorer;
     @InjectMocks
     private AdvertisementScorer advertisementScorer;
 
@@ -40,7 +40,7 @@ class AdvertisementScorerTest {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, null, null);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(10);
         when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(10);
-        when(fullAdvertisementScorer.score(advertisement)).thenReturn(10);
+        when(fullScorer.score(advertisement)).thenReturn(10);
 
         verifyScore(30, advertisementScorer.score(advertisement));
     }
@@ -50,7 +50,7 @@ class AdvertisementScorerTest {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, null, null);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(-10);
         when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(MIN_SCORE);
-        when(fullAdvertisementScorer.score(advertisement)).thenReturn(MIN_SCORE);
+        when(fullScorer.score(advertisement)).thenReturn(MIN_SCORE);
 
         verifyScore(MIN_SCORE, advertisementScorer.score(advertisement));
     }
@@ -60,7 +60,7 @@ class AdvertisementScorerTest {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, null, null);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(60);
         when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(60);
-        when(fullAdvertisementScorer.score(advertisement)).thenReturn(40);
+        when(fullScorer.score(advertisement)).thenReturn(40);
 
         verifyScore(MAX_SCORE, advertisementScorer.score(advertisement));
     }

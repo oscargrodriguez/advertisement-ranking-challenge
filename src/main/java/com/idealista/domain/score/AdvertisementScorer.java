@@ -14,7 +14,7 @@ public class AdvertisementScorer {
     @Autowired
     private DescriptionScorer descriptionScorer;
     @Autowired
-    private FullAdvertisementScorer fullAdvertisementScorer;
+    private FullScorer fullScorer;
     @Value("${score.max}")
     private int maxValue;
     @Value("${score.min}")
@@ -27,7 +27,7 @@ public class AdvertisementScorer {
     private int calculateScore(Advertisement advertisement) {
         return photoScorer.score(advertisement.getPhotoList()) +
                 descriptionScorer.score(advertisement.getTypology(), advertisement.getDescription()) +
-                fullAdvertisementScorer.score(advertisement);
+                fullScorer.score(advertisement);
     }
 
     private int checkLimits(Integer score) {
