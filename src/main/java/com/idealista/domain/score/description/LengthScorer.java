@@ -36,12 +36,11 @@ public class LengthScorer {
     }
 
     private int flatScore(Description description) {
-        Integer score = flatShort;
         if (description.isMedium()) {
-            score = flatMedium;
+            return flatMedium;
         } else if (description.isLarge()) {
-            score = flatLarge;
+            return flatLarge;
         }
-        return score;
+        return flatShort;
     }
 }
