@@ -10,7 +10,7 @@ import java.util.List;
 @Component("chaletConverter")
 public class ChaletConverter implements AdConverter {
     @Override
-    public Advertisement convert(AdVO adVo, List<PictureVO> standardPictures, List<PictureVO> hdPictures) {
+    public Advertisement convert(AdVO adVo) {
         return new ChaletAdvertisement(adVo.getId(), new Description(adVo.getDescription()), adVo.getHouseSize(), adVo.getGardenSize());
     }
 }

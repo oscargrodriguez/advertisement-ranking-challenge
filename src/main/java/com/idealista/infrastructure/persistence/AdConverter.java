@@ -5,5 +5,5 @@ import com.idealista.domain.model.advertisement.Advertisement;
 import java.util.List;
 
 public interface AdConverter {
-    Advertisement convert(AdVO adVo, List<PictureVO> standardPictures, List<PictureVO> hdPictures);
+    Advertisement convert(AdVO adVo);
 }
