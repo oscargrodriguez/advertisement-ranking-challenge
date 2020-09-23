@@ -3,15 +3,27 @@ package com.idealista.domain.model.advertisement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.function.Predicate;
+
 @Component
 public class FullVerifier {
     @Autowired
     private SizeVerifier sizeVerifier;
 
     public boolean verify(Advertisement advertisement) {
-        if (advertisement.isGarage()) {
-            return advertisement.hasPhoto() && sizeVerifier.verify(advertisement);
-        }
-        return advertisement.hasPhoto() && advertisement.hasDescription() && sizeVerifier.verify(advertisement);
+        return advertisement.isGarage() ? withPhoto().and(withSize()).test(advertisement) :
+                withPhoto().and(withDescription()).and(withSize()).test(advertisement);
+    }
+
+    private Predicate<Advertisement> withPhoto() {
+        return (ad) -> ad.hasPhoto();
+    }
+
+    private Predicate<Advertisement> withDescription() {
+        return (ad) -> ad.hasDescription();
+    }
+
+    private Predicate<Advertisement> withSize() {
+        return (ad) -> sizeVerifier.verify(ad);
     }
 }
