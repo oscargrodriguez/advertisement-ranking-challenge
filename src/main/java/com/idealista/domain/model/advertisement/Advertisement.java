@@ -106,4 +106,24 @@ public class Advertisement {
     public boolean hasGardenSize() {
         return gardenSize != null;
     }
+
+    public static Predicate<Advertisement> garage() {
+        return ad -> Typology.GARAGE.equals(ad.getTypology());
+    }
+
+    public static Predicate<Advertisement> flat() {
+        return ad -> Typology.FLAT.equals(ad.getTypology());
+    }
+
+    public static Predicate<Advertisement> chalet() {
+        return ad -> Typology.CHALET.equals(ad.getTypology());
+    }
+
+    public static Predicate<Advertisement> withGardenSize() {
+        return ad -> ad.hasGardenSize();
+    }
+
+    public static Predicate<Advertisement> withHouseSize() {
+        return ad -> ad.hasHouseSize();
+    }
 }
