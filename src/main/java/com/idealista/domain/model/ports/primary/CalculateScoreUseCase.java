@@ -32,7 +32,7 @@ public class CalculateScoreUseCase {
     }
 
     public Optional<AdvertisementScored> score(int id) {
-        return inMemoryPersistence.find(id).map(ad -> updateScore(ad)).orElse(Optional.empty());
+        return inMemoryPersistence.find(id).flatMap(this::updateScore);
     }
 
     public List<AdvertisementScored> getPublicAdsOrderedByScoreDesc() {
