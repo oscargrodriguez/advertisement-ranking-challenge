@@ -110,4 +110,9 @@ public class Advertisement {
     public static Predicate<Advertisement> withHouseSize() {
         return ad -> ad.houseSize != null;
     }
+
+    public boolean hasEmptyDescription()
+    {
+        return description.isEmpty();
+    }
 }

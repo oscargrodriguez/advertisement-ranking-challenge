@@ -1,8 +1,6 @@
 package com.idealista.domain.score.description;
 
 import com.idealista.domain.model.advertisement.Advertisement;
-import com.idealista.domain.model.advertisement.Description;
-import com.idealista.domain.model.advertisement.Typology;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -19,8 +17,7 @@ public class DescriptionScorer {
     private int nonEmptyScore;
 
     public int score(Advertisement advertisement) {
-        return advertisement.getDescription().isEmpty() ? emptyScore :
-                nonEmptyScore(advertisement);
+        return advertisement.hasEmptyDescription() ? emptyScore : nonEmptyScore(advertisement);
     }
 
     private int nonEmptyScore(Advertisement advertisement) {
