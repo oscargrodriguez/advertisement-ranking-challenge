@@ -25,7 +25,7 @@ public class DescriptionScorer {
 
     private int nonEmptyScore(Advertisement advertisement) {
         return nonEmptyScore +
-                lengthScorer.score(advertisement.getTypology(), advertisement.getDescription()) +
+                lengthScorer.score(advertisement) +
                 keywordScorer.score(advertisement.getDescription());
     }
 }

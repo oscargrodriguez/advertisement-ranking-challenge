@@ -43,7 +43,7 @@ class DescriptionScorerTest {
     void score() {
         Description description = new Description("Any ");
         FlatAdvertisement advertisement = new FlatAdvertisement(1, description, null);
-        when(lengthScorer.score(FLAT, description)).thenReturn(10);
+        when(lengthScorer.score(advertisement)).thenReturn(10);
         when(keywordScorer.score(description)).thenReturn(10);
 
         verifyScore(25, descriptionScorer.score(advertisement));

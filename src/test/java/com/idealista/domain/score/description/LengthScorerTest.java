@@ -1,6 +1,9 @@
 package com.idealista.domain.score.description;
 
+import com.idealista.domain.model.advertisement.ChaletAdvertisement;
 import com.idealista.domain.model.advertisement.Description;
+import com.idealista.domain.model.advertisement.FlatAdvertisement;
+import com.idealista.domain.model.advertisement.GarageAdvertisement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -32,37 +35,48 @@ class LengthScorerTest {
 
     @Test
     void shortFlat() {
-        verifyScore(FLAT_SHORT_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(10))));
-        verifyScore(FLAT_SHORT_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(19))));
+        FlatAdvertisement flatAdvertisement = new FlatAdvertisement(1, new Description(generateRandomText(10)), null);
+        verifyScore(FLAT_SHORT_DESCRIPTION_SCORE, lengthScorer.score(flatAdvertisement));
+        flatAdvertisement = new FlatAdvertisement(1, new Description(generateRandomText(19)), null);
+        verifyScore(FLAT_SHORT_DESCRIPTION_SCORE, lengthScorer.score(flatAdvertisement));
     }
 
     @Test
     void mediumFlat() {
-        verifyScore(FLAT_MEDIUM_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(30))));
-        verifyScore(FLAT_MEDIUM_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(20))));
-        verifyScore(FLAT_MEDIUM_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(49))));
+        FlatAdvertisement flatAdvertisement = new FlatAdvertisement(1, new Description(generateRandomText(30)), null);
+        verifyScore(FLAT_MEDIUM_DESCRIPTION_SCORE, lengthScorer.score(flatAdvertisement));
+        flatAdvertisement = new FlatAdvertisement(1, new Description(generateRandomText(20)), null);
+        verifyScore(FLAT_MEDIUM_DESCRIPTION_SCORE, lengthScorer.score(flatAdvertisement));
+        flatAdvertisement = new FlatAdvertisement(1, new Description(generateRandomText(49)), null);
+        verifyScore(FLAT_MEDIUM_DESCRIPTION_SCORE, lengthScorer.score(flatAdvertisement));
     }
 
     @Test
     void largeFlat() {
-        verifyScore(FLAT_LARGE_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(80))));
-        verifyScore(FLAT_LARGE_DESCRIPTION_SCORE, lengthScorer.score(FLAT, new Description(generateRandomText(50))));
+        FlatAdvertisement flatAdvertisement = new FlatAdvertisement(1, new Description(generateRandomText(80)), null);
+        verifyScore(FLAT_LARGE_DESCRIPTION_SCORE, lengthScorer.score(flatAdvertisement));
+        flatAdvertisement = new FlatAdvertisement(1, new Description(generateRandomText(50)), null);
+        verifyScore(FLAT_LARGE_DESCRIPTION_SCORE, lengthScorer.score(flatAdvertisement));
     }
 
     @Test
     void largeChalet() {
-        verifyScore(CHALET_LARGE_DESCRIPTION_SCORE, lengthScorer.score(CHALET, new Description(generateRandomText(80))));
-        verifyScore(CHALET_LARGE_DESCRIPTION_SCORE, lengthScorer.score(CHALET, new Description(generateRandomText(50))));
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description(generateRandomText(80)), null, null);
+        verifyScore(CHALET_LARGE_DESCRIPTION_SCORE, lengthScorer.score(advertisement));
+        advertisement = new ChaletAdvertisement(1, new Description(generateRandomText(50)), null, null);
+        verifyScore(CHALET_LARGE_DESCRIPTION_SCORE, lengthScorer.score(advertisement));
     }
 
     @Test
     void shortChalet() {
-        verifyScore(DEFAULT_SCORE, lengthScorer.score(CHALET, new Description("AnyShortText")));
+        ChaletAdvertisement advertisement = new ChaletAdvertisement(1, new Description("AnyShortText"), null, null);
+        verifyScore(DEFAULT_SCORE, lengthScorer.score(advertisement));
     }
 
     @Test
     void garage() {
-        verifyScore(DEFAULT_SCORE, lengthScorer.score(GARAGE, new Description("AnyShortText")));
+        GarageAdvertisement advertisement = new GarageAdvertisement(1, new Description("AnyShortText"));
+        verifyScore(DEFAULT_SCORE, lengthScorer.score(advertisement));
     }
 
     private void verifyScore(int expectedScore, int score) {

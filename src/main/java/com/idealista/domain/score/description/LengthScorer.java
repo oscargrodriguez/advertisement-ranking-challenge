@@ -1,12 +1,12 @@
 package com.idealista.domain.score.description;
 
+import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.Description;
-import com.idealista.domain.model.advertisement.Typology;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import static com.idealista.domain.model.advertisement.Typology.CHALET;
-import static com.idealista.domain.model.advertisement.Typology.FLAT;
+import static com.idealista.domain.model.advertisement.Advertisement.isChalet;
+import static com.idealista.domain.model.advertisement.Advertisement.isFlat;
 
 @Component
 public class LengthScorer {
@@ -22,11 +22,11 @@ public class LengthScorer {
     @Value("${score.description.length.chalet.large}")
     private int chaletLarge;
 
-    public int score(Typology typology, Description description) {
-        if (FLAT.equals(typology)) {
-            return flatScore(description);
-        } else if (CHALET.equals(typology)) {
-            return chaletScore(description);
+    public int score(Advertisement advertisement) {
+        if (isFlat().test(advertisement)) {
+            return flatScore(advertisement.getDescription());
+        } else if (isChalet().test(advertisement)) {
+            return chaletScore(advertisement.getDescription());
         }
         return defaultScore;
     }
