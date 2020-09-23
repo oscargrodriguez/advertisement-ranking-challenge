@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -49,9 +49,16 @@ public class CalculateScoreUseCase {
     }
 
     private Optional<AdvertisementScored> updateScore(Advertisement advertisement) {
-        inMemoryPersistence.updateScore(advertisement.getId(), advertisementScorer.score(advertisement));
-        inMemoryPersistence.updateIrrelevantDate(advertisement.getId(), irrelevantThreashold);
+        updateScore().andThen(updateIrrelevantDate()).accept(advertisement);
         return inMemoryPersistence.findScored(advertisement.getId());
+    }
+
+    private Consumer<Advertisement> updateScore() {
+        return ad -> inMemoryPersistence.updateScore(ad.getId(), advertisementScorer.score(ad));
+    }
+
+    private Consumer<Advertisement> updateIrrelevantDate() {
+        return ad -> inMemoryPersistence.updateIrrelevantDate(ad.getId(), irrelevantThreashold);
     }
 
     private Predicate<AdvertisementScored> irrelevant() {
