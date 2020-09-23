@@ -29,7 +29,7 @@ public class AdvertisementScorer {
 
     private Function<Advertisement, Integer> calculateScore() {
         return ad -> photoScorer.score(ad.getPhotoList()) +
-                descriptionScorer.score(ad.getTypology(), ad.getDescription()) +
+                descriptionScorer.score(ad) +
                 fullScorer.score(ad);
     }
 

@@ -39,7 +39,7 @@ class AdvertisementScorerTest {
     void score() {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, null, null);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(10);
-        when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(10);
+        when(descriptionScorer.score(advertisement)).thenReturn(10);
         when(fullScorer.score(advertisement)).thenReturn(10);
 
         verifyScore(30, advertisementScorer.score(advertisement));
@@ -49,7 +49,7 @@ class AdvertisementScorerTest {
     void emptyAdvertisement() {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, null, null);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(-10);
-        when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(MIN_SCORE);
+        when(descriptionScorer.score(advertisement)).thenReturn(MIN_SCORE);
         when(fullScorer.score(advertisement)).thenReturn(MIN_SCORE);
 
         verifyScore(MIN_SCORE, advertisementScorer.score(advertisement));
@@ -59,7 +59,7 @@ class AdvertisementScorerTest {
     void when_score_over_maximal_should_return_maximal_score() {
         FlatAdvertisement advertisement = new FlatAdvertisement(1, null, null);
         when(photoScorer.score(advertisement.getPhotoList())).thenReturn(60);
-        when(descriptionScorer.score(FLAT, advertisement.getDescription())).thenReturn(60);
+        when(descriptionScorer.score(advertisement)).thenReturn(60);
         when(fullScorer.score(advertisement)).thenReturn(40);
 
         verifyScore(MAX_SCORE, advertisementScorer.score(advertisement));

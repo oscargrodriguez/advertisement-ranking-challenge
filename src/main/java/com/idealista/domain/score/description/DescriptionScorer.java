@@ -1,5 +1,6 @@
 package com.idealista.domain.score.description;
 
+import com.idealista.domain.model.advertisement.Advertisement;
 import com.idealista.domain.model.advertisement.Description;
 import com.idealista.domain.model.advertisement.Typology;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,14 @@ public class DescriptionScorer {
     @Value("${score.description.non_empty}")
     private int nonEmptyScore;
 
-    public int score(Typology typology, Description description) {
-        return description.isEmpty() ? emptyScore :
-                nonEmptyScore(typology, description);
+    public int score(Advertisement advertisement) {
+        return advertisement.getDescription().isEmpty() ? emptyScore :
+                nonEmptyScore(advertisement);
     }
 
-    private int nonEmptyScore(Typology typology, Description description) {
+    private int nonEmptyScore(Advertisement advertisement) {
         return nonEmptyScore +
-                lengthScorer.score(typology, description) +
-                keywordScorer.score(description);
+                lengthScorer.score(advertisement.getTypology(), advertisement.getDescription()) +
+                keywordScorer.score(advertisement.getDescription());
     }
 }

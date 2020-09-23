@@ -1,6 +1,7 @@
 package com.idealista.domain.score.description;
 
 import com.idealista.domain.model.advertisement.Description;
+import com.idealista.domain.model.advertisement.FlatAdvertisement;
 import com.idealista.domain.model.advertisement.Typology;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,18 +35,18 @@ class DescriptionScorerTest {
 
     @Test
     void emptyText() {
-        Description description = new Description();
-        verifyScore(EMPTY_SCORE, descriptionScorer.score(FLAT, description));
+        FlatAdvertisement advertisement = new FlatAdvertisement(1, new Description(), null);
+        verifyScore(EMPTY_SCORE, descriptionScorer.score(advertisement));
     }
 
     @Test
     void score() {
         Description description = new Description("Any ");
-        Typology typology = FLAT;
-        when(lengthScorer.score(typology, description)).thenReturn(10);
+        FlatAdvertisement advertisement = new FlatAdvertisement(1, description, null);
+        when(lengthScorer.score(FLAT, description)).thenReturn(10);
         when(keywordScorer.score(description)).thenReturn(10);
 
-        verifyScore(25, descriptionScorer.score(typology, description));
+        verifyScore(25, descriptionScorer.score(advertisement));
     }
 
     private void verifyScore(int expectedScore, int score) {
