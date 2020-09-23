@@ -22,6 +22,11 @@ public class Description {
         return text.isEmpty();
     }
 
+    public int length()
+    {
+        return text.length();
+    }
+
     public Integer getKeywords() {
         return Math.toIntExact(Arrays.stream(text.split(" "))
                 .map(it -> it.toLowerCase())

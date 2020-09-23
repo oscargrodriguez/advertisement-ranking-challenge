@@ -83,10 +83,6 @@ public class Advertisement {
         return photoList.stream().map(it -> it.getUri()).collect(Collectors.toList());
     }
 
-    public String getDescriptionText() {
-        return description.getText();
-    }
-
     private void addPhotos(List<String> uris, PhotoQuality quality) {
         uris.stream().forEach(uri -> photoList.add(new Photo(uri, quality)));
     }

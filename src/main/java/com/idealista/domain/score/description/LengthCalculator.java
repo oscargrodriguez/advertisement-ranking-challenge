@@ -11,9 +11,9 @@ public class LengthCalculator {
     private static final int LARGE_THRESHOLD = 50;
 
     public Length get(Description description) {
-        if (description.getText().length() >= LARGE_THRESHOLD) {
+        if (description.length() >= LARGE_THRESHOLD) {
             return LARGE;
-        } else if (description.getText().length() >= SHORT_THRESHOLD) {
+        } else if (description.length() >= SHORT_THRESHOLD) {
             return MEDIUM;
         }
         return SHORT;
