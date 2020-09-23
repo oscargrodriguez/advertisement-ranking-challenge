@@ -26,9 +26,9 @@ public class CalculateScoreUseCase {
     private int irrelevantThreashold;
 
     public List<AdvertisementScored> scoreAll() {
-        List<AdvertisementScored> scoredAdvertisements = new ArrayList<>();
-        inMemoryPersistence.findAll().forEach(ad -> scoredAdvertisements.add(updateScore(ad).get()));
-        return scoredAdvertisements;
+        return inMemoryPersistence.findAll().stream()
+                .map(ad -> updateScore(ad).get())
+                .collect(Collectors.toList());
     }
 
     public Optional<AdvertisementScored> score(int id) {
