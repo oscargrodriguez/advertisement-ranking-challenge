@@ -13,14 +13,14 @@ public class SizeVerifier {
     }
 
     private Predicate<Advertisement> garageSized() {
-        return ad -> garage().test(ad);
+        return ad -> isGarage().test(ad);
     }
 
     private Predicate<Advertisement> flatSized() {
-        return ad -> flat().and(withHouseSize()).test(ad);
+        return ad -> isFlat().and(withHouseSize()).test(ad);
     }
 
     private Predicate<Advertisement> chaletSized() {
-        return ad -> chalet().and(withGardenSize()).and(withHouseSize()).test(ad);
+        return ad -> isChalet().and(withGardenSize()).and(withHouseSize()).test(ad);
     }
 }

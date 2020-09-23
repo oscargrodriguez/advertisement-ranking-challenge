@@ -91,39 +91,23 @@ public class Advertisement {
         uris.stream().forEach(uri -> photoList.add(new Photo(uri, quality)));
     }
 
-    public boolean isGarage() {
-        return Typology.GARAGE.equals(typology);
-    }
-
-    public boolean isFlat() {
-        return Typology.FLAT.equals(typology);
-    }
-
-    public boolean hasHouseSize() {
-        return houseSize != null;
-    }
-
-    public boolean hasGardenSize() {
-        return gardenSize != null;
-    }
-
-    public static Predicate<Advertisement> garage() {
+    public static Predicate<Advertisement> isGarage() {
         return ad -> Typology.GARAGE.equals(ad.getTypology());
     }
 
-    public static Predicate<Advertisement> flat() {
+    public static Predicate<Advertisement> isFlat() {
         return ad -> Typology.FLAT.equals(ad.getTypology());
     }
 
-    public static Predicate<Advertisement> chalet() {
+    public static Predicate<Advertisement> isChalet() {
         return ad -> Typology.CHALET.equals(ad.getTypology());
     }
 
     public static Predicate<Advertisement> withGardenSize() {
-        return ad -> ad.hasGardenSize();
+        return ad -> ad.gardenSize != null;
     }
 
     public static Predicate<Advertisement> withHouseSize() {
-        return ad -> ad.hasHouseSize();
+        return ad -> ad.houseSize != null;
     }
 }

@@ -5,13 +5,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.function.Predicate;
 
+import static com.idealista.domain.model.advertisement.Advertisement.isGarage;
+
 @Component
 public class FullVerifier {
     @Autowired
     private SizeVerifier sizeVerifier;
 
     public boolean verify(Advertisement advertisement) {
-        return advertisement.isGarage() ? withPhoto().and(withSize()).test(advertisement) :
+        return isGarage().test(advertisement) ? withPhoto().and(withSize()).test(advertisement) :
                 withPhoto().and(withDescription()).and(withSize()).test(advertisement);
     }
 
