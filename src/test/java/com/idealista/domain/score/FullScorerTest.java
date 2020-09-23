@@ -26,6 +26,7 @@ class FullScorerTest {
     @BeforeEach
     void setUp() {
         ReflectionTestUtils.setField(fullScorer, "fullScore", FULL_SCORE);
+        ReflectionTestUtils.setField(fullScorer, "incompleteScore", INCOMPLETE_SCORE);
     }
 
     @Test

@@ -12,10 +12,11 @@ public class FullScorer {
     private FullVerifier fullVerifier;
     @Value("${score.full}")
     private int fullScore;
-    private static final int NON_FULL_AD_SCORE = 0;
+    @Value("${score.incomplete}")
+    private int incompleteScore;
 
 
     public int score(Advertisement advertisement) {
-        return fullVerifier.verify(advertisement) ? fullScore : NON_FULL_AD_SCORE;
+        return fullVerifier.verify(advertisement) ? fullScore : incompleteScore;
     }
 }
