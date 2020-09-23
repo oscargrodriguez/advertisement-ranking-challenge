@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AdConverter {
-    public QualityAd convertToQualityAd(AdvertisementScored advertisement) {
+    public QualityAd toQualityAd(AdvertisementScored advertisement) {
         return new QualityAd(advertisement.getAdvertisement().getId(),
                 advertisement.getTypologyName(),
                 advertisement.getDescriptionText(),
@@ -16,7 +16,7 @@ public class AdConverter {
                 advertisement.getIrrelevantSince());
     }
 
-    public PublicAd convertToPublicAd(AdvertisementScored advertisement) {
+    public PublicAd toPublicAd(AdvertisementScored advertisement) {
         return new PublicAd(advertisement.getAdvertisement().getId(),
                 advertisement.getTypologyName(),
                 advertisement.getDescriptionText(),
