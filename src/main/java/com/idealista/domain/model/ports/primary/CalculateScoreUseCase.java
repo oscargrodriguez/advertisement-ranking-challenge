@@ -27,12 +27,12 @@ public class CalculateScoreUseCase {
 
     public List<AdvertisementScored> scoreAll() {
         return inMemoryPersistence.findAll().stream()
-                .map(ad -> updateScoreValue(ad).get())
+                .map(ad -> updateScore(ad).get())
                 .collect(Collectors.toList());
     }
 
     public Optional<AdvertisementScored> score(int id) {
-        return inMemoryPersistence.find(id).flatMap(this::updateScoreValue);
+        return inMemoryPersistence.find(id).flatMap(this::updateScore);
     }
 
     public List<AdvertisementScored> getPublicAdsOrderedByScoreDesc() {
@@ -48,7 +48,7 @@ public class CalculateScoreUseCase {
                 .collect(Collectors.toList());
     }
 
-    private Optional<AdvertisementScored> updateScoreValue(Advertisement advertisement) {
+    private Optional<AdvertisementScored> updateScore(Advertisement advertisement) {
         updateScoreValue().andThen(updateIrrelevantDate()).accept(advertisement);
         return inMemoryPersistence.findScored(advertisement.getId());
     }
