@@ -62,7 +62,7 @@ public class CalculateScoreUseCase {
     }
 
     private Predicate<AdvertisementScored> irrelevant() {
-        return ad -> ad.getScore() <= irrelevantThreashold;
+        return relevant().negate();
     }
 
     private Predicate<AdvertisementScored> relevant() {
