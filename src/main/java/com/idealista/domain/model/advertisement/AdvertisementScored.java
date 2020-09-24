@@ -1,16 +1,8 @@
 package com.idealista.domain.model.advertisement;
 
-import com.idealista.domain.model.advertisement.photo.Photo;
-import com.idealista.domain.model.advertisement.photo.PhotoQuality;
-
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.idealista.domain.model.advertisement.photo.PhotoQuality.HIGH_DEFINITION;
-import static com.idealista.domain.model.advertisement.photo.PhotoQuality.STANDARD;
 
 public class AdvertisementScored {
 
