@@ -17,40 +17,40 @@ class KeywordRetrieverTest {
 
     @Test
     void oneKeyword() {
-        assertEquals(Integer.valueOf(1), keywordRetriever.getNumberOfKeywords("Text with Luminoso keyword added"));
-        assertEquals(Integer.valueOf(1), keywordRetriever.getNumberOfKeywords("Text with Nuevo keyword added"));
-        assertEquals(Integer.valueOf(1), keywordRetriever.getNumberOfKeywords("Text with Céntrico keyword added"));
-        assertEquals(Integer.valueOf(1), keywordRetriever.getNumberOfKeywords("Text with Reformado keyword added"));
-        assertEquals(Integer.valueOf(1), keywordRetriever.getNumberOfKeywords("Text with Ático keyword added"));
+        assertEquals(1, keywordRetriever.getNumberOfKeywords("Text with Luminoso keyword added"));
+        assertEquals(1, keywordRetriever.getNumberOfKeywords("Text with Nuevo keyword added"));
+        assertEquals(1, keywordRetriever.getNumberOfKeywords("Text with Céntrico keyword added"));
+        assertEquals(1, keywordRetriever.getNumberOfKeywords("Text with Reformado keyword added"));
+        assertEquals(1, keywordRetriever.getNumberOfKeywords("Text with Ático keyword added"));
     }
 
     @Test
     void severalSpaces() {
-        assertEquals(Integer.valueOf(1), keywordRetriever.getNumberOfKeywords("Any   luminoso   any"));
+        assertEquals(1, keywordRetriever.getNumberOfKeywords("Any   luminoso   any"));
     }
 
     @Test
     void caseSensitive() {
-        assertEquals(Integer.valueOf(1), keywordRetriever.getNumberOfKeywords("Text with luminoso keyword added"));
-        assertEquals(Integer.valueOf(1), keywordRetriever.getNumberOfKeywords("Text with LUMINOSO keyword added"));
+        assertEquals(1, keywordRetriever.getNumberOfKeywords("Text with luminoso keyword added"));
+        assertEquals(1, keywordRetriever.getNumberOfKeywords("Text with LUMINOSO keyword added"));
     }
 
     @Test
     void encoding() {
-        assertEquals(Integer.valueOf(1), keywordRetriever.getNumberOfKeywords("any atico any"));
-        assertEquals(Integer.valueOf(1), keywordRetriever.getNumberOfKeywords("any ático any"));
-        assertEquals(Integer.valueOf(2), keywordRetriever.getNumberOfKeywords("any atico centrico any"));
-        assertEquals(Integer.valueOf(2), keywordRetriever.getNumberOfKeywords("any ático céntrico any"));
+        assertEquals(1, keywordRetriever.getNumberOfKeywords("any atico any"));
+        assertEquals(1, keywordRetriever.getNumberOfKeywords("any ático any"));
+        assertEquals(2, keywordRetriever.getNumberOfKeywords("any atico centrico any"));
+        assertEquals(2, keywordRetriever.getNumberOfKeywords("any ático céntrico any"));
     }
 
     @Test
     void severalKeywords() {
-        assertEquals(Integer.valueOf(2), keywordRetriever.getNumberOfKeywords("Luminoso and Reformado"));
-        assertEquals(Integer.valueOf(3), keywordRetriever.getNumberOfKeywords("Luminoso reformado céntrico"));
+        assertEquals(2, keywordRetriever.getNumberOfKeywords("Luminoso and Reformado"));
+        assertEquals(3, keywordRetriever.getNumberOfKeywords("Luminoso reformado céntrico"));
     }
 
     @Test
     void keywordContainedInTextButNotAWord() {
-        assertEquals(Integer.valueOf(0), keywordRetriever.getNumberOfKeywords("anyany anyatico any"));
+        assertEquals(0, keywordRetriever.getNumberOfKeywords("anyany anyatico any"));
     }
 }

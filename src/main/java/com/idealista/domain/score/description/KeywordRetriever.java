@@ -7,7 +7,7 @@ import java.util.Arrays;
 @Component
 public class KeywordRetriever {
 
-    public Integer getNumberOfKeywords(String text) {
+    public int getNumberOfKeywords(String text) {
         return Math.toIntExact(Arrays.stream(text.split(" "))
                 .map(it -> it.toLowerCase())
                 .filter(it -> isKeyword(it))
