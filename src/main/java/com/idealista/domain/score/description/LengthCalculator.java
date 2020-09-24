@@ -1,19 +1,23 @@
 package com.idealista.domain.score.description;
 
 import com.idealista.domain.model.advertisement.Description;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import static com.idealista.domain.score.description.Length.*;
 
 @Component
 public class LengthCalculator {
-    private static final int SHORT_THRESHOLD = 20;
-    private static final int LARGE_THRESHOLD = 50;
+
+    @Value("${score.description.length.threshold.short}")
+    private int shortThreshold;
+    @Value("${score.description.length.threshold.large}")
+    private int largeThreshold;
 
     public Length get(Description description) {
-        if (description.length() >= LARGE_THRESHOLD) {
+        if (description.length() >= largeThreshold) {
             return LARGE;
-        } else if (description.length() >= SHORT_THRESHOLD) {
+        } else if (description.length() >= shortThreshold) {
             return MEDIUM;
         }
         return SHORT;

@@ -11,6 +11,9 @@ score:
     empty: 0
     non_empty: 5
     length:
+      threshold:
+        short: 20
+        large: 50
       flat:
         short: 0
         medium: 10
