@@ -27,5 +27,14 @@ score:
         medium: 0
         large: 0
   keyword: 5
+  keywordconfig:
+    keywords:
+      - luminoso
+      - nuevo
+      - centrico
+      - céntrico
+      - reformado
+      - ático
+      - atico
   full: 40
   incomplete: 0

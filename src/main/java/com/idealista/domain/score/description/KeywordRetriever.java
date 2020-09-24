@@ -1,5 +1,6 @@
 package com.idealista.domain.score.description;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -7,9 +8,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @Component
+@ConfigurationProperties(prefix = "score.keywordconfig")
 public class KeywordRetriever {
-
-    private List<String> KEYWORDS = Arrays.asList("luminoso", "nuevo", "centrico", "céntrico", "reformado", "ático", "atico");
+    private List<String> keywords;
 
     public int getNumberOfKeywords(String text) {
         return Math.toIntExact(Arrays.stream(text.split(" "))
@@ -20,6 +21,10 @@ public class KeywordRetriever {
     }
 
     private Predicate<String> isKeyword() {
-        return wo -> KEYWORDS.contains(wo);
+        return wo -> keywords.contains(wo);
+    }
+
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
     }
 }
