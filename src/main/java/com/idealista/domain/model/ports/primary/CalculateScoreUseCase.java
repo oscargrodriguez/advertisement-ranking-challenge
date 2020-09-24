@@ -23,7 +23,7 @@ public class CalculateScoreUseCase {
     @Autowired
     private AdvertisementScorer advertisementScorer;
     @Value("${score.irrelevant_threshold}")
-    private int irrelevantThreashold;
+    private int irrelevantThreshold;
 
     public List<AdvertisementScored> scoreAll() {
         return adRepository.findAll().stream()
@@ -58,7 +58,7 @@ public class CalculateScoreUseCase {
     }
 
     private Consumer<Advertisement> updateIrrelevantDate() {
-        return ad -> adRepository.updateIrrelevantDate(ad.getId(), irrelevantThreashold);
+        return ad -> adRepository.updateIrrelevantDate(ad.getId(), irrelevantThreshold);
     }
 
     private Predicate<AdvertisementScored> irrelevant() {
@@ -66,6 +66,6 @@ public class CalculateScoreUseCase {
     }
 
     private Predicate<AdvertisementScored> relevant() {
-        return ad -> ad.getScore() > irrelevantThreashold;
+        return ad -> ad.getScore() > irrelevantThreshold;
     }
 }
