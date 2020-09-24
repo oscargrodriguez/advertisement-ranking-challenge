@@ -32,10 +32,6 @@ public class AdvertisementScored {
         return Comparator.comparingInt(AdvertisementScored::getScore).reversed();
     }
 
-    public Integer getId() {
-        return advertisement.getId();
-    }
-
     public Integer getGardenSize() {
         return advertisement.getGardenSize();
     }
