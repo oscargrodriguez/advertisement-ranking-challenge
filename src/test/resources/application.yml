@@ -26,8 +26,8 @@ score:
         short: 0
         medium: 0
         large: 0
-  keyword: 5
-  keywordconfig:
+  keyword:
+    score_per_unit: 5
     keywords:
       - luminoso
       - nuevo

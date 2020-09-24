@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @Component
-@ConfigurationProperties(prefix = "score.keywordconfig")
+@ConfigurationProperties(prefix = "score.keyword")
 public class KeywordRetriever {
     private List<String> keywords;
 

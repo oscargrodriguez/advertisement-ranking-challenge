@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class KeywordScorer {
-    @Value("${score.keyword}")
+    @Value("${score.keyword.score_per_unit}")
     private int keywordScore;
     @Autowired
     private KeywordRetriever keywordRetriever;
