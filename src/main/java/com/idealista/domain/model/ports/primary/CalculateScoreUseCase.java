@@ -19,20 +19,20 @@ import static com.idealista.domain.model.advertisement.AdvertisementScored.score
 @Component
 public class CalculateScoreUseCase {
     @Autowired
-    private AdvertisementRepository inMemoryPersistence;
+    private AdvertisementRepository adRepository;
     @Autowired
     private AdvertisementScorer advertisementScorer;
     @Value("${score.irrelevant_threshold}")
     private int irrelevantThreashold;
 
     public List<AdvertisementScored> scoreAll() {
-        return inMemoryPersistence.findAll().stream()
+        return adRepository.findAll().stream()
                 .map(ad -> updateScore(ad).get())
                 .collect(Collectors.toList());
     }
 
     public Optional<AdvertisementScored> score(int id) {
-        return inMemoryPersistence.find(id).flatMap(this::updateScore);
+        return adRepository.find(id).flatMap(this::updateScore);
     }
 
     public List<AdvertisementScored> getPublicAdsOrderedByScoreDesc() {
@@ -50,15 +50,15 @@ public class CalculateScoreUseCase {
 
     private Optional<AdvertisementScored> updateScore(Advertisement advertisement) {
         updateScoreValue().andThen(updateIrrelevantDate()).accept(advertisement);
-        return inMemoryPersistence.findScored(advertisement.getId());
+        return adRepository.findScored(advertisement.getId());
     }
 
     private Consumer<Advertisement> updateScoreValue() {
-        return ad -> inMemoryPersistence.updateScore(ad.getId(), advertisementScorer.score(ad));
+        return ad -> adRepository.updateScore(ad.getId(), advertisementScorer.score(ad));
     }
 
     private Consumer<Advertisement> updateIrrelevantDate() {
-        return ad -> inMemoryPersistence.updateIrrelevantDate(ad.getId(), irrelevantThreashold);
+        return ad -> adRepository.updateIrrelevantDate(ad.getId(), irrelevantThreashold);
     }
 
     private Predicate<AdvertisementScored> irrelevant() {
